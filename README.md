@@ -20,7 +20,7 @@ To run the example project; clone the repo, and run `pod install`, then open JLP
 
 ## Author
 
-- [Joe Laws] - [@JosephCLaws]
+- [Joe Laws]
 
 ## Projects
 
@@ -32,8 +32,7 @@ Here is a list of iPhone apps utilizing this library:
 
 JLAddressBook is available under the MIT license. See the LICENSE file for more info.
 
-[Joe Laws]:https://www.linkedin.com/in/josephcharleslaws/
-[@JosephCLaws]:https://twitter.com/JosephCLaws
+[Joe Laws]:https://angel.co/joe-laws
 [Seer Reminders]:https://itunes.apple.com/us/app/seer-reminders/id721450216?ls=1&mt=8
 [Seer Homepage]:http://getseer.com
 

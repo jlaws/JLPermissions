@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5023" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
+        <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="JLViewController" sceneMemberID="viewController">
@@ -15,8 +15,94 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n3k-C5-vbj">
+                                <rect key="frame" x="20" y="231" width="205" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Push Notifications">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pushNotifications:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="s6b-0y-j8S"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disabled" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="REb-yi-ChP">
+                                <rect key="frame" x="233" y="231" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="68" id="58f-NX-xW7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8QF-uB-iEX">
+                                <rect key="frame" x="20" y="269" width="205" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Address Book">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addressBook:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="lNc-XU-8Ka"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disabled" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="oxC-5s-ZVD">
+                                <rect key="frame" x="233" y="269" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyE-G4-BxP">
+                                <rect key="frame" x="20" y="307" width="205" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Photo Library">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="photoLibrary:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="zRL-uH-rgx"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disabled" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="axU-mH-rbG">
+                                <rect key="frame" x="233" y="307" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="axU-mH-rbG" firstAttribute="top" secondItem="oxC-5s-ZVD" secondAttribute="bottom" constant="8" symbolic="YES" id="59b-Tz-oGg"/>
+                            <constraint firstItem="jyE-G4-BxP" firstAttribute="top" secondItem="8QF-uB-iEX" secondAttribute="bottom" constant="8" symbolic="YES" id="5pq-si-wmU"/>
+                            <constraint firstItem="oxC-5s-ZVD" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="7U8-hN-fys"/>
+                            <constraint firstItem="oxC-5s-ZVD" firstAttribute="trailing" secondItem="REb-yi-ChP" secondAttribute="trailing" id="AiK-dP-low"/>
+                            <constraint firstItem="REb-yi-ChP" firstAttribute="top" secondItem="n3k-C5-vbj" secondAttribute="top" id="B2L-Mp-QhP"/>
+                            <constraint firstItem="8QF-uB-iEX" firstAttribute="top" secondItem="n3k-C5-vbj" secondAttribute="bottom" constant="8" symbolic="YES" id="Fu0-28-bLz"/>
+                            <constraint firstItem="axU-mH-rbG" firstAttribute="top" secondItem="jyE-G4-BxP" secondAttribute="top" id="Izy-rg-aR2"/>
+                            <constraint firstAttribute="trailing" secondItem="REb-yi-ChP" secondAttribute="trailing" constant="20" symbolic="YES" id="LQs-Wx-B8Y"/>
+                            <constraint firstItem="axU-mH-rbG" firstAttribute="bottom" secondItem="jyE-G4-BxP" secondAttribute="bottom" id="NY2-Jk-Bo6"/>
+                            <constraint firstItem="n3k-C5-vbj" firstAttribute="leading" secondItem="8QF-uB-iEX" secondAttribute="leading" id="PH8-Wg-i1F"/>
+                            <constraint firstItem="8QF-uB-iEX" firstAttribute="top" secondItem="oxC-5s-ZVD" secondAttribute="top" id="PnB-Rv-g9b"/>
+                            <constraint firstItem="oxC-5s-ZVD" firstAttribute="leading" secondItem="REb-yi-ChP" secondAttribute="leading" id="UC9-O5-wRs"/>
+                            <constraint firstItem="axU-mH-rbG" firstAttribute="leading" secondItem="jyE-G4-BxP" secondAttribute="trailing" constant="8" symbolic="YES" id="eki-06-jNS"/>
+                            <constraint firstItem="REb-yi-ChP" firstAttribute="leading" secondItem="n3k-C5-vbj" secondAttribute="trailing" constant="8" symbolic="YES" id="gmP-uY-MfK"/>
+                            <constraint firstItem="oxC-5s-ZVD" firstAttribute="top" secondItem="REb-yi-ChP" secondAttribute="bottom" constant="8" symbolic="YES" id="o7c-YK-oOK"/>
+                            <constraint firstItem="oxC-5s-ZVD" firstAttribute="leading" secondItem="axU-mH-rbG" secondAttribute="leading" id="pGn-pP-hdm"/>
+                            <constraint firstItem="axU-mH-rbG" firstAttribute="trailing" secondItem="oxC-5s-ZVD" secondAttribute="trailing" id="ppv-ss-5GZ"/>
+                            <constraint firstItem="jyE-G4-BxP" firstAttribute="leading" secondItem="8QF-uB-iEX" secondAttribute="leading" id="qBN-uj-oce"/>
+                            <constraint firstItem="n3k-C5-vbj" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="rbg-sw-Zh4"/>
+                            <constraint firstItem="oxC-5s-ZVD" firstAttribute="leading" secondItem="8QF-uB-iEX" secondAttribute="trailing" constant="8" symbolic="YES" id="uhQ-bB-cTs"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addressBookLabel" destination="oxC-5s-ZVD" id="zmr-j1-BtT"/>
+                        <outlet property="photoLibraryLabel" destination="axU-mH-rbG" id="px2-TM-0dB"/>
+                        <outlet property="pushNotificationLabel" destination="REb-yi-ChP" id="UaP-D6-gTR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

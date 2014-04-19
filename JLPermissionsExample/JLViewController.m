@@ -7,23 +7,36 @@
 //
 
 #import "JLViewController.h"
+#import "JLPermissions.h"
 
 @interface JLViewController ()
+
+@property(strong, nonatomic) IBOutlet UILabel *pushNotificationLabel;
+@property(strong, nonatomic) IBOutlet UILabel *addressBookLabel;
+@property(strong, nonatomic) IBOutlet UILabel *photoLibraryLabel;
 
 @end
 
 @implementation JLViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  NSLog(@"%@", [JLPermissions sharedInstance].appName);
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)updateStatusLabels {
+  self.addressBookLabel.text =
+      [[JLPermissions sharedInstance] addressBookAuthorized] ? @"Enabled"
+                                                             : @"Disabled";
+}
+
+- (IBAction)pushNotifications:(id)sender {
+}
+
+- (IBAction)addressBook:(id)sender {
+}
+
+- (IBAction)photoLibrary:(id)sender {
 }
 
 @end
