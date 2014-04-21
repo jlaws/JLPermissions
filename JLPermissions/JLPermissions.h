@@ -8,12 +8,6 @@
 
 @import Foundation;
 
-typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
-  kJLPermissionNotDetermined = 0,
-  kJLPermissionDenied,
-  kJLPermissionAuthorized
-};
-
 typedef void (^AuthorizationBlock)(bool granted, NSError *error);
 typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                                                NSError *error);

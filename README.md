@@ -3,6 +3,8 @@
 [![Version](http://cocoapod-badges.herokuapp.com/v/JLPermissions/badge.png)](http://cocoadocs.org/docsets/JLPermissions)
 [![Platform](http://cocoapod-badges.herokuapp.com/p/JLPermissions/badge.png)](http://cocoadocs.org/docsets/JLPermissions)
 
+JLPermissions is a pre-permissions utility that lets developers ask users on their own dialog for calendar, contacts, photos, reminders, and push notificaion access, before making the system-based request. 
+
 ## Requirements
 
 iOS 7.0
@@ -17,6 +19,66 @@ it simply add the following line to your Podfile:
 ## Usage
 
 To run the example project; clone the repo, and run `pod install`, then open JLPermissionsExample.xcworkspace.
+
+The method for asking for each type of permission (other than push notifications) is virtually identical.  Here is the the API:
+
+```objective-c
+
+typedef void (^AuthorizationBlock)(bool granted, NSError *error);
+typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
+                                               NSError *error);
+
+@interface JLPermissions : NSObject
+
++ (instancetype)sharedInstance;
+
+- (BOOL)contactsAuthorized;
+- (void)authorizeContacts:(AuthorizationBlock)completionHandler;
+- (void)authorizeContactsWithTitle:(NSString *)messageTitle
+                           message:(NSString *)message
+                       cancelTitle:(NSString *)cancelTitle
+                        grantTitle:(NSString *)grantTitle
+                 completionHandler:(AuthorizationBlock)completionHandler;
+
+- (BOOL)calendarAuthorized;
+- (void)authorizeCalendar:(AuthorizationBlock)completionHandler;
+- (void)authorizeCalendarWithTitle:(NSString *)messageTitle
+                           message:(NSString *)message
+                       cancelTitle:(NSString *)cancelTitle
+                        grantTitle:(NSString *)grantTitle
+                 completionHandler:(AuthorizationBlock)completionHandler;
+
+- (BOOL)photosAuthorized;
+- (void)authorizePhotos:(AuthorizationBlock)completionHandler;
+- (void)authorizePhotosWithTitle:(NSString *)messageTitle
+                         message:(NSString *)message
+                     cancelTitle:(NSString *)cancelTitle
+                      grantTitle:(NSString *)grantTitle
+               completionHandler:(AuthorizationBlock)completionHandler;
+
+- (BOOL)remindersAuthorized;
+- (void)authorizeReminders:(AuthorizationBlock)completionHandler;
+- (void)authorizeRemindersWithTitle:(NSString *)messageTitle
+                            message:(NSString *)message
+                        cancelTitle:(NSString *)cancelTitle
+                         grantTitle:(NSString *)grantTitle
+                  completionHandler:(AuthorizationBlock)completionHandler;
+
+- (BOOL)notificationsAuthorized;
+- (void)authorizeNotifications:
+        (NotificationAuthorizationBlock)completionHandler;
+- (void)authorizeNotificationsWithTitle:(NSString *)messageTitle
+                                message:(NSString *)message
+                            cancelTitle:(NSString *)cancelTitle
+                             grantTitle:(NSString *)grantTitle
+                      completionHandler:
+                          (NotificationAuthorizationBlock)completionHandler;
+- (void)unauthorizeNotifications;
+- (void)notificationResult:(NSData *)deviceToken error:(NSError *)error;
+- (NSString *)deviceID;
+
+@end
+```
 
 ## Author
 

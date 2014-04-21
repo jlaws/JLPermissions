@@ -33,6 +33,12 @@ static const int JLPermissionsLogLevel = LOG_LEVEL_ERROR;
 
 @end
 
+typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
+  kJLPermissionNotDetermined = 0,
+  kJLPermissionDenied,
+  kJLPermissionAuthorized
+};
+
 typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   kContactsTag = 100,
   kPhotosTag,
