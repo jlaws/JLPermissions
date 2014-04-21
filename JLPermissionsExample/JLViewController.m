@@ -31,8 +31,17 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 - (void)updateStatusLabels {
+  self.calendarLabel.text = [self
+      authorizationText:[[JLPermissions sharedInstance] calendarAuthorized]];
+  self.pushNotificationLabel.text =
+      [self authorizationText:
+                [[JLPermissions sharedInstance] notificationsAuthorized]];
   self.addressBookLabel.text = [self
       authorizationText:[[JLPermissions sharedInstance] contactsAuthorized]];
+  self.photoLibraryLabel.text = [self
+      authorizationText:[[JLPermissions sharedInstance] photosAuthorized]];
+  self.remindersLabel.text = [self
+      authorizationText:[[JLPermissions sharedInstance] remindersAuthorized]];
 }
 
 - (NSString *)authorizationText:(BOOL)enabled {
@@ -40,6 +49,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 - (IBAction)pushNotifications:(id)sender {
+  [[JLPermissions sharedInstance]
+      authorizeNotifications:^(bool granted,
+                               NSError *error) { [self updateStatusLabels]; }];
 }
 
 - (IBAction)contacts:(id)sender {
@@ -49,10 +61,21 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 - (IBAction)photoLibrary:(id)sender {
+  [[JLPermissions sharedInstance]
+      authorizePhotos:^(bool granted,
+                        NSError *error) { [self updateStatusLabels]; }];
 }
+
 - (IBAction)calendar:(id)sender {
+  [[JLPermissions sharedInstance]
+      authorizeCalendar:^(bool granted,
+                          NSError *error) { [self updateStatusLabels]; }];
 }
+
 - (IBAction)reminders:(id)sender {
+  [[JLPermissions sharedInstance]
+      authorizeReminders:^(bool granted,
+                           NSError *error) { [self updateStatusLabels]; }];
 }
 
 @end

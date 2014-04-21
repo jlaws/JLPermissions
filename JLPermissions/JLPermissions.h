@@ -18,8 +18,6 @@ typedef void (^AuthorizationBlock)(bool granted, NSError *error);
 
 @interface JLPermissions : NSObject
 
-@property(strong, nonatomic) NSString *appName;
-
 + (instancetype)sharedInstance;
 
 - (BOOL)contactsAuthorized;
@@ -29,6 +27,38 @@ typedef void (^AuthorizationBlock)(bool granted, NSError *error);
                        cancelTitle:(NSString *)cancelTitle
                         grantTitle:(NSString *)grantTitle
                  completionHandler:(AuthorizationBlock)completionHandler;
+
+- (BOOL)calendarAuthorized;
+- (void)authorizeCalendar:(AuthorizationBlock)completionHandler;
+- (void)authorizeCalendarWithTitle:(NSString *)messageTitle
+                           message:(NSString *)message
+                       cancelTitle:(NSString *)cancelTitle
+                        grantTitle:(NSString *)grantTitle
+                 completionHandler:(AuthorizationBlock)completionHandler;
+
+- (BOOL)photosAuthorized;
+- (void)authorizePhotos:(AuthorizationBlock)completionHandler;
+- (void)authorizePhotosWithTitle:(NSString *)messageTitle
+                         message:(NSString *)message
+                     cancelTitle:(NSString *)cancelTitle
+                      grantTitle:(NSString *)grantTitle
+               completionHandler:(AuthorizationBlock)completionHandler;
+
+- (BOOL)remindersAuthorized;
+- (void)authorizeReminders:(AuthorizationBlock)completionHandler;
+- (void)authorizeRemindersWithTitle:(NSString *)messageTitle
+                            message:(NSString *)message
+                        cancelTitle:(NSString *)cancelTitle
+                         grantTitle:(NSString *)grantTitle
+                  completionHandler:(AuthorizationBlock)completionHandler;
+
+- (BOOL)notificationsAuthorized;
+- (void)authorizeNotifications:(AuthorizationBlock)completionHandler;
+- (void)authorizeNotificationsWithTitle:(NSString *)messageTitle
+                                message:(NSString *)message
+                            cancelTitle:(NSString *)cancelTitle
+                             grantTitle:(NSString *)grantTitle
+                      completionHandler:(AuthorizationBlock)completionHandler;
 
 - (NSString *)parseDeviceID:(NSData *)deviceToken;
 
