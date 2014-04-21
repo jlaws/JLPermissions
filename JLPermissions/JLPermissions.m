@@ -7,20 +7,10 @@
 //
 
 #import "JLPermissions.h"
-#import "DDLog.h"
 @import AddressBook;
 @import EventKit;
 @import EventKitUI;
 @import AssetsLibrary;
-
-#undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF JLPermissionsLogLevel
-
-#ifdef DEBUG
-static const int JLPermissionsLogLevel = LOG_LEVEL_INFO;
-#else
-static const int JLPermissionsLogLevel = LOG_LEVEL_ERROR;
-#endif
 
 @interface JLPermissions ()<UIAlertViewDelegate>
 
@@ -441,7 +431,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                              error:&error];
 
   if (!exp) {
-    DDLogError(@"Failed to instantiate the regex parser due to %@", error);
+    NSLog(@"Failed to instantiate the regex parser due to %@", error);
   }
 
   return exp;
@@ -513,7 +503,6 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                                  if (granted) {
                                    self.calendarCompletionHandler(true, nil);
                                  } else {
-                                   DDLogInfo(@"error is %@", error);
                                    self.calendarCompletionHandler(
                                        false,
                                        [NSError

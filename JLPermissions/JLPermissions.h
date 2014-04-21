@@ -180,11 +180,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 /**
  *  This callback must be called in the AppDelegate or else your push
  *notification handler may not be called
+ *
  *- (void)application:(UIApplication *)application
  *didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
  *   [[JLPermissions sharedInstance] notificationResult:deviceToken error:nil];
  *}
- *
  *
  *- (void)application:(UIApplication *)application
  *didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {

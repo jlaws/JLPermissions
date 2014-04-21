@@ -13,5 +13,4 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.source_files = 'JLPermissions'
   s.frameworks = 'AddressBook', 'AssetsLibrary', 'EventKit'
-  s.dependency 'CocoaLumberjack', '~> 1.8'
 end
