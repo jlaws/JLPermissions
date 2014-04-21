@@ -69,16 +69,10 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 - (void)authorizeContacts:(AuthorizationBlock)completionHandler {
-  NSString *messageTitle =
-      [NSString stringWithFormat:@"\"%@\" Would Like to Access Your Contacts",
-                                 [self appName]];
-  NSString *message = nil;
-  NSString *cancelTitle = @"Don't Allow";
-  NSString *grantTitle = @"Ok";
-  [self authorizeContactsWithTitle:messageTitle
-                           message:message
-                       cancelTitle:cancelTitle
-                        grantTitle:grantTitle
+  [self authorizeContactsWithTitle:[self defaultTitle:@"Contacts"]
+                           message:[self defaultMessage]
+                       cancelTitle:[self defaultCancelTitle]
+                        grantTitle:[self defaultGrantTitle]
                  completionHandler:completionHandler];
 }
 
@@ -123,16 +117,10 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 - (void)authorizeCalendar:(AuthorizationBlock)completionHandler {
-  NSString *messageTitle =
-      [NSString stringWithFormat:@"\"%@\" Would Like to Access Your Calendar",
-                                 [self appName]];
-  NSString *message = nil;
-  NSString *cancelTitle = @"Don't Allow";
-  NSString *grantTitle = @"Ok";
-  [self authorizeCalendarWithTitle:messageTitle
-                           message:message
-                       cancelTitle:cancelTitle
-                        grantTitle:grantTitle
+  [self authorizeCalendarWithTitle:[self defaultTitle:@"Calendar"]
+                           message:[self defaultMessage]
+                       cancelTitle:[self defaultCancelTitle]
+                        grantTitle:[self defaultGrantTitle]
                  completionHandler:completionHandler];
 }
 
@@ -177,16 +165,10 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 - (void)authorizePhotos:(AuthorizationBlock)completionHandler {
-  NSString *messageTitle =
-      [NSString stringWithFormat:@"\"%@\" Would Like to Access Your Photos",
-                                 [self appName]];
-  NSString *message = nil;
-  NSString *cancelTitle = @"Don't Allow";
-  NSString *grantTitle = @"Ok";
-  [self authorizePhotosWithTitle:messageTitle
-                         message:message
-                     cancelTitle:cancelTitle
-                      grantTitle:grantTitle
+  [self authorizePhotosWithTitle:[self defaultTitle:@"Photos"]
+                         message:[self defaultMessage]
+                     cancelTitle:[self defaultCancelTitle]
+                      grantTitle:[self defaultGrantTitle]
                completionHandler:completionHandler];
 }
 
@@ -229,16 +211,10 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 - (void)authorizeReminders:(AuthorizationBlock)completionHandler {
-  NSString *messageTitle =
-      [NSString stringWithFormat:@"\"%@\" Would Like to Access Your Reminders",
-                                 [self appName]];
-  NSString *message = nil;
-  NSString *cancelTitle = @"Don't Allow";
-  NSString *grantTitle = @"Ok";
-  [self authorizeRemindersWithTitle:messageTitle
-                            message:message
-                        cancelTitle:cancelTitle
-                         grantTitle:grantTitle
+  [self authorizeRemindersWithTitle:[self defaultTitle:@"Reminders"]
+                            message:[self defaultMessage]
+                        cancelTitle:[self defaultCancelTitle]
+                         grantTitle:[self defaultGrantTitle]
                   completionHandler:completionHandler];
 }
 
@@ -287,13 +263,10 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   NSString *messageTitle = [NSString
       stringWithFormat:@"\"%@\" Would Like to Access Your Notifications",
                        [self appName]];
-  NSString *message = nil;
-  NSString *cancelTitle = @"Don't Allow";
-  NSString *grantTitle = @"Ok";
   [self authorizeNotificationsWithTitle:messageTitle
-                                message:message
-                            cancelTitle:cancelTitle
-                             grantTitle:grantTitle
+                                message:[self defaultMessage]
+                            cancelTitle:[self defaultCancelTitle]
+                             grantTitle:[self defaultGrantTitle]
                       completionHandler:completionHandler];
 }
 
@@ -428,6 +401,23 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 #pragma mark - Helpers
+
+- (NSString *)defaultTitle:(NSString *)authorizationType {
+  return [NSString stringWithFormat:@"\"%@\" Would Like to Access Your %@",
+                                    [self appName], authorizationType];
+}
+
+- (NSString *)defaultMessage {
+  return nil;
+}
+
+- (NSString *)defaultCancelTitle {
+  return @"Don't Allow";
+}
+
+- (NSString *)defaultGrantTitle {
+  return @"Ok";
+}
 
 - (NSString *)appName {
   return
@@ -568,7 +558,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case ALAuthorizationStatusRestricted:
     case ALAuthorizationStatusDenied: {
-      [self displayErrorDialog:@"Calendars"];
+      [self displayErrorDialog:@"Photos"];
 
       self.photosCompletionHandler(false,
                                    [NSError errorWithDomain:@"PreviouslyDenied"
