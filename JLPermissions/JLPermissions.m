@@ -22,12 +22,17 @@ static const int JLPermissionsLogLevel = LOG_LEVEL_ERROR;
 @interface JLPermissions ()<UIAlertViewDelegate>
 
 @property(nonatomic, strong) NSRegularExpression *regex;
+@property(nonatomic, strong) AuthorizationBlock callback;
 
 @end
 
-#define kAddressBookTag 100
-#define kPhotoLibraryTag 101
-#define kPushNotificationTag 102
+typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
+  kContactsTag = 100,
+  kPhotoLibraryTag,
+  kPushNotificationTag,
+  kCalendarTag,
+  kRemindersTag
+};
 
 @implementation JLPermissions
 
@@ -60,43 +65,54 @@ static const int JLPermissionsLogLevel = LOG_LEVEL_ERROR;
   return self;
 }
 
-- (BOOL)addressBookAuthorized {
+- (BOOL)contactsAuthorized {
   return ABAddressBookGetAuthorizationStatus() ==
          kABAuthorizationStatusAuthorized;
 }
-- (void)authorizeAddressBook:(AuthorizationBlock)block {
+
+- (void)authorizeContacts:(AuthorizationBlock)completionHandler {
+  NSString *messageTitle =
+      [NSString stringWithFormat:@"\"%@\" Would Like to Access Your Contacts",
+                                 self.appName];
+  NSString *message = nil;
+  NSString *cancelTitle = @"Don't Allow";
+  NSString *grantTitle = @"Ok";
+  [self authorizeContactsWithTitle:messageTitle
+                           message:message
+                       cancelTitle:cancelTitle
+                        grantTitle:grantTitle
+                 completionHandler:completionHandler];
+}
+
+- (void)authorizeContactsWithTitle:(NSString *)messageTitle
+                           message:(NSString *)message
+                       cancelTitle:(NSString *)cancelTitle
+                        grantTitle:(NSString *)grantTitle
+                 completionHandler:(AuthorizationBlock)completionHandler {
 
   ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
 
   switch (status) {
     case kABAuthorizationStatusAuthorized: {
-      block(true, nil);
+      completionHandler(true, nil);
     } break;
     case kABAuthorizationStatusNotDetermined: {
-      ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
-      ABAddressBookRequestAccessWithCompletion(
-          addressBook, ^(bool granted, CFErrorRef error) {
-              if (granted) {
-                block(true, nil);
-              } else {
-                block(false, (__bridge NSError *)error);
-              }
-          });
+      self.callback = completionHandler;
+      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                      message:message
+                                                     delegate:self
+                                            cancelButtonTitle:cancelTitle
+                                            otherButtonTitles:grantTitle, nil];
+      alert.tag = kContactsTag;
+      [alert show];
     } break;
+    case kABAuthorizationStatusRestricted:
     case kABAuthorizationStatusDenied: {
-      block(false, [NSError errorWithDomain:@"Denied"
-                                       code:kABAuthorizationStatusDenied
-                                   userInfo:nil]);
-    } break;
-    case kABAuthorizationStatusRestricted: {
-      block(false, [NSError errorWithDomain:@"Restricted"
-                                       code:kABAuthorizationStatusRestricted
-                                   userInfo:nil]);
-    } break;
-    default: {
-      block(false, [NSError errorWithDomain:@"Unknown"
-                                       code:kABAuthorizationStatusNotDetermined
-                                   userInfo:nil]);
+      [self displayErrorDialog:@"Contacts"];
+
+      completionHandler(false, [NSError errorWithDomain:@"Denied"
+                                                   code:kJLPermissionDenied
+                                               userInfo:nil]);
     } break;
   }
 }
@@ -114,6 +130,76 @@ static const int JLPermissionsLogLevel = LOG_LEVEL_ERROR;
 
 - (void)alertView:(UIAlertView *)alertView
     clickedButtonAtIndex:(NSInteger)buttonIndex {
+  dispatch_async(dispatch_get_main_queue(), ^{
+      if (buttonIndex == alertView.cancelButtonIndex) {
+        self.callback(false, [NSError errorWithDomain:@"Denied"
+                                                 code:kJLPermissionDenied
+                                             userInfo:nil]);
+      } else {
+        switch (alertView.tag) {
+          case kContactsTag:
+            [self actuallyAuthorizeContacts];
+            break;
+          case kPhotoLibraryTag:
+            break;
+          case kPushNotificationTag:
+            break;
+          case kCalendarTag:
+            break;
+          case kRemindersTag:
+            break;
+        }
+      }
+  });
+}
+
+#pragma mark - Helpers
+
+- (void)displayErrorDialog:(NSString *)authorizationType {
+  NSString *message =
+      [NSString stringWithFormat:@"Please go to Settings -> Privacy -> "
+                                 @"%@ to re-enable %@'s access.",
+                                 authorizationType, self.appName];
+  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                  message:message
+                                                 delegate:nil
+                                        cancelButtonTitle:@"Ok"
+                                        otherButtonTitles:nil];
+  [alert show];
+}
+
+- (void)actuallyAuthorizeContacts {
+
+  ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+
+  switch (status) {
+    case kABAuthorizationStatusAuthorized: {
+      self.callback(true, nil);
+    } break;
+    case kABAuthorizationStatusNotDetermined: {
+      ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+      ABAddressBookRequestAccessWithCompletion(
+          addressBook, ^(bool granted, CFErrorRef error) {
+              dispatch_async(dispatch_get_main_queue(), ^{
+                  if (granted) {
+                    self.callback(true, nil);
+                  } else {
+                    NSError *e = (__bridge NSError *)error;
+                    self.callback(false,
+                                  [NSError errorWithDomain:e.domain
+                                                      code:kJLPermissionDenied
+                                                  userInfo:e.userInfo]);
+                  }
+              });
+          });
+    } break;
+    case kABAuthorizationStatusRestricted:
+    case kABAuthorizationStatusDenied: {
+      self.callback(false, [NSError errorWithDomain:@"Denied"
+                                               code:kJLPermissionDenied
+                                           userInfo:nil]);
+    } break;
+  }
 }
 
 @end

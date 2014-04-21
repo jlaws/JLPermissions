@@ -8,6 +8,12 @@
 
 @import Foundation;
 
+typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
+  kJLPermissionNotDetermined = 0,
+  kJLPermissionDenied,
+  kJLPermissionAuthorized
+};
+
 typedef void (^AuthorizationBlock)(bool granted, NSError *error);
 
 @interface JLPermissions : NSObject
@@ -16,9 +22,13 @@ typedef void (^AuthorizationBlock)(bool granted, NSError *error);
 
 + (instancetype)sharedInstance;
 
-- (BOOL)addressBookAuthorized;
-
-- (void)authorizeAddressBook:(AuthorizationBlock)block;
+- (BOOL)contactsAuthorized;
+- (void)authorizeContacts:(AuthorizationBlock)completionHandler;
+- (void)authorizeContactsWithTitle:(NSString *)messageTitle
+                           message:(NSString *)message
+                       cancelTitle:(NSString *)cancelTitle
+                        grantTitle:(NSString *)grantTitle
+                 completionHandler:(AuthorizationBlock)completionHandler;
 
 - (NSString *)parseDeviceID:(NSData *)deviceToken;
 
