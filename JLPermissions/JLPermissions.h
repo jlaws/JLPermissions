@@ -15,6 +15,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
 };
 
 typedef void (^AuthorizationBlock)(bool granted, NSError *error);
+typedef void (^NotificationAuthorizationBlock)(NSString *deviceID, NSError *error);
 
 @interface JLPermissions : NSObject
 
@@ -53,13 +54,13 @@ typedef void (^AuthorizationBlock)(bool granted, NSError *error);
                   completionHandler:(AuthorizationBlock)completionHandler;
 
 - (BOOL)notificationsAuthorized;
-- (void)authorizeNotifications:(AuthorizationBlock)completionHandler;
+- (void)authorizeNotifications:(NotificationAuthorizationBlock)completionHandler;
 - (void)authorizeNotificationsWithTitle:(NSString *)messageTitle
                                 message:(NSString *)message
                             cancelTitle:(NSString *)cancelTitle
                              grantTitle:(NSString *)grantTitle
-                      completionHandler:(AuthorizationBlock)completionHandler;
+                      completionHandler:(NotificationAuthorizationBlock)completionHandler;
+-(void)notificationResult:(NSData *)token error:(NSError *)error;
 
-- (NSString *)parseDeviceID:(NSData *)deviceToken;
 
 @end

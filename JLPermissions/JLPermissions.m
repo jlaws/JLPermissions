@@ -28,13 +28,14 @@ static const int JLPermissionsLogLevel = LOG_LEVEL_ERROR;
 @property(nonatomic, strong) AuthorizationBlock calendarCompletionHandler;
 @property(nonatomic, strong) AuthorizationBlock photosCompletionHandler;
 @property(nonatomic, strong) AuthorizationBlock remindersCompletionHandler;
-@property(nonatomic, strong) AuthorizationBlock notificationsCompletionHandler;
+@property(nonatomic, strong)
+    NotificationAuthorizationBlock notificationsCompletionHandler;
 
 @end
 
 typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   kContactsTag = 100,
-  kPhotoLibraryTag,
+  kPhotosTag,
   kNotificationsTag,
   kCalendarTag,
   kRemindersTag
@@ -98,7 +99,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     case kABAuthorizationStatusDenied: {
       [self displayErrorDialog:@"Contacts"];
 
-      completionHandler(false, [NSError errorWithDomain:@"Denied"
+      completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
                                                    code:kJLPermissionDenied
                                                userInfo:nil]);
     } break;
@@ -152,7 +153,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     case EKAuthorizationStatusDenied: {
       [self displayErrorDialog:@"Calendars"];
 
-      completionHandler(false, [NSError errorWithDomain:@"Denied"
+      completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
                                                    code:kJLPermissionDenied
                                                userInfo:nil]);
     } break;
@@ -167,12 +168,48 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 - (void)authorizePhotos:(AuthorizationBlock)completionHandler {
+  NSString *messageTitle =
+      [NSString stringWithFormat:@"\"%@\" Would Like to Access Your Photos",
+                                 [self appName]];
+  NSString *message = nil;
+  NSString *cancelTitle = @"Don't Allow";
+  NSString *grantTitle = @"Ok";
+  [self authorizePhotosWithTitle:messageTitle
+                         message:message
+                     cancelTitle:cancelTitle
+                      grantTitle:grantTitle
+               completionHandler:completionHandler];
 }
+
 - (void)authorizePhotosWithTitle:(NSString *)messageTitle
                          message:(NSString *)message
                      cancelTitle:(NSString *)cancelTitle
                       grantTitle:(NSString *)grantTitle
                completionHandler:(AuthorizationBlock)completionHandler {
+  ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
+  switch (status) {
+    case ALAuthorizationStatusAuthorized:
+      completionHandler(true, nil);
+      break;
+    case ALAuthorizationStatusNotDetermined: {
+      self.photosCompletionHandler = completionHandler;
+      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                      message:message
+                                                     delegate:self
+                                            cancelButtonTitle:cancelTitle
+                                            otherButtonTitles:grantTitle, nil];
+      alert.tag = kPhotosTag;
+      [alert show];
+    } break;
+    case ALAuthorizationStatusRestricted:
+    case ALAuthorizationStatusDenied: {
+      [self displayErrorDialog:@"Photos"];
+
+      completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
+                                                   code:kJLPermissionDenied
+                                               userInfo:nil]);
+    } break;
+  }
 }
 
 #pragma mark - Reminders
@@ -222,7 +259,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     case EKAuthorizationStatusDenied: {
       [self displayErrorDialog:@"Reminders"];
 
-      completionHandler(false, [NSError errorWithDomain:@"Denied"
+      completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
                                                    code:kJLPermissionDenied
                                                userInfo:nil]);
     } break;
@@ -236,14 +273,42 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
          UIRemoteNotificationTypeNone;
 }
 
-- (void)authorizeNotifications:(AuthorizationBlock)completionHandler {
+- (void)authorizeNotifications:
+            (NotificationAuthorizationBlock)completionHandler {
+  NSString *messageTitle = [NSString
+      stringWithFormat:@"\"%@\" Would Like to Access Your Notifications",
+                       [self appName]];
+  NSString *message = nil;
+  NSString *cancelTitle = @"Don't Allow";
+  NSString *grantTitle = @"Ok";
+  [self authorizeNotificationsWithTitle:messageTitle
+                                message:message
+                            cancelTitle:cancelTitle
+                             grantTitle:grantTitle
+                      completionHandler:completionHandler];
 }
 
 - (void)authorizeNotificationsWithTitle:(NSString *)messageTitle
                                 message:(NSString *)message
                             cancelTitle:(NSString *)cancelTitle
                              grantTitle:(NSString *)grantTitle
-                      completionHandler:(AuthorizationBlock)completionHandler {
+                      completionHandler:
+                          (NotificationAuthorizationBlock)completionHandler {
+  if ([self notificationsAuthorized]) {
+    [[UIApplication sharedApplication]
+        registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
+                                            UIRemoteNotificationTypeBadge |
+                                            UIRemoteNotificationTypeSound)];
+  } else {
+    self.notificationsCompletionHandler = completionHandler;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:cancelTitle
+                                          otherButtonTitles:grantTitle, nil];
+    alert.tag = kNotificationsTag;
+    [alert show];
+  }
 }
 
 - (NSString *)parseDeviceID:(NSData *)deviceToken {
@@ -255,6 +320,19 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                           withTemplate:@""];
 }
 
+- (void)notificationResult:(NSData *)deviceToken error:(NSError *)error {
+  if (deviceToken) {
+    NSString *deviceID =
+        [[JLPermissions sharedInstance] parseDeviceID:deviceToken];
+    self.notificationsCompletionHandler(deviceID, nil);
+  } else {
+    NSError *e = [NSError errorWithDomain:@"UserDenied"
+                                         code:kJLPermissionDenied
+                                     userInfo:error.userInfo];
+    self.notificationsCompletionHandler(nil, e);
+  }
+}
+
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView
@@ -262,14 +340,14 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   BOOL canceled = (buttonIndex == alertView.cancelButtonIndex);
   dispatch_async(dispatch_get_main_queue(), ^{
       if (canceled) {
-        NSError *error = [NSError errorWithDomain:@"Denied"
+        NSError *error = [NSError errorWithDomain:@"UserDenied"
                                              code:kJLPermissionDenied
                                          userInfo:nil];
         switch (alertView.tag) {
           case kContactsTag:
             self.contactsCompletionHandler(false, error);
             break;
-          case kPhotoLibraryTag:
+          case kPhotosTag:
             self.photosCompletionHandler(false, error);
             break;
           case kNotificationsTag:
@@ -287,7 +365,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
           case kContactsTag:
             [self actuallyAuthorizeContacts];
             break;
-          case kPhotoLibraryTag:
+          case kPhotosTag:
             [self actuallyAuthorizePhotos];
             break;
           case kNotificationsTag:
@@ -356,7 +434,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                   } else {
                     NSError *e = (__bridge NSError *)error;
                     self.contactsCompletionHandler(
-                        false, [NSError errorWithDomain:e.domain
+                        false, [NSError errorWithDomain:@"SystemDenied"
                                                    code:kJLPermissionDenied
                                                userInfo:e.userInfo]);
                   }
@@ -365,8 +443,9 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case kABAuthorizationStatusRestricted:
     case kABAuthorizationStatusDenied: {
+      [self displayErrorDialog:@"Contacts"];
       self.contactsCompletionHandler(
-          false, [NSError errorWithDomain:@"Denied"
+          false, [NSError errorWithDomain:@"PreviouslyDenied"
                                      code:kJLPermissionDenied
                                  userInfo:nil]);
     } break;
@@ -390,10 +469,11 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                                  if (granted) {
                                    self.calendarCompletionHandler(true, nil);
                                  } else {
+                                   DDLogInfo(@"error is %@", error);
                                    self.calendarCompletionHandler(
                                        false,
                                        [NSError
-                                           errorWithDomain:error.domain
+                                           errorWithDomain:@"SystemDenied"
                                                       code:kJLPermissionDenied
                                                   userInfo:error.userInfo]);
                                  }
@@ -402,8 +482,9 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
+      [self displayErrorDialog:@"Calendars"];
       self.calendarCompletionHandler(
-          false, [NSError errorWithDomain:@"Denied"
+          false, [NSError errorWithDomain:@"PreviouslyDenied"
                                      code:kJLPermissionDenied
                                  userInfo:nil]);
     } break;
@@ -411,6 +492,36 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 - (void)actuallyAuthorizePhotos {
+  ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
+  switch (status) {
+    case ALAuthorizationStatusAuthorized:
+      self.photosCompletionHandler(true, nil);
+      break;
+    case ALAuthorizationStatusNotDetermined: {
+      ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+
+      [library enumerateGroupsWithTypes:ALAssetsGroupAll
+          usingBlock:^(ALAssetsGroup *assetGroup, BOOL *stop) {
+              *stop = YES;
+              self.photosCompletionHandler(true, nil);
+          }
+          failureBlock:^(NSError *error) {
+              self.photosCompletionHandler(
+                  false, [NSError errorWithDomain:@"SystemDenied"
+                                             code:kJLPermissionDenied
+                                         userInfo:error.userInfo]);
+          }];
+    } break;
+    case ALAuthorizationStatusRestricted:
+    case ALAuthorizationStatusDenied: {
+      [self displayErrorDialog:@"Calendars"];
+
+      self.photosCompletionHandler(false,
+                                   [NSError errorWithDomain:@"PreviouslyDenied"
+                                                       code:kJLPermissionDenied
+                                                   userInfo:nil]);
+    } break;
+  }
 }
 
 - (void)actuallyAuthorizeReminders {
@@ -433,7 +544,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                                    self.remindersCompletionHandler(
                                        false,
                                        [NSError
-                                           errorWithDomain:error.domain
+                                           errorWithDomain:@"SystemDenied"
                                                       code:kJLPermissionDenied
                                                   userInfo:error.userInfo]);
                                  }
@@ -442,8 +553,9 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
+      [self displayErrorDialog:@"Reminders"];
       self.remindersCompletionHandler(
-          false, [NSError errorWithDomain:@"Denied"
+          false, [NSError errorWithDomain:@"PreviouslyDenied"
                                      code:kJLPermissionDenied
                                  userInfo:nil]);
     } break;
@@ -451,6 +563,10 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 - (void)actuallyAuthorizeNotifications {
+  [[UIApplication sharedApplication]
+      registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
+                                          UIRemoteNotificationTypeBadge |
+                                          UIRemoteNotificationTypeSound)];
 }
 
 @end

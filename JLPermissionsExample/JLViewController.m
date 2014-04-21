@@ -8,9 +8,6 @@
 
 #import "JLViewController.h"
 #import "JLPermissions.h"
-#import "DDLog.h"
-
-static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @interface JLViewController ()
 
@@ -26,7 +23,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  DDLogInfo(@"%@", [JLPermissions sharedInstance].appName);
+  NSLog(@"viewDidLoad");
   [self updateStatusLabels];
 }
 
@@ -49,33 +46,43 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 - (IBAction)pushNotifications:(id)sender {
-  [[JLPermissions sharedInstance]
-      authorizeNotifications:^(bool granted,
-                               NSError *error) { [self updateStatusLabels]; }];
+  [[JLPermissions sharedInstance] authorizeNotifications:^(NSString *deviceID,
+                                                           NSError *error) {
+      NSLog(@"pushNotifications returned %@ with error %@", deviceID, error);
+      [self updateStatusLabels];
+  }];
 }
 
 - (IBAction)contacts:(id)sender {
   [[JLPermissions sharedInstance]
-      authorizeContacts:^(bool granted,
-                          NSError *error) { [self updateStatusLabels]; }];
+      authorizeContacts:^(bool granted, NSError *error) {
+          NSLog(@"contacts returned %@ with error %@", @(granted), error);
+          [self updateStatusLabels];
+      }];
 }
 
 - (IBAction)photoLibrary:(id)sender {
   [[JLPermissions sharedInstance]
-      authorizePhotos:^(bool granted,
-                        NSError *error) { [self updateStatusLabels]; }];
+      authorizePhotos:^(bool granted, NSError *error) {
+          NSLog(@"photoLibrary returned %@ with error %@", @(granted), error);
+          [self updateStatusLabels];
+      }];
 }
 
 - (IBAction)calendar:(id)sender {
   [[JLPermissions sharedInstance]
-      authorizeCalendar:^(bool granted,
-                          NSError *error) { [self updateStatusLabels]; }];
+      authorizeCalendar:^(bool granted, NSError *error) {
+          NSLog(@"calendar returned %@ with error %@", @(granted), error);
+          [self updateStatusLabels];
+      }];
 }
 
 - (IBAction)reminders:(id)sender {
   [[JLPermissions sharedInstance]
-      authorizeReminders:^(bool granted,
-                           NSError *error) { [self updateStatusLabels]; }];
+      authorizeReminders:^(bool granted, NSError *error) {
+          NSLog(@"reminders returned %@ with error %@", @(granted), error);
+          [self updateStatusLabels];
+      }];
 }
 
 @end

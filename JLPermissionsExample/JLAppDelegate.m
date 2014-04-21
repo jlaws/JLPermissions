@@ -8,9 +8,6 @@
 
 #import "JLAppDelegate.h"
 #import "JLPermissions.h"
-#import "DDLog.h"
-
-static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @implementation JLAppDelegate
 
@@ -23,16 +20,17 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)application:(UIApplication *)application
     didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-  DDLogInfo(@"didRegisterForRemoteNotificationsWithDeviceToken %@",
-            [deviceToken description]);
+  NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken %@",
+        [deviceToken description]);
 
-  NSString *deviceID =
-      [[JLPermissions sharedInstance] parseDeviceID:deviceToken];
+  [[JLPermissions sharedInstance] notificationResult:deviceToken error:nil];
 }
 
 - (void)application:(UIApplication *)application
     didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-  DDLogError(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
+  NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
+
+  [[JLPermissions sharedInstance] notificationResult:nil error:error];
 }
 
 @end
