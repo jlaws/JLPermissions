@@ -16,49 +16,193 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 
 + (instancetype)sharedInstance;
 
+/**
+ *  @return whether or not user has granted access to the address book
+ */
 - (BOOL)contactsAuthorized;
+/**
+ *  Uses the default dialog which is identical to the system permission dialog
+ *
+ *  @param completionHandler the block that will be executed on the main thread
+ *when access is granted or denied.  May be called immediately if access was
+ *previously established
+ */
 - (void)authorizeContacts:(AuthorizationBlock)completionHandler;
+/**
+ *  This is identical to the call other call, however it allows you to specify
+ *your own custom text for the dialog window rather than using the standard
+ *system dialog
+ *
+ *  @param messageTitle      custom alert message title
+ *  @param message           custom alert message
+ *  @param cancelTitle       custom cancel button message
+ *  @param grantTitle        custom grant button message
+ *  @param completionHandler the block that will be executed on the main thread
+ *when access is granted or denied.  May be called immediately if access was
+ *previously established
+ */
 - (void)authorizeContactsWithTitle:(NSString *)messageTitle
                            message:(NSString *)message
                        cancelTitle:(NSString *)cancelTitle
                         grantTitle:(NSString *)grantTitle
                  completionHandler:(AuthorizationBlock)completionHandler;
 
+/**
+ *  @return whether or not user has granted access to the calendar
+ */
 - (BOOL)calendarAuthorized;
+/**
+ *  Uses the default dialog which is identical to the system permission dialog
+ *
+ *  @param completionHandler the block that will be executed on the main thread
+ *when access is granted or denied.  May be called immediately if access was
+ *previously established
+ */
 - (void)authorizeCalendar:(AuthorizationBlock)completionHandler;
+/**
+ *  This is identical to the call other call, however it allows you to specify
+ *your own custom text for the dialog window rather than using the standard
+ *system dialog
+ *
+ *  @param messageTitle      custom alert message title
+ *  @param message           custom alert message
+ *  @param cancelTitle       custom cancel button message
+ *  @param grantTitle        custom grant button message
+ *  @param completionHandler the block that will be executed on the main thread
+ *when access is granted or denied.  May be called immediately if access was
+ *previously established
+ */
 - (void)authorizeCalendarWithTitle:(NSString *)messageTitle
                            message:(NSString *)message
                        cancelTitle:(NSString *)cancelTitle
                         grantTitle:(NSString *)grantTitle
                  completionHandler:(AuthorizationBlock)completionHandler;
 
+/**
+ *  @return whether or not user has granted access to the photo library
+ */
 - (BOOL)photosAuthorized;
+/**
+ *  Uses the default dialog which is identical to the system permission dialog
+ *
+ *  @param completionHandler the block that will be executed on the main thread
+ *when access is granted or denied.  May be called immediately if access was
+ *previously established
+ */
 - (void)authorizePhotos:(AuthorizationBlock)completionHandler;
+/**
+ *  This is identical to the call other call, however it allows you to specify
+ *your own custom text for the dialog window rather than using the standard
+ *system dialog
+ *
+ *  @param messageTitle      custom alert message title
+ *  @param message           custom alert message
+ *  @param cancelTitle       custom cancel button message
+ *  @param grantTitle        custom grant button message
+ *  @param completionHandler the block that will be executed on the main thread
+ *when access is granted or denied.  May be called immediately if access was
+ *previously established
+ */
 - (void)authorizePhotosWithTitle:(NSString *)messageTitle
                          message:(NSString *)message
                      cancelTitle:(NSString *)cancelTitle
                       grantTitle:(NSString *)grantTitle
                completionHandler:(AuthorizationBlock)completionHandler;
 
+/**
+ *  @return whether or not user has granted access to reminders
+ */
 - (BOOL)remindersAuthorized;
+/**
+ *  Uses the default dialog which is identical to the system permission dialog
+ *
+ *  @param completionHandler the block that will be executed on the main thread
+ *when access is granted or denied.  May be called immediately if access was
+ *previously established
+ */
 - (void)authorizeReminders:(AuthorizationBlock)completionHandler;
+/**
+ *  This is identical to the call other call, however it allows you to specify
+ *your own custom text for the dialog window rather than using the standard
+ *system dialog
+ *
+ *  @param messageTitle      custom alert message title
+ *  @param message           custom alert message
+ *  @param cancelTitle       custom cancel button message
+ *  @param grantTitle        custom grant button message
+ *  @param completionHandler the block that will be executed on the main thread
+ *when access is granted or denied.  May be called immediately if access was
+ *previously established
+ */
 - (void)authorizeRemindersWithTitle:(NSString *)messageTitle
                             message:(NSString *)message
                         cancelTitle:(NSString *)cancelTitle
                          grantTitle:(NSString *)grantTitle
                   completionHandler:(AuthorizationBlock)completionHandler;
 
+/**
+ *  @return whether or not user has granted access to push notifications
+ */
 - (BOOL)notificationsAuthorized;
+/**
+ *  Uses the default dialog which is identical to the system permission dialog
+ *
+ *  @param completionHandler the block that will be executed on the main thread
+ *when access is granted or denied.  May be called immediately if access was
+ *previously established
+ */
 - (void)authorizeNotifications:
         (NotificationAuthorizationBlock)completionHandler;
+/**
+ *  This is identical to the call other call, however it allows you to specify
+ *your own custom text for the dialog window rather than using the standard
+ *system dialog
+ *
+ *  @param messageTitle      custom alert message title
+ *  @param message           custom alert message
+ *  @param cancelTitle       custom cancel button message
+ *  @param grantTitle        custom grant button message
+ *  @param completionHandler the block that will be executed on the main thread
+ *when access is granted or denied.  May be called immediately if access was
+ *previously established
+ */
 - (void)authorizeNotificationsWithTitle:(NSString *)messageTitle
                                 message:(NSString *)message
                             cancelTitle:(NSString *)cancelTitle
                              grantTitle:(NSString *)grantTitle
                       completionHandler:
                           (NotificationAuthorizationBlock)completionHandler;
+/**
+ *  Removes the apps push notification authorization at the system level and
+ * clears the cached deviceID.
+ */
 - (void)unauthorizeNotifications;
+/**
+ *  This callback must be called in the AppDelegate or else your push
+ *notification handler may not be called
+ *- (void)application:(UIApplication *)application
+ *didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+ *   [[JLPermissions sharedInstance] notificationResult:deviceToken error:nil];
+ *}
+ *
+ *
+ *- (void)application:(UIApplication *)application
+ *didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+ *   [[JLPermissions sharedInstance] notificationResult:nil error:error];
+ *}
+ *
+ *  @param deviceToken the deviceToken from
+ *didRegisterForRemoteNotificationsWithDeviceToken
+ *  @param error       the error from
+ *didFailToRegisterForRemoteNotificationsWithError
+ */
 - (void)notificationResult:(NSData *)deviceToken error:(NSError *)error;
+/**
+ *  The device ID that was previously obtained during an authorizeNotifications
+ *call
+ *
+ *  @return the deviceID with <,>, and spaces removed
+ */
 - (NSString *)deviceID;
 
 @end

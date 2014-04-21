@@ -20,7 +20,7 @@ it simply add the following line to your Podfile:
 
 To run the example project; clone the repo, and run `pod install`, then open JLPermissionsExample.xcworkspace.
 
-The method for asking for each type of permission (other than push notifications) is virtually identical.  Here is the the API:
+The method for asking for each type of permission (other than push notifications) is virtually identical.  Here is the the API (in the header file these methods are commented):
 
 ```objective-c
 

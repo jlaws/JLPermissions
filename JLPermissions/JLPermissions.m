@@ -278,8 +278,8 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 #pragma mark - Notifications
 
 - (BOOL)notificationsAuthorized {
-  return [[UIApplication sharedApplication] enabledRemoteNotificationTypes] !=
-         UIRemoteNotificationTypeNone;
+  return [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken] !=
+         nil;
 }
 
 - (void)authorizeNotifications:
@@ -308,38 +308,37 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   bool previouslyAsked = [[NSUserDefaults standardUserDefaults]
       boolForKey:kJLAskedForNotificationPermission];
 
-  if ([self notificationsAuthorized]) {
-    NSString *existingID =
-        [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
-    if (existingID) {
-      completionHandler(existingID, nil);
-    } else {
-      [self actuallyAuthorizeNotifications];
-    }
+  NSString *existingID =
+      [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
+
+  if (existingID) {
+    completionHandler(existingID, nil);
+  } else if ([[UIApplication
+                     sharedApplication] enabledRemoteNotificationTypes] !=
+             UIRemoteNotificationTypeNone) {
+    [self actuallyAuthorizeNotifications];
+  } else if (!previouslyAsked) {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:cancelTitle
+                                          otherButtonTitles:grantTitle, nil];
+    alert.tag = kNotificationsTag;
+    [alert show];
   } else {
-    if (!previouslyAsked) {
-      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
-                                                      message:message
-                                                     delegate:self
-                                            cancelButtonTitle:cancelTitle
-                                            otherButtonTitles:grantTitle, nil];
-      alert.tag = kNotificationsTag;
-      [alert show];
-    } else {
-      NSString *message = [NSString
-          stringWithFormat:@"Please go to Settings -> Notification Center -> "
-                           @"%@ to re-enable push notifications.",
-                           [self appName]];
-      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                      message:message
-                                                     delegate:nil
-                                            cancelButtonTitle:@"Ok"
-                                            otherButtonTitles:nil];
-      [alert show];
-      completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
-                                                   code:kJLPermissionDenied
-                                               userInfo:nil]);
-    }
+    NSString *message = [NSString
+        stringWithFormat:@"Please go to Settings -> Notification Center -> "
+                         @"%@ to re-enable push notifications.",
+                         [self appName]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                    message:message
+                                                   delegate:nil
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles:nil];
+    [alert show];
+    completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
+                                                 code:kJLPermissionDenied
+                                             userInfo:nil]);
   }
 }
 
