@@ -41,6 +41,9 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   kRemindersTag
 };
 
+#define kJLDeviceToken @"JLDeviceToken"
+#define kJLAskedForNotificationPermission @"JLAskedForNotificationPermission"
+
 @implementation JLPermissions
 
 + (instancetype)sharedInstance {
@@ -294,43 +297,80 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                              grantTitle:(NSString *)grantTitle
                       completionHandler:
                           (NotificationAuthorizationBlock)completionHandler {
+  self.notificationsCompletionHandler = completionHandler;
+
+  bool previouslyAsked = [[NSUserDefaults standardUserDefaults]
+      boolForKey:kJLAskedForNotificationPermission];
+
   if ([self notificationsAuthorized]) {
-    [[UIApplication sharedApplication]
-        registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
-                                            UIRemoteNotificationTypeBadge |
-                                            UIRemoteNotificationTypeSound)];
+    NSString *existingID =
+        [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
+    if (existingID) {
+      completionHandler(existingID, nil);
+    } else {
+      [self actuallyAuthorizeNotifications];
+    }
   } else {
-    self.notificationsCompletionHandler = completionHandler;
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
-                                                    message:message
-                                                   delegate:self
-                                          cancelButtonTitle:cancelTitle
-                                          otherButtonTitles:grantTitle, nil];
-    alert.tag = kNotificationsTag;
-    [alert show];
+    if (!previouslyAsked) {
+      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                      message:message
+                                                     delegate:self
+                                            cancelButtonTitle:cancelTitle
+                                            otherButtonTitles:grantTitle, nil];
+      alert.tag = kNotificationsTag;
+      [alert show];
+    } else {
+      NSString *message = [NSString
+          stringWithFormat:@"Please go to Settings -> Notification Center -> "
+                           @"%@ to re-enable push notifications.",
+                           [self appName]];
+      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                      message:message
+                                                     delegate:nil
+                                            cancelButtonTitle:@"Ok"
+                                            otherButtonTitles:nil];
+      [alert show];
+      completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
+                                                   code:kJLPermissionDenied
+                                               userInfo:nil]);
+    }
   }
 }
 
-- (NSString *)parseDeviceID:(NSData *)deviceToken {
-  NSString *token = [deviceToken description];
-  return [[self regex]
-      stringByReplacingMatchesInString:token
-                               options:0
-                                 range:NSMakeRange(0, [token length])
-                          withTemplate:@""];
+- (void)unauthorizeNotifications {
+  [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+  [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kJLDeviceToken];
+  [[NSUserDefaults standardUserDefaults]
+      setBool:false
+       forKey:kJLAskedForNotificationPermission];
+  [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)notificationResult:(NSData *)deviceToken error:(NSError *)error {
   if (deviceToken) {
     NSString *deviceID =
         [[JLPermissions sharedInstance] parseDeviceID:deviceToken];
-    self.notificationsCompletionHandler(deviceID, nil);
+
+    [[NSUserDefaults standardUserDefaults] setObject:deviceID
+                                              forKey:kJLDeviceToken];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    if (self.notificationsCompletionHandler) {
+      self.notificationsCompletionHandler(deviceID, nil);
+    }
   } else {
-    NSError *e = [NSError errorWithDomain:@"UserDenied"
-                                         code:kJLPermissionDenied
-                                     userInfo:error.userInfo];
-    self.notificationsCompletionHandler(nil, e);
+    if (self.notificationsCompletionHandler) {
+      NSError *e = [NSError errorWithDomain:@"UserDenied"
+                                       code:kJLPermissionDenied
+                                   userInfo:error.userInfo];
+
+      self.notificationsCompletionHandler(nil, e);
+    }
   }
+}
+
+- (NSString *)deviceID {
+  return [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -387,6 +427,15 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 - (NSString *)appName {
   return
       [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+}
+
+- (NSString *)parseDeviceID:(NSData *)deviceToken {
+  NSString *token = [deviceToken description];
+  return [[self regex]
+      stringByReplacingMatchesInString:token
+                               options:0
+                                 range:NSMakeRange(0, [token length])
+                          withTemplate:@""];
 }
 
 - (NSRegularExpression *)regex {
@@ -563,6 +612,11 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 - (void)actuallyAuthorizeNotifications {
+  [[NSUserDefaults standardUserDefaults]
+      setBool:true
+       forKey:kJLAskedForNotificationPermission];
+  [[NSUserDefaults standardUserDefaults] synchronize];
+
   [[UIApplication sharedApplication]
       registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
                                           UIRemoteNotificationTypeBadge |
