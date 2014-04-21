@@ -535,8 +535,11 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 
       [library enumerateGroupsWithTypes:ALAssetsGroupAll
           usingBlock:^(ALAssetsGroup *assetGroup, BOOL *stop) {
-              *stop = YES;
-              self.photosCompletionHandler(true, nil);
+              if (*stop) {
+                self.photosCompletionHandler(true, nil);
+              } else {
+                *stop = YES;
+              }
           }
           failureBlock:^(NSError *error) {
               self.photosCompletionHandler(
