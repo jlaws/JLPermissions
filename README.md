@@ -3,8 +3,6 @@
 [![Version](http://cocoapod-badges.herokuapp.com/v/JLPermissions/badge.png)](http://cocoadocs.org/docsets/JLPermissions)
 [![Platform](http://cocoapod-badges.herokuapp.com/p/JLPermissions/badge.png)](http://cocoadocs.org/docsets/JLPermissions)
 
-JLPermissions is a pre-permissions utility that lets developers ask users on their own dialog for calendar, contacts, location, photos, reminders, and push notificaion access, before making the system-based request. 
-
 ## Requirements
 
 iOS 7.0
