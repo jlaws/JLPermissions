@@ -89,11 +89,11 @@
 }
 
 - (IBAction)locations:(id)sender {
-    [[JLPermissions sharedInstance]
-     authorizeLocations:^(bool granted, NSError *error) {
-         NSLog(@"locations returned %@ with error %@", @(granted), error);
-         [self updateStatusLabels];
-     }];
+  [[JLPermissions sharedInstance]
+      authorizeLocations:^(bool granted, NSError *error) {
+          NSLog(@"locations returned %@ with error %@", @(granted), error);
+          [self updateStatusLabels];
+      }];
 }
 
 @end

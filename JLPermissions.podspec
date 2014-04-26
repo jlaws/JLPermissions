@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "JLPermissions"
-  s.version          = "1.0.4"
+  s.version          = "1.0.5"
   s.summary          = "User permission dialogs."
   s.description      = <<-DESC
                        Ask the user for permissions before iOS does increasing the chance of acceptance on future requests.
@@ -12,5 +12,5 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '7.0'
   s.requires_arc = true
   s.source_files = 'JLPermissions'
-  s.frameworks = 'AddressBook', 'AssetsLibrary', 'EventKit'
+  s.frameworks = 'AddressBook', 'AssetsLibrary', 'EventKit', 'CoreLocation'
 end

@@ -9,7 +9,6 @@
 #import "JLPermissions.h"
 @import AddressBook;
 @import EventKit;
-@import EventKitUI;
 @import AssetsLibrary;
 @import CoreLocation;
 
@@ -20,7 +19,8 @@
 @property(nonatomic, strong) AuthorizationBlock photosCompletionHandler;
 @property(nonatomic, strong) AuthorizationBlock remindersCompletionHandler;
 @property(nonatomic, strong) AuthorizationBlock locationsCompletionHandler;
-@property(nonatomic, strong) NotificationAuthorizationBlock notificationsCompletionHandler;
+@property(nonatomic, strong)
+    NotificationAuthorizationBlock notificationsCompletionHandler;
 
 @property(nonatomic, strong) CLLocationManager *locationManager;
 @end
@@ -95,9 +95,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     case kABAuthorizationStatusDenied: {
       [self displayErrorDialog:@"Contacts"];
 
-      completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
-                                                   code:kJLPermissionDenied
-                                               userInfo:nil]);
+      completionHandler(false, [self previouslyDeniedError]);
     } break;
   }
 }
@@ -143,9 +141,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     case EKAuthorizationStatusDenied: {
       [self displayErrorDialog:@"Calendars"];
 
-      completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
-                                                   code:kJLPermissionDenied
-                                               userInfo:nil]);
+      completionHandler(false, [self previouslyDeniedError]);
     } break;
   }
 }
@@ -189,9 +185,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     case ALAuthorizationStatusDenied: {
       [self displayErrorDialog:@"Photos"];
 
-      completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
-                                                   code:kJLPermissionDenied
-                                               userInfo:nil]);
+      completionHandler(false, [self previouslyDeniedError]);
     } break;
   }
 }
@@ -237,9 +231,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     case EKAuthorizationStatusDenied: {
       [self displayErrorDialog:@"Reminders"];
 
-      completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
-                                                   code:kJLPermissionDenied
-                                               userInfo:nil]);
+      completionHandler(false, [self previouslyDeniedError]);
     } break;
   }
 }
@@ -247,15 +239,19 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 #pragma mark - Locations
 
 - (BOOL)locationsAuthorized {
-    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized;
+  return [CLLocationManager authorizationStatus] ==
+         kCLAuthorizationStatusAuthorized;
 }
 
 - (void)authorizeLocations:(AuthorizationBlock)completionHandler {
-    [self authorizeLocationsWithTitle:[self defaultTitle:@"Locations"]
-                              message:[self defaultMessage]
-                          cancelTitle:[self defaultCancelTitle]
-                           grantTitle:[self defaultGrantTitle]
-                    completionHandler:completionHandler];
+  NSString *title = [NSString
+      stringWithFormat:@"\"%@\" Would Like to Use Your Current Location",
+                       [self appName]];
+  [self authorizeLocationsWithTitle:title
+                            message:[self defaultMessage]
+                        cancelTitle:[self defaultCancelTitle]
+                         grantTitle:[self defaultGrantTitle]
+                  completionHandler:completionHandler];
 }
 
 - (void)authorizeLocationsWithTitle:(NSString *)messageTitle
@@ -264,30 +260,29 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                          grantTitle:(NSString *)grantTitle
                   completionHandler:(AuthorizationBlock)completionHandler {
 
-    CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
-    switch (authorizationStatus) {
-        case kCLAuthorizationStatusAuthorized: {
-            completionHandler(true, nil);
-        } break;
-        case kCLAuthorizationStatusNotDetermined: {
-            self.locationsCompletionHandler = completionHandler;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
-                                                            message:message
-                                                           delegate:self
-                                                  cancelButtonTitle:cancelTitle
-                                                  otherButtonTitles:grantTitle, nil];
-            alert.tag = kLocationsTag;
-            [alert show];
-        } break;
-        case kCLAuthorizationStatusDenied:
-        case kCLAuthorizationStatusRestricted: {
-            [self displayErrorDialog:@"Locations"];
+  CLAuthorizationStatus authorizationStatus =
+      [CLLocationManager authorizationStatus];
+  switch (authorizationStatus) {
+    case kCLAuthorizationStatusAuthorized: {
+      completionHandler(true, nil);
+    } break;
+    case kCLAuthorizationStatusNotDetermined: {
+      self.locationsCompletionHandler = completionHandler;
+      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                      message:message
+                                                     delegate:self
+                                            cancelButtonTitle:cancelTitle
+                                            otherButtonTitles:grantTitle, nil];
+      alert.tag = kLocationsTag;
+      [alert show];
+    } break;
+    case kCLAuthorizationStatusDenied:
+    case kCLAuthorizationStatusRestricted: {
+      [self displayErrorDialog:@"Location"];
 
-            completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
-                                                         code:kJLPermissionDenied
-                                                     userInfo:nil]);
-        } break;
-    }
+      completionHandler(false, [self previouslyDeniedError]);
+    } break;
+  }
 }
 
 #pragma mark - Notifications
@@ -348,9 +343,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                                           cancelButtonTitle:@"Ok"
                                           otherButtonTitles:nil];
     [alert show];
-    completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
-                                                 code:kJLPermissionDenied
-                                             userInfo:nil]);
+    completionHandler(false, [self previouslyDeniedError]);
   }
 }
 
@@ -377,11 +370,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     }
   } else {
     if (self.notificationsCompletionHandler) {
-      NSError *e = [NSError errorWithDomain:@"UserDenied"
-                                       code:kJLPermissionDenied
-                                   userInfo:error.userInfo];
-
-      self.notificationsCompletionHandler(nil, e);
+      self.notificationsCompletionHandler(nil, [self systemDeniedError:error]);
     }
   }
 }
@@ -505,6 +494,20 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   [alert show];
 }
 
+- (NSError *)previouslyDeniedError {
+  return [NSError errorWithDomain:@"PreviouslyDenied"
+                             code:kJLPermissionDenied
+                         userInfo:nil];
+}
+
+- (NSError *)systemDeniedError:(NSError *)error {
+  return [NSError errorWithDomain:@"SystemDenied"
+                             code:kJLPermissionDenied
+                         userInfo:[error userInfo]];
+}
+
+#pragma mark - System Authorization
+
 - (void)actuallyAuthorizeContacts {
 
   ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
@@ -522,10 +525,8 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                     self.contactsCompletionHandler(true, nil);
                   } else {
                     NSError *e = (__bridge NSError *)error;
-                    self.contactsCompletionHandler(
-                        false, [NSError errorWithDomain:@"SystemDenied"
-                                                   code:kJLPermissionDenied
-                                               userInfo:e.userInfo]);
+                    self.contactsCompletionHandler(false,
+                                                   [self systemDeniedError:e]);
                   }
               });
           });
@@ -533,10 +534,8 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     case kABAuthorizationStatusRestricted:
     case kABAuthorizationStatusDenied: {
       [self displayErrorDialog:@"Contacts"];
-      self.contactsCompletionHandler(
-          false, [NSError errorWithDomain:@"PreviouslyDenied"
-                                     code:kJLPermissionDenied
-                                 userInfo:nil]);
+
+      self.contactsCompletionHandler(false, [self previouslyDeniedError]);
     } break;
   }
 }
@@ -551,30 +550,26 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case EKAuthorizationStatusNotDetermined: {
       EKEventStore *eventStore = [[EKEventStore alloc] init];
-      [eventStore
-          requestAccessToEntityType:EKEntityTypeEvent
-                         completion:^(BOOL granted, NSError *error) {
-                             dispatch_async(dispatch_get_main_queue(), ^{
-                                 if (granted) {
-                                   self.calendarCompletionHandler(true, nil);
-                                 } else {
-                                   self.calendarCompletionHandler(
-                                       false,
-                                       [NSError
-                                           errorWithDomain:@"SystemDenied"
-                                                      code:kJLPermissionDenied
-                                                  userInfo:error.userInfo]);
-                                 }
-                             });
-                         }];
+      [eventStore requestAccessToEntityType:EKEntityTypeEvent
+                                 completion:^(BOOL granted, NSError *error) {
+                                     dispatch_async(dispatch_get_main_queue(),
+                                                    ^{
+                                         if (granted) {
+                                           self.calendarCompletionHandler(true,
+                                                                          nil);
+                                         } else {
+                                           self.calendarCompletionHandler(
+                                               false,
+                                               [self systemDeniedError:error]);
+                                         }
+                                     });
+                                 }];
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
       [self displayErrorDialog:@"Calendars"];
-      self.calendarCompletionHandler(
-          false, [NSError errorWithDomain:@"PreviouslyDenied"
-                                     code:kJLPermissionDenied
-                                 userInfo:nil]);
+
+      self.calendarCompletionHandler(false, [self previouslyDeniedError]);
     } break;
   }
 }
@@ -597,20 +592,14 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
               }
           }
           failureBlock:^(NSError *error) {
-              self.photosCompletionHandler(
-                  false, [NSError errorWithDomain:@"SystemDenied"
-                                             code:kJLPermissionDenied
-                                         userInfo:error.userInfo]);
+              self.photosCompletionHandler(false,
+                                           [self systemDeniedError:error]);
           }];
     } break;
     case ALAuthorizationStatusRestricted:
     case ALAuthorizationStatusDenied: {
       [self displayErrorDialog:@"Photos"];
-
-      self.photosCompletionHandler(false,
-                                   [NSError errorWithDomain:@"PreviouslyDenied"
-                                                       code:kJLPermissionDenied
-                                                   userInfo:nil]);
+      self.photosCompletionHandler(false, [self previouslyDeniedError]);
     } break;
   }
 }
@@ -625,66 +614,33 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case EKAuthorizationStatusNotDetermined: {
       EKEventStore *eventStore = [[EKEventStore alloc] init];
-      [eventStore
-          requestAccessToEntityType:EKEntityTypeReminder
-                         completion:^(BOOL granted, NSError *error) {
-                             dispatch_async(dispatch_get_main_queue(), ^{
-                                 if (granted) {
-                                   self.remindersCompletionHandler(true, nil);
-                                 } else {
-                                   self.remindersCompletionHandler(
-                                       false,
-                                       [NSError
-                                           errorWithDomain:@"SystemDenied"
-                                                      code:kJLPermissionDenied
-                                                  userInfo:error.userInfo]);
-                                 }
-                             });
-                         }];
+      [eventStore requestAccessToEntityType:EKEntityTypeReminder
+                                 completion:^(BOOL granted, NSError *error) {
+                                     dispatch_async(dispatch_get_main_queue(),
+                                                    ^{
+                                         if (granted) {
+                                           self.remindersCompletionHandler(true,
+                                                                           nil);
+                                         } else {
+                                           self.remindersCompletionHandler(
+                                               false,
+                                               [self systemDeniedError:error]);
+                                         }
+                                     });
+                                 }];
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
       [self displayErrorDialog:@"Reminders"];
-      self.remindersCompletionHandler(
-          false, [NSError errorWithDomain:@"PreviouslyDenied"
-                                     code:kJLPermissionDenied
-                                 userInfo:nil]);
+      self.remindersCompletionHandler(false, [self previouslyDeniedError]);
     } break;
   }
 }
 
 - (void)actuallyAuthorizeLocations {
-
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    [self.locationManager startUpdatingLocation];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    switch (status) {
-        case kCLAuthorizationStatusAuthorized: {
-            self.locationsCompletionHandler(true, nil);
-            
-            [self.locationManager stopUpdatingLocation];
-            self.locationManager = nil;
-            break;
-        }
-
-        case kCLAuthorizationStatusDenied:
-        case kCLAuthorizationStatusRestricted: {
-            [self displayErrorDialog:@"Locations"];
-
-            NSError *error = [NSError errorWithDomain:@"PreviouslyDenied" code:kJLPermissionDenied userInfo:nil];
-            self.locationsCompletionHandler(false, error);
-            
-            [self.locationManager stopUpdatingLocation];
-            self.locationManager = nil;
-            break;
-        }
-
-        default:
-            break;
-    }
+  self.locationManager = [[CLLocationManager alloc] init];
+  self.locationManager.delegate = self;
+  [self.locationManager startUpdatingLocation];
 }
 
 - (void)actuallyAuthorizeNotifications {
@@ -697,6 +653,31 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
       registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
                                           UIRemoteNotificationTypeBadge |
                                           UIRemoteNotificationTypeSound)];
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager
+    didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+  NSLog(@"Status is %@", @(status));
+
+  switch (status) {
+    case kCLAuthorizationStatusNotDetermined:
+      break;
+    case kCLAuthorizationStatusAuthorized: {
+      [self.locationManager stopUpdatingLocation];
+      self.locationManager = nil;
+      self.locationsCompletionHandler(true, nil);
+      break;
+    }
+    case kCLAuthorizationStatusDenied:
+    case kCLAuthorizationStatusRestricted: {
+      [self.locationManager stopUpdatingLocation];
+      self.locationManager = nil;
+      self.locationsCompletionHandler(false, [self systemDeniedError:nil]);
+      break;
+    }
+  }
 }
 
 @end

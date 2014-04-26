@@ -3,7 +3,7 @@
 [![Version](http://cocoapod-badges.herokuapp.com/v/JLPermissions/badge.png)](http://cocoadocs.org/docsets/JLPermissions)
 [![Platform](http://cocoapod-badges.herokuapp.com/p/JLPermissions/badge.png)](http://cocoadocs.org/docsets/JLPermissions)
 
-JLPermissions is a pre-permissions utility that lets developers ask users on their own dialog for calendar, contacts, photos, reminders, and push notificaion access, before making the system-based request. 
+JLPermissions is a pre-permissions utility that lets developers ask users on their own dialog for calendar, contacts, location, photos, reminders, and push notificaion access, before making the system-based request. 
 
 ## Requirements
 
@@ -59,6 +59,14 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 - (BOOL)remindersAuthorized;
 - (void)authorizeReminders:(AuthorizationBlock)completionHandler;
 - (void)authorizeRemindersWithTitle:(NSString *)messageTitle
+                            message:(NSString *)message
+                        cancelTitle:(NSString *)cancelTitle
+                         grantTitle:(NSString *)grantTitle
+                  completionHandler:(AuthorizationBlock)completionHandler;
+
+- (BOOL)locationsAuthorized;
+- (void)authorizeLocations:(AuthorizationBlock)completionHandler;
+- (void)authorizeLocationsWithTitle:(NSString *)messageTitle
                             message:(NSString *)message
                         cancelTitle:(NSString *)cancelTitle
                          grantTitle:(NSString *)grantTitle
