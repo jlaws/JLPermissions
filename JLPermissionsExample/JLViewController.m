@@ -16,6 +16,7 @@
 @property(strong, nonatomic) IBOutlet UILabel *photoLibraryLabel;
 @property(strong, nonatomic) IBOutlet UILabel *calendarLabel;
 @property(strong, nonatomic) IBOutlet UILabel *remindersLabel;
+@property(strong, nonatomic) IBOutlet UILabel *locationsLabel;
 
 @end
 
@@ -39,6 +40,8 @@
       authorizationText:[[JLPermissions sharedInstance] photosAuthorized]];
   self.remindersLabel.text = [self
       authorizationText:[[JLPermissions sharedInstance] remindersAuthorized]];
+  self.locationsLabel.text = [self
+      authorizationText:[[JLPermissions sharedInstance] locationsAuthorized]];
 }
 
 - (NSString *)authorizationText:(BOOL)enabled {
@@ -83,6 +86,14 @@
           NSLog(@"reminders returned %@ with error %@", @(granted), error);
           [self updateStatusLabels];
       }];
+}
+
+- (IBAction)locations:(id)sender {
+    [[JLPermissions sharedInstance]
+     authorizeLocations:^(bool granted, NSError *error) {
+         NSLog(@"locations returned %@ with error %@", @(granted), error);
+         [self updateStatusLabels];
+     }];
 }
 
 @end
