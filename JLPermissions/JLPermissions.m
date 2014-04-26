@@ -11,16 +11,18 @@
 @import EventKit;
 @import EventKitUI;
 @import AssetsLibrary;
+@import CoreLocation;
 
-@interface JLPermissions ()<UIAlertViewDelegate>
+@interface JLPermissions ()<UIAlertViewDelegate, CLLocationManagerDelegate>
 
 @property(nonatomic, strong) AuthorizationBlock contactsCompletionHandler;
 @property(nonatomic, strong) AuthorizationBlock calendarCompletionHandler;
 @property(nonatomic, strong) AuthorizationBlock photosCompletionHandler;
 @property(nonatomic, strong) AuthorizationBlock remindersCompletionHandler;
-@property(nonatomic, strong)
-    NotificationAuthorizationBlock notificationsCompletionHandler;
+@property(nonatomic, strong) AuthorizationBlock locationsCompletionHandler;
+@property(nonatomic, strong) NotificationAuthorizationBlock notificationsCompletionHandler;
 
+@property(nonatomic, strong) CLLocationManager *locationManager;
 @end
 
 typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
@@ -34,7 +36,8 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   kPhotosTag,
   kNotificationsTag,
   kCalendarTag,
-  kRemindersTag
+  kRemindersTag,
+  kLocationsTag
 };
 
 #define kJLDeviceToken @"JLDeviceToken"
@@ -241,6 +244,52 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   }
 }
 
+#pragma mark - Locations
+
+- (BOOL)locationsAuthorized {
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized;
+}
+
+- (void)authorizeLocations:(AuthorizationBlock)completionHandler {
+    [self authorizeLocationsWithTitle:[self defaultTitle:@"Locations"]
+                              message:[self defaultMessage]
+                          cancelTitle:[self defaultCancelTitle]
+                           grantTitle:[self defaultGrantTitle]
+                    completionHandler:completionHandler];
+}
+
+- (void)authorizeLocationsWithTitle:(NSString *)messageTitle
+                            message:(NSString *)message
+                        cancelTitle:(NSString *)cancelTitle
+                         grantTitle:(NSString *)grantTitle
+                  completionHandler:(AuthorizationBlock)completionHandler {
+
+    CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+    switch (authorizationStatus) {
+        case kCLAuthorizationStatusAuthorized: {
+            completionHandler(true, nil);
+        } break;
+        case kCLAuthorizationStatusNotDetermined: {
+            self.locationsCompletionHandler = completionHandler;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                            message:message
+                                                           delegate:self
+                                                  cancelButtonTitle:cancelTitle
+                                                  otherButtonTitles:grantTitle, nil];
+            alert.tag = kLocationsTag;
+            [alert show];
+        } break;
+        case kCLAuthorizationStatusDenied:
+        case kCLAuthorizationStatusRestricted: {
+            [self displayErrorDialog:@"Locations"];
+
+            completionHandler(false, [NSError errorWithDomain:@"PreviouslyDenied"
+                                                         code:kJLPermissionDenied
+                                                     userInfo:nil]);
+        } break;
+    }
+}
+
 #pragma mark - Notifications
 
 - (BOOL)notificationsAuthorized {
@@ -367,6 +416,9 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
           case kRemindersTag:
             self.remindersCompletionHandler(false, error);
             break;
+          case kLocationsTag:
+            self.locationsCompletionHandler(false, error);
+            break;
         }
       } else {
         switch (alertView.tag) {
@@ -384,6 +436,9 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
             break;
           case kRemindersTag:
             [self actuallyAuthorizeReminders];
+            break;
+          case kLocationsTag:
+            [self actuallyAuthorizeLocations];
             break;
         }
       }
@@ -596,6 +651,40 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                                  userInfo:nil]);
     } break;
   }
+}
+
+- (void)actuallyAuthorizeLocations {
+
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    switch (status) {
+        case kCLAuthorizationStatusAuthorized: {
+            self.locationsCompletionHandler(true, nil);
+            
+            [self.locationManager stopUpdatingLocation];
+            self.locationManager = nil;
+            break;
+        }
+
+        case kCLAuthorizationStatusDenied:
+        case kCLAuthorizationStatusRestricted: {
+            [self displayErrorDialog:@"Locations"];
+
+            NSError *error = [NSError errorWithDomain:@"PreviouslyDenied" code:kJLPermissionDenied userInfo:nil];
+            self.locationsCompletionHandler(false, error);
+            
+            [self.locationManager stopUpdatingLocation];
+            self.locationManager = nil;
+            break;
+        }
+
+        default:
+            break;
+    }
 }
 
 - (void)actuallyAuthorizeNotifications {
