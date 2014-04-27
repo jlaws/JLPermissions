@@ -11,6 +11,7 @@
 @import EventKit;
 @import AssetsLibrary;
 @import CoreLocation;
+@import Accounts;
 
 @interface JLPermissions ()<UIAlertViewDelegate, CLLocationManagerDelegate>
 
@@ -19,6 +20,7 @@
 @property(nonatomic, strong) AuthorizationBlock photosCompletionHandler;
 @property(nonatomic, strong) AuthorizationBlock remindersCompletionHandler;
 @property(nonatomic, strong) AuthorizationBlock locationsCompletionHandler;
+@property(nonatomic, strong) AuthorizationBlock twitterCompletionHandler;
 @property(nonatomic, strong)
     NotificationAuthorizationBlock notificationsCompletionHandler;
 
@@ -37,6 +39,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   kNotificationsTag,
   kCalendarTag,
   kRemindersTag,
+  kTwitterTag,
   kLocationsTag
 };
 
@@ -285,6 +288,44 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   }
 }
 
+#pragma mark - Reminders
+
+- (BOOL)twitterAuthorized {
+
+    ACAccountStore *store = [ACAccountStore new];
+    ACAccountType *accountType = [store accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    return [accountType accessGranted];
+}
+
+- (void)authorizeTwitter:(AuthorizationBlock)completionHandler {
+    [self authorizeTwitterWithTitle:[self defaultTitle:@"Twitter Accounts"]
+                              message:[self defaultMessage]
+                          cancelTitle:[self defaultCancelTitle]
+                           grantTitle:[self defaultGrantTitle]
+                    completionHandler:completionHandler];
+}
+
+- (void)authorizeTwitterWithTitle:(NSString *)messageTitle
+                            message:(NSString *)message
+                        cancelTitle:(NSString *)cancelTitle
+                         grantTitle:(NSString *)grantTitle
+                  completionHandler:(AuthorizationBlock)completionHandler {
+
+    BOOL authorized = [self twitterAuthorized];
+    if (authorized) {
+        completionHandler(true, nil);
+    } else {
+        self.twitterCompletionHandler = completionHandler;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                        message:message
+                                                       delegate:self
+                                              cancelButtonTitle:cancelTitle
+                                              otherButtonTitles:grantTitle, nil];
+        alert.tag = kTwitterTag;
+        [alert show];
+    }
+}
+
 #pragma mark - Notifications
 
 - (BOOL)notificationsAuthorized {
@@ -408,6 +449,10 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
           case kLocationsTag:
             self.locationsCompletionHandler(false, error);
             break;
+          case kTwitterTag:
+            self.twitterCompletionHandler(false, error);
+            break;
+
         }
       } else {
         switch (alertView.tag) {
@@ -428,6 +473,9 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
             break;
           case kLocationsTag:
             [self actuallyAuthorizeLocations];
+            break;
+          case kTwitterTag:
+            [self actuallyAuthorizeTwitter];
             break;
         }
       }
@@ -641,6 +689,24 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   self.locationManager = [[CLLocationManager alloc] init];
   self.locationManager.delegate = self;
   [self.locationManager startUpdatingLocation];
+}
+
+- (void)actuallyAuthorizeTwitter {
+    ACAccountStore *accountStore = [ACAccountStore new];
+    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+
+    __weak typeof(self) weakSelf = self;
+    [accountStore requestAccessToAccountsWithType:accountType options:nil completion:^(BOOL granted, NSError *error) {
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            id strongSelf = weakSelf;
+            if (granted) {
+                [strongSelf twitterCompletionHandler](true, nil);
+            } else {
+                [strongSelf twitterCompletionHandler](false, [strongSelf systemDeniedError:nil]);
+            }
+        });
+    }];
 }
 
 - (void)actuallyAuthorizeNotifications {

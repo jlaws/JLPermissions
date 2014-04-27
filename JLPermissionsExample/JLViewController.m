@@ -17,6 +17,7 @@
 @property(strong, nonatomic) IBOutlet UILabel *calendarLabel;
 @property(strong, nonatomic) IBOutlet UILabel *remindersLabel;
 @property(strong, nonatomic) IBOutlet UILabel *locationsLabel;
+@property(strong, nonatomic) IBOutlet UILabel *twitterLabel;
 
 @end
 
@@ -42,6 +43,8 @@
       authorizationText:[[JLPermissions sharedInstance] remindersAuthorized]];
   self.locationsLabel.text = [self
       authorizationText:[[JLPermissions sharedInstance] locationsAuthorized]];
+  self.twitterLabel.text = [self
+      authorizationText:[[JLPermissions sharedInstance] twitterAuthorized]];
 }
 
 - (NSString *)authorizationText:(BOOL)enabled {
@@ -94,6 +97,14 @@
           NSLog(@"locations returned %@ with error %@", @(granted), error);
           [self updateStatusLabels];
       }];
+}
+
+- (IBAction)twitter:(id)sender {
+    [[JLPermissions sharedInstance]
+     authorizeTwitter:^(bool granted, NSError *error) {
+         NSLog(@"twitter returned %@ with error %@", @(granted), error);
+         [self updateStatusLabels];
+     }];
 }
 
 @end
