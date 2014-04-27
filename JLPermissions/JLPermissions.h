@@ -172,7 +172,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                   completionHandler:(AuthorizationBlock)completionHandler;
 
 /**
- *  @return whether or not user has granted access to locations
+ *  @return whether or not user has granted access to Twitter
  */
 - (BOOL)twitterAuthorized;
 /**
