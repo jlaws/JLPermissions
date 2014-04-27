@@ -197,10 +197,10 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *previously established
  */
 - (void)authorizeTwitterWithTitle:(NSString *)messageTitle
-                            message:(NSString *)message
-                        cancelTitle:(NSString *)cancelTitle
-                         grantTitle:(NSString *)grantTitle
-                  completionHandler:(AuthorizationBlock)completionHandler;
+                          message:(NSString *)message
+                      cancelTitle:(NSString *)cancelTitle
+                       grantTitle:(NSString *)grantTitle
+                completionHandler:(AuthorizationBlock)completionHandler;
 
 /**
  *  @return whether or not user has granted access to push notifications

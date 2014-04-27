@@ -70,6 +70,14 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                          grantTitle:(NSString *)grantTitle
                   completionHandler:(AuthorizationBlock)completionHandler;
 
+- (BOOL)twitterAuthorized;
+- (void)authorizeTwitter:(AuthorizationBlock)completionHandler;
+- (void)authorizeTwitterWithTitle:(NSString *)messageTitle
+                          message:(NSString *)message
+                      cancelTitle:(NSString *)cancelTitle
+                       grantTitle:(NSString *)grantTitle
+                completionHandler:(AuthorizationBlock)completionHandler;
+
 - (BOOL)notificationsAuthorized;
 - (void)authorizeNotifications:
         (NotificationAuthorizationBlock)completionHandler;
@@ -92,7 +100,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 
 ## Projects
 
-Here is a list of iPhone apps utilizing this library:
+Here is a list of iPhone apps utilizing this library (let me know if you want your app added):
 
 - [Seer Reminders] - [Seer Homepage]
 

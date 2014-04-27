@@ -45,6 +45,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 
 #define kJLDeviceToken @"JLDeviceToken"
 #define kJLAskedForNotificationPermission @"JLAskedForNotificationPermission"
+#define kJLAskedForTwitterPermission @"JLAskedForTwitterPermission"
 
 @implementation JLPermissions
 
@@ -288,42 +289,52 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   }
 }
 
-#pragma mark - Reminders
+#pragma mark - Twitter
 
 - (BOOL)twitterAuthorized {
-
-    ACAccountStore *store = [ACAccountStore new];
-    ACAccountType *accountType = [store accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    return [accountType accessGranted];
+  ACAccountStore *store = [ACAccountStore new];
+  ACAccountType *accountType = [store
+      accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+  return [accountType accessGranted];
 }
 
 - (void)authorizeTwitter:(AuthorizationBlock)completionHandler {
-    [self authorizeTwitterWithTitle:[self defaultTitle:@"Twitter Accounts"]
-                              message:[self defaultMessage]
-                          cancelTitle:[self defaultCancelTitle]
-                           grantTitle:[self defaultGrantTitle]
-                    completionHandler:completionHandler];
+  NSString *title = [NSString
+      stringWithFormat:@"\"%@\" Would Like Access to Twitter Accounts",
+                       [self appName]];
+  [self authorizeTwitterWithTitle:title
+                          message:[self defaultMessage]
+                      cancelTitle:[self defaultCancelTitle]
+                       grantTitle:[self defaultGrantTitle]
+                completionHandler:completionHandler];
 }
 
 - (void)authorizeTwitterWithTitle:(NSString *)messageTitle
-                            message:(NSString *)message
-                        cancelTitle:(NSString *)cancelTitle
-                         grantTitle:(NSString *)grantTitle
-                  completionHandler:(AuthorizationBlock)completionHandler {
+                          message:(NSString *)message
+                      cancelTitle:(NSString *)cancelTitle
+                       grantTitle:(NSString *)grantTitle
+                completionHandler:(AuthorizationBlock)completionHandler {
 
-    BOOL authorized = [self twitterAuthorized];
-    if (authorized) {
-        completionHandler(true, nil);
-    } else {
-        self.twitterCompletionHandler = completionHandler;
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
-                                                        message:message
-                                                       delegate:self
-                                              cancelButtonTitle:cancelTitle
-                                              otherButtonTitles:grantTitle, nil];
-        alert.tag = kTwitterTag;
-        [alert show];
-    }
+  BOOL authorized = [self twitterAuthorized];
+
+  bool previouslyAsked = [[NSUserDefaults standardUserDefaults]
+      boolForKey:kJLAskedForTwitterPermission];
+
+  if (authorized) {
+    completionHandler(true, nil);
+  } else if (!previouslyAsked) {
+    self.twitterCompletionHandler = completionHandler;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:cancelTitle
+                                          otherButtonTitles:grantTitle, nil];
+    alert.tag = kTwitterTag;
+    [alert show];
+  } else {
+    self.twitterCompletionHandler = completionHandler;
+    [self actuallyAuthorizeTwitter];
+  }
 }
 
 #pragma mark - Notifications
@@ -452,7 +463,6 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
           case kTwitterTag:
             self.twitterCompletionHandler(false, error);
             break;
-
         }
       } else {
         switch (alertView.tag) {
@@ -692,21 +702,34 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 - (void)actuallyAuthorizeTwitter {
-    ACAccountStore *accountStore = [ACAccountStore new];
-    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+  bool previouslyAsked = [[NSUserDefaults standardUserDefaults]
+      boolForKey:kJLAskedForTwitterPermission];
+  [[NSUserDefaults standardUserDefaults] setBool:true
+                                          forKey:kJLAskedForTwitterPermission];
+  [[NSUserDefaults standardUserDefaults] synchronize];
 
-    __weak typeof(self) weakSelf = self;
-    [accountStore requestAccessToAccountsWithType:accountType options:nil completion:^(BOOL granted, NSError *error) {
+  ACAccountStore *accountStore = [ACAccountStore new];
+  ACAccountType *accountType = [accountStore
+      accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            id strongSelf = weakSelf;
-            if (granted) {
-                [strongSelf twitterCompletionHandler](true, nil);
-            } else {
-                [strongSelf twitterCompletionHandler](false, [strongSelf systemDeniedError:nil]);
-            }
-        });
-    }];
+  [accountStore
+      requestAccessToAccountsWithType:accountType
+                              options:nil
+                           completion:^(BOOL granted, NSError *error) {
+
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                   if (granted) {
+                                     self.twitterCompletionHandler(true, nil);
+                                   } else if (!previouslyAsked) {
+                                     self.twitterCompletionHandler(
+                                         false, [self systemDeniedError:error]);
+                                   } else {
+                                     [self displayErrorDialog:@"Twitter"];
+                                     self.twitterCompletionHandler(
+                                         false, [self previouslyDeniedError]);
+                                   }
+                               });
+                           }];
 }
 
 - (void)actuallyAuthorizeNotifications {
