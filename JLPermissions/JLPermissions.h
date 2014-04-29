@@ -46,6 +46,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                        cancelTitle:(NSString *)cancelTitle
                         grantTitle:(NSString *)grantTitle
                  completionHandler:(AuthorizationBlock)completionHandler;
+/**
+ *  Displays a dialog telling the user how to re-enable contacts permission in
+ * the Settings application
+ */
+- (void)displayContactsErrorDialog;
 
 /**
  *  @return whether or not user has granted access to the calendar
@@ -77,6 +82,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                        cancelTitle:(NSString *)cancelTitle
                         grantTitle:(NSString *)grantTitle
                  completionHandler:(AuthorizationBlock)completionHandler;
+/**
+ *  Displays a dialog telling the user how to re-enable calendar permission in
+ * the Settings application
+ */
+- (void)displayCalendarErrorDialog;
 
 /**
  *  @return whether or not user has granted access to the photo library
@@ -108,6 +118,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                      cancelTitle:(NSString *)cancelTitle
                       grantTitle:(NSString *)grantTitle
                completionHandler:(AuthorizationBlock)completionHandler;
+/**
+ *  Displays a dialog telling the user how to re-enable photo permission in
+ * the Settings application
+ */
+- (void)displayPhotoErrorDialog;
 
 /**
  *  @return whether or not user has granted access to reminders
@@ -139,6 +154,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                         cancelTitle:(NSString *)cancelTitle
                          grantTitle:(NSString *)grantTitle
                   completionHandler:(AuthorizationBlock)completionHandler;
+/**
+ *  Displays a dialog telling the user how to re-enable reminders permission in
+ * the Settings application
+ */
+- (void)displayRemindersErrorDialog;
 
 /**
  *  @return whether or not user has granted access to locations
@@ -170,6 +190,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                         cancelTitle:(NSString *)cancelTitle
                          grantTitle:(NSString *)grantTitle
                   completionHandler:(AuthorizationBlock)completionHandler;
+/**
+ *  Displays a dialog telling the user how to re-enable locations permission in
+ * the Settings application
+ */
+- (void)displayLocationsErrorDialog;
 
 /**
  *  @return whether or not user has granted access to Twitter
@@ -201,6 +226,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                       cancelTitle:(NSString *)cancelTitle
                        grantTitle:(NSString *)grantTitle
                 completionHandler:(AuthorizationBlock)completionHandler;
+/**
+ *  Displays a dialog telling the user how to re-enable twitter permission in
+ * the Settings application
+ */
+- (void)displayTwitterErrorDialog;
 
 /**
  *  @return whether or not user has granted access to push notifications
@@ -234,6 +264,12 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                              grantTitle:(NSString *)grantTitle
                       completionHandler:
                           (NotificationAuthorizationBlock)completionHandler;
+
+/**
+ *  Displays a dialog telling the user how to re-enable notification permission
+ * in the Settings application
+ */
+- (void)displayNotificationsErrorDialog;
 /**
  *  Removes the apps push notification authorization at the system level and
  * clears the cached deviceID.

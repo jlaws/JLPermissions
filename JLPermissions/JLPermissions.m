@@ -97,11 +97,13 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case kABAuthorizationStatusRestricted:
     case kABAuthorizationStatusDenied: {
-      [self displayErrorDialog:@"Contacts"];
-
       completionHandler(false, [self previouslyDeniedError]);
     } break;
   }
+}
+
+- (void)displayContactsErrorDialog {
+  [self displayErrorDialog:@"Contacts"];
 }
 
 #pragma mark - Calendar
@@ -143,11 +145,13 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
-      [self displayErrorDialog:@"Calendars"];
-
       completionHandler(false, [self previouslyDeniedError]);
     } break;
   }
+}
+
+- (void)displayCalendarErrorDialog {
+  [self displayErrorDialog:@"Calendars"];
 }
 
 #pragma mark - Photos
@@ -187,11 +191,13 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case ALAuthorizationStatusRestricted:
     case ALAuthorizationStatusDenied: {
-      [self displayErrorDialog:@"Photos"];
-
       completionHandler(false, [self previouslyDeniedError]);
     } break;
   }
+}
+
+- (void)displayPhotoErrorDialog {
+  [self displayErrorDialog:@"Photos"];
 }
 
 #pragma mark - Reminders
@@ -240,6 +246,10 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   }
 }
 
+- (void)displayRemindersErrorDialog {
+  [self displayErrorDialog:@"Reminders"];
+}
+
 #pragma mark - Locations
 
 - (BOOL)locationsAuthorized {
@@ -282,11 +292,13 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case kCLAuthorizationStatusDenied:
     case kCLAuthorizationStatusRestricted: {
-      [self displayErrorDialog:@"Location"];
-
       completionHandler(false, [self previouslyDeniedError]);
     } break;
   }
+}
+
+- (void)displayLocationsErrorDialog {
+  [self displayErrorDialog:@"Location"];
 }
 
 #pragma mark - Twitter
@@ -337,6 +349,10 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   }
 }
 
+- (void)displayTwitterErrorDialog {
+  [self displayErrorDialog:@"Twitter"];
+}
+
 #pragma mark - Notifications
 
 - (BOOL)notificationsAuthorized {
@@ -385,18 +401,21 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     alert.tag = kNotificationsTag;
     [alert show];
   } else {
-    NSString *message = [NSString
-        stringWithFormat:@"Please go to Settings -> Notification Center -> "
-                         @"%@ to re-enable push notifications.",
-                         [self appName]];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:@"Ok"
-                                          otherButtonTitles:nil];
-    [alert show];
     completionHandler(false, [self previouslyDeniedError]);
   }
+}
+
+- (void)displayNotificationsErrorDialog {
+  NSString *message = [NSString
+      stringWithFormat:@"Please go to Settings -> Notification Center -> "
+                       @"%@ to re-enable push notifications.",
+                       [self appName]];
+  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                  message:message
+                                                 delegate:nil
+                                        cancelButtonTitle:@"Ok"
+                                        otherButtonTitles:nil];
+  [alert show];
 }
 
 - (void)unauthorizeNotifications {
@@ -438,61 +457,69 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   BOOL canceled = (buttonIndex == alertView.cancelButtonIndex);
   dispatch_async(dispatch_get_main_queue(), ^{
       if (canceled) {
-        NSError *error = [NSError errorWithDomain:@"UserDenied"
-                                             code:kJLPermissionDenied
-                                         userInfo:nil];
-        switch (alertView.tag) {
-          case kContactsTag:
-            self.contactsCompletionHandler(false, error);
-            break;
-          case kPhotosTag:
-            self.photosCompletionHandler(false, error);
-            break;
-          case kNotificationsTag:
-            self.notificationsCompletionHandler(false, error);
-            break;
-          case kCalendarTag:
-            self.calendarCompletionHandler(false, error);
-            break;
-          case kRemindersTag:
-            self.remindersCompletionHandler(false, error);
-            break;
-          case kLocationsTag:
-            self.locationsCompletionHandler(false, error);
-            break;
-          case kTwitterTag:
-            self.twitterCompletionHandler(false, error);
-            break;
-        }
+        [self canceledDialog:alertView.tag];
       } else {
-        switch (alertView.tag) {
-          case kContactsTag:
-            [self actuallyAuthorizeContacts];
-            break;
-          case kPhotosTag:
-            [self actuallyAuthorizePhotos];
-            break;
-          case kNotificationsTag:
-            [self actuallyAuthorizeNotifications];
-            break;
-          case kCalendarTag:
-            [self actuallyAuthorizeCalendar];
-            break;
-          case kRemindersTag:
-            [self actuallyAuthorizeReminders];
-            break;
-          case kLocationsTag:
-            [self actuallyAuthorizeLocations];
-            break;
-          case kTwitterTag:
-            [self actuallyAuthorizeTwitter];
-            break;
-        }
+        [self approvedDialog:alertView.tag];
       }
   });
 }
 
 #pragma mark - Helpers
+
+- (void)canceledDialog:(NSInteger)tag {
+  NSError *error = [NSError errorWithDomain:@"UserDenied"
+                                       code:kJLPermissionDenied
+                                   userInfo:nil];
+  switch (tag) {
+    case kContactsTag:
+      self.contactsCompletionHandler(false, error);
+      break;
+    case kPhotosTag:
+      self.photosCompletionHandler(false, error);
+      break;
+    case kNotificationsTag:
+      self.notificationsCompletionHandler(false, error);
+      break;
+    case kCalendarTag:
+      self.calendarCompletionHandler(false, error);
+      break;
+    case kRemindersTag:
+      self.remindersCompletionHandler(false, error);
+      break;
+    case kLocationsTag:
+      self.locationsCompletionHandler(false, error);
+      break;
+    case kTwitterTag:
+      self.twitterCompletionHandler(false, error);
+      break;
+  }
+}
+
+- (void)approvedDialog:(NSInteger)tag {
+  switch (tag) {
+    case kContactsTag:
+      [self actuallyAuthorizeContacts];
+      break;
+    case kPhotosTag:
+      [self actuallyAuthorizePhotos];
+      break;
+    case kNotificationsTag:
+      [self actuallyAuthorizeNotifications];
+      break;
+    case kCalendarTag:
+      [self actuallyAuthorizeCalendar];
+      break;
+    case kRemindersTag:
+      [self actuallyAuthorizeReminders];
+      break;
+    case kLocationsTag:
+      [self actuallyAuthorizeLocations];
+      break;
+    case kTwitterTag:
+      [self actuallyAuthorizeTwitter];
+      break;
+  }
+}
 
 - (NSString *)defaultTitle:(NSString *)authorizationType {
   return [NSString stringWithFormat:@"\"%@\" Would Like to Access Your %@",
@@ -567,7 +594,6 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 #pragma mark - System Authorization
 
 - (void)actuallyAuthorizeContacts {
-
   ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
 
   switch (status) {
@@ -591,8 +617,6 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case kABAuthorizationStatusRestricted:
     case kABAuthorizationStatusDenied: {
-      [self displayErrorDialog:@"Contacts"];
-
       self.contactsCompletionHandler(false, [self previouslyDeniedError]);
     } break;
   }
@@ -625,8 +649,6 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
-      [self displayErrorDialog:@"Calendars"];
-
       self.calendarCompletionHandler(false, [self previouslyDeniedError]);
     } break;
   }
@@ -656,7 +678,6 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case ALAuthorizationStatusRestricted:
     case ALAuthorizationStatusDenied: {
-      [self displayErrorDialog:@"Photos"];
       self.photosCompletionHandler(false, [self previouslyDeniedError]);
     } break;
   }
@@ -689,7 +710,6 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
-      [self displayErrorDialog:@"Reminders"];
       self.remindersCompletionHandler(false, [self previouslyDeniedError]);
     } break;
   }
@@ -724,7 +744,6 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                                      self.twitterCompletionHandler(
                                          false, [self systemDeniedError:error]);
                                    } else {
-                                     [self displayErrorDialog:@"Twitter"];
                                      self.twitterCompletionHandler(
                                          false, [self previouslyDeniedError]);
                                    }

@@ -100,11 +100,11 @@
 }
 
 - (IBAction)twitter:(id)sender {
-    [[JLPermissions sharedInstance]
-     authorizeTwitter:^(bool granted, NSError *error) {
-         NSLog(@"twitter returned %@ with error %@", @(granted), error);
-         [self updateStatusLabels];
-     }];
+  [[JLPermissions sharedInstance]
+      authorizeTwitter:^(bool granted, NSError *error) {
+          NSLog(@"twitter returned %@ with error %@", @(granted), error);
+          [self updateStatusLabels];
+      }];
 }
 
 @end
