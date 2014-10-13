@@ -5,7 +5,7 @@
 
 ## Requirements
 
-iOS 7.0
+iOS 7.0+
 
 ## Installation
 
@@ -62,6 +62,14 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                          grantTitle:(NSString *)grantTitle
                   completionHandler:(AuthorizationBlock)completionHandler;
 
+- (BOOL) healthAuthorized;
+- (void) authorizeHealth:(AuthorizationBlock) completionHandler;
+- (void) authorizeHealthWithTitle:(NSString *)messageTitle
+                            message:(NSString *)message
+                            cancelTitle:(NSString *)cancelTitle
+                            grantTitle:(NSString *)grantTitle
+                            completionHandler:(AuthorizationBlock)completionHandler;
+
 - (BOOL)locationsAuthorized;
 - (void)authorizeLocations:(AuthorizationBlock)completionHandler;
 - (void)authorizeLocationsWithTitle:(NSString *)messageTitle
@@ -70,6 +78,14 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                          grantTitle:(NSString *)grantTitle
                   completionHandler:(AuthorizationBlock)completionHandler;
 
+- (BOOL) microphoneAuthorized;
+- (void) authorizeMicrophone:(AuthorizationBlock) completionHandler;
+- (void) authorizeMicrophoneWithTitle:(NSString *)messageTitle
+                                message:(NSString *)message
+                                cancelTitle:(NSString *)cancelTitle
+                                grantTitle:(NSString *)grantTitle
+                                completionHandler:(AuthorizationBlock)completionHandler;
+
 - (BOOL)twitterAuthorized;
 - (void)authorizeTwitter:(AuthorizationBlock)completionHandler;
 - (void)authorizeTwitterWithTitle:(NSString *)messageTitle
@@ -77,6 +93,15 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                       cancelTitle:(NSString *)cancelTitle
                        grantTitle:(NSString *)grantTitle
                 completionHandler:(AuthorizationBlock)completionHandler;
+
+- (BOOL)facebookAuthorized;
+- (void)authorizeFacebook:(AuthorizationBlock)completionHandler;
+- (void)authorizeFacebookWithTitle:(NSString *)messageTitle
+                            message:(NSString *)message
+                            cancelTitle:(NSString *)cancelTitle
+                            grantTitle:(NSString *)grantTitle
+                            completionHandler:(AuthorizationBlock)completionHandler;
+
 
 - (BOOL)notificationsAuthorized;
 - (void)authorizeNotifications:
