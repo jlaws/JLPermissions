@@ -592,11 +592,17 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     NSString *existingID =
     [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
     
+    BOOL notificationsOn = NO;
+    if ([[UIApplication
+          sharedApplication] respondsToSelector:@selector(currentUserNotificationSettings)]) {
+        notificationsOn = ([[UIApplication
+                             sharedApplication] currentUserNotificationSettings].types != UIUserNotificationTypeNone);
+    } else {
+        notificationsOn = ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] != UIRemoteNotificationTypeNone);
+    }
     if (existingID) {
         completionHandler(existingID, nil);
-    } else if ([[UIApplication
-                 sharedApplication] currentUserNotificationSettings] !=
-               UIUserNotificationTypeNone) {
+    } else if (notificationsOn) {
         [self actuallyAuthorizeNotifications];
     } else if (!previouslyAsked) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
