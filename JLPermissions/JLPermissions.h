@@ -163,7 +163,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 /**
  *  @return whether or not user has granted access to health information
  */
-- (BOOL) healthAuthorized;
+- (BOOL)healthAuthorized;
 /**
  *  Uses the default dialog which is identical to the system permission dialog
  *
@@ -171,7 +171,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void) authorizeHealth:(AuthorizationBlock) completionHandler;
+- (void)authorizeHealth:(AuthorizationBlock)completionHandler;
 /**
  *  This is identical to the call other call, however it allows you to specify
  *your own custom text for the dialog window rather than using the standard
@@ -185,16 +185,16 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void) authorizeHealthWithTitle:(NSString *)messageTitle
-                          message:(NSString *)message
-                      cancelTitle:(NSString *)cancelTitle
-                       grantTitle:(NSString *)grantTitle
-                completionHandler:(AuthorizationBlock)completionHandler;
+- (void)authorizeHealthWithTitle:(NSString *)messageTitle
+                         message:(NSString *)message
+                     cancelTitle:(NSString *)cancelTitle
+                      grantTitle:(NSString *)grantTitle
+               completionHandler:(AuthorizationBlock)completionHandler;
 /**
  *  Displays a dialog telling the user how to re-enable health permission in
  * the Settings application
  */
-- (void) displayHealthErrorDialog;
+- (void)displayHealthErrorDialog;
 
 /**
  *  @return whether or not user has granted access to locations
@@ -294,10 +294,10 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *previously established
  */
 - (void)authorizeFacebookWithTitle:(NSString *)messageTitle
-                          message:(NSString *)message
-                      cancelTitle:(NSString *)cancelTitle
-                       grantTitle:(NSString *)grantTitle
-                completionHandler:(AuthorizationBlock)completionHandler;
+                           message:(NSString *)message
+                       cancelTitle:(NSString *)cancelTitle
+                        grantTitle:(NSString *)grantTitle
+                 completionHandler:(AuthorizationBlock)completionHandler;
 /**
  *  Displays a dialog telling the user how to re-enable facebook permission in
  * the Settings application
@@ -307,7 +307,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 /**
  *  @return whether or not user has granted access to microphone
  */
-- (BOOL) microphoneAuthorized;
+- (BOOL)microphoneAuthorized;
 /**
  *  Uses the default dialog which is identical to the system permission dialog
  *
@@ -315,7 +315,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void) authorizeMicrophone:(AuthorizationBlock) completionHandler;
+- (void)authorizeMicrophone:(AuthorizationBlock)completionHandler;
 /**
  *  This is identical to the call other call, however it allows you to specify
  *your own custom text for the dialog window rather than using the standard
@@ -329,16 +329,16 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void) authorizeMicrophoneWithTitle:(NSString *)messageTitle
-                              message:(NSString *)message
-                          cancelTitle:(NSString *)cancelTitle
-                           grantTitle:(NSString *)grantTitle
-                    completionHandler:(AuthorizationBlock)completionHandler;
+- (void)authorizeMicrophoneWithTitle:(NSString *)messageTitle
+                             message:(NSString *)message
+                         cancelTitle:(NSString *)cancelTitle
+                          grantTitle:(NSString *)grantTitle
+                   completionHandler:(AuthorizationBlock)completionHandler;
 /**
  *  Displays a dialog telling the user how to re-enable microphone permission
  * in the Settings application
  */
-- (void) displayMicrophoneErrorDialog;
+- (void)displayMicrophoneErrorDialog;
 
 /**
  *  @return whether or not user has granted access to push notifications

@@ -18,9 +18,9 @@
 @property(strong, nonatomic) IBOutlet UILabel *remindersLabel;
 @property(strong, nonatomic) IBOutlet UILabel *locationsLabel;
 @property(strong, nonatomic) IBOutlet UILabel *twitterLabel;
-@property (strong, nonatomic) IBOutlet UILabel *facebookLabel;
-@property (strong, nonatomic) IBOutlet UILabel *microphoneLabel;
-@property (strong, nonatomic) IBOutlet UILabel *healthLabel;
+@property(strong, nonatomic) IBOutlet UILabel *facebookLabel;
+@property(strong, nonatomic) IBOutlet UILabel *microphoneLabel;
+@property(strong, nonatomic) IBOutlet UILabel *healthLabel;
 
 @end
 
@@ -35,7 +35,8 @@
 - (void)updateStatusLabels {
   self.calendarLabel.text = [self
       authorizationText:[[JLPermissions sharedInstance] calendarAuthorized]];
-  self.pushNotificationLabel.text = [self authorizationText:
+  self.pushNotificationLabel.text =
+      [self authorizationText:
                 [[JLPermissions sharedInstance] notificationsAuthorized]];
   self.addressBookLabel.text = [self
       authorizationText:[[JLPermissions sharedInstance] contactsAuthorized]];
@@ -47,10 +48,12 @@
       authorizationText:[[JLPermissions sharedInstance] locationsAuthorized]];
   self.twitterLabel.text = [self
       authorizationText:[[JLPermissions sharedInstance] twitterAuthorized]];
-    self.facebookLabel.text = [self
+  self.facebookLabel.text = [self
       authorizationText:[[JLPermissions sharedInstance] facebookAuthorized]];
-    self.microphoneLabel.text = [self authorizationText:[[JLPermissions sharedInstance] microphoneAuthorized]];
-    self.healthLabel.text = [self authorizationText:[[JLPermissions sharedInstance] healthAuthorized]];
+  self.microphoneLabel.text = [self
+      authorizationText:[[JLPermissions sharedInstance] microphoneAuthorized]];
+  self.healthLabel.text = [self
+      authorizationText:[[JLPermissions sharedInstance] healthAuthorized]];
 }
 
 - (NSString *)authorizationText:(BOOL)enabled {
@@ -97,18 +100,18 @@
       }];
 }
 - (IBAction)microphone:(id)sender {
-    [[JLPermissions sharedInstance] authorizeMicrophone:^(bool granted, NSError *error)
-     {
-         NSLog(@"microphone returned %@ with error %@", @(granted), error);
-         [self updateStatusLabels];
-     }];
+  [[JLPermissions sharedInstance]
+      authorizeMicrophone:^(bool granted, NSError *error) {
+          NSLog(@"microphone returned %@ with error %@", @(granted), error);
+          [self updateStatusLabels];
+      }];
 }
 - (IBAction)health:(id)sender {
-    [[JLPermissions sharedInstance] authorizeHealth:^(bool granted, NSError *error)
-    {
-        NSLog(@"health returned %@ with error %@", @(granted), error);
-        [self updateStatusLabels];
-    }];
+  [[JLPermissions sharedInstance]
+      authorizeHealth:^(bool granted, NSError *error) {
+          NSLog(@"health returned %@ with error %@", @(granted), error);
+          [self updateStatusLabels];
+      }];
 }
 
 - (IBAction)locations:(id)sender {
@@ -120,17 +123,19 @@
 }
 
 - (IBAction)twitter:(id)sender {
-  [[JLPermissions sharedInstance] authorizeTwitter:^(bool granted, NSError *error) {
+  [[JLPermissions sharedInstance]
+      authorizeTwitter:^(bool granted, NSError *error) {
           NSLog(@"twitter returned %@ with error %@", @(granted), error);
           [self updateStatusLabels];
       }];
 }
 
-- (IBAction)facebook:(id)sender{
-    [[JLPermissions sharedInstance] authorizeFacebook:^(bool granted, NSError *error){
-        NSLog(@"facebook returned %@ with error %@", @(granted), error);
-        [self updateStatusLabels];
-    }];
+- (IBAction)facebook:(id)sender {
+  [[JLPermissions sharedInstance]
+      authorizeFacebook:^(bool granted, NSError *error) {
+          NSLog(@"facebook returned %@ with error %@", @(granted), error);
+          [self updateStatusLabels];
+      }];
 }
 
 @end

@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JLAppDelegate : UIResponder <UIApplicationDelegate>
+@interface JLAppDelegate : UIResponder<UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property(strong, nonatomic) UIWindow *window;
 
 @end
