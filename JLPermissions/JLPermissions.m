@@ -264,14 +264,24 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 #pragma mark - Microphone
 
 - (BOOL)microphoneAuthorized {
-  BOOL accessGranted;
   AVAudioSession *audioSession = [AVAudioSession sharedInstance];
   if ([audioSession respondsToSelector:@selector(recordPermission)]) {
-    accessGranted = YES;
+    AVAudioSessionRecordPermission permission =
+        [[AVAudioSession sharedInstance] recordPermission];
+    switch (permission) {
+      case AVAudioSessionRecordPermissionGranted: {
+        return YES;
+      } break;
+      case AVAudioSessionRecordPermissionDenied: {
+        return NO;
+      } break;
+      case AVAudioSessionRecordPermissionUndetermined: {
+        return NO;
+      } break;
+    }
   } else {
-    accessGranted = NO;
+    return NO;
   }
-  return accessGranted;
 }
 
 - (void)authorizeMicrophone:(AuthorizationBlock)completionHandler {
