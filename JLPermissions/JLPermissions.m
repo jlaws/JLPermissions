@@ -269,15 +269,11 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     AVAudioSessionRecordPermission permission =
         [[AVAudioSession sharedInstance] recordPermission];
     switch (permission) {
-      case AVAudioSessionRecordPermissionGranted: {
+      case AVAudioSessionRecordPermissionGranted:
         return YES;
-      } break;
-      case AVAudioSessionRecordPermissionDenied: {
+      case AVAudioSessionRecordPermissionDenied:
+      case AVAudioSessionRecordPermissionUndetermined:
         return NO;
-      } break;
-      case AVAudioSessionRecordPermissionUndetermined: {
-        return NO;
-      } break;
     }
   } else {
     return NO;
@@ -297,8 +293,12 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                          cancelTitle:(NSString *)cancelTitle
                           grantTitle:(NSString *)grantTitle
                    completionHandler:(AuthorizationBlock)completionHandler {
-  AVAudioSessionRecordPermission permission =
-      [[AVAudioSession sharedInstance] recordPermission];
+  AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+  if ([audioSession respondsToSelector:@selector(recordPermission)]) {
+    completionHandler(false, [self previouslyDeniedError]);
+    return;
+  }
+  AVAudioSessionRecordPermission permission = [audioSession recordPermission];
   switch (permission) {
     case AVAudioSessionRecordPermissionGranted: {
       completionHandler(true, nil);
@@ -336,32 +336,20 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     [allTypes unionSet:self.healthWriteTypes];
   }
 
-  NSUInteger countDenied = 0;
-  NSUInteger countAuthorized = 0;
-
+  BOOL hasAuthorized = NO;
   for (HKObjectType *sampleType in allTypes) {
     HKAuthorizationStatus status =
         [healthStore authorizationStatusForType:sampleType];
     switch (status) {
+      case HKAuthorizationStatusSharingDenied:
       case HKAuthorizationStatusNotDetermined:
         return NO;
-        break;
-
-      case HKAuthorizationStatusSharingAuthorized:
-        countAuthorized++;
-        break;
-
-      case HKAuthorizationStatusSharingDenied:
-        countDenied++;
-        break;
+      case HKAuthorizationStatusSharingAuthorized: {
+        hasAuthorized = YES;
+      }
     }
   }
-
-  if (countDenied > countAuthorized) {
-    return NO;
-  }
-
-  return YES;
+  return hasAuthorized;
 }
 
 - (void)authorizeHealth:(AuthorizationBlock)completionHandler {
@@ -1059,11 +1047,21 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
        forKey:kJLAskedForNotificationPermission];
   [[NSUserDefaults standardUserDefaults] synchronize];
 
-  UIUserNotificationSettings *settings = [UIUserNotificationSettings
-      settingsForTypes:UIUserNotificationTypeAlert |
-                       UIUserNotificationTypeBadge | UIUserNotificationTypeSound
-            categories:nil];
-  [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+  if ([[UIApplication sharedApplication]
+          respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings
+        settingsForTypes:(UIUserNotificationTypeAlert |
+                          UIUserNotificationTypeBadge |
+                          UIUserNotificationTypeSound)
+              categories:nil];
+    [[UIApplication sharedApplication]
+        registerUserNotificationSettings:settings];
+  } else {
+    [[UIApplication sharedApplication]
+        registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
+                                            UIRemoteNotificationTypeBadge |
+                                            UIRemoteNotificationTypeSound)];
+  }
 }
 
 #pragma mark - CLLocationManagerDelegate
