@@ -7,12 +7,13 @@
 //
 
 #import "JLPermissions.h"
-@import AddressBook;
-@import EventKit;
-@import AssetsLibrary;
-@import CoreLocation;
+
 @import Accounts;
+@import AddressBook;
+@import AssetsLibrary;
 @import AVFoundation;
+@import CoreLocation;
+@import EventKit;
 @import HealthKit;
 
 @interface JLPermissions () <UIAlertViewDelegate, CLLocationManagerDelegate>

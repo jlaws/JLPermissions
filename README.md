@@ -65,10 +65,10 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 - (BOOL) healthAuthorized;
 - (void) authorizeHealth:(AuthorizationBlock) completionHandler;
 - (void) authorizeHealthWithTitle:(NSString *)messageTitle
-                            message:(NSString *)message
-                            cancelTitle:(NSString *)cancelTitle
-                            grantTitle:(NSString *)grantTitle
-                            completionHandler:(AuthorizationBlock)completionHandler;
+                          message:(NSString *)message
+                      cancelTitle:(NSString *)cancelTitle
+                       grantTitle:(NSString *)grantTitle
+                completionHandler:(AuthorizationBlock)completionHandler;
 
 - (BOOL)locationsAuthorized;
 - (void)authorizeLocations:(AuthorizationBlock)completionHandler;
@@ -81,10 +81,10 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 - (BOOL) microphoneAuthorized;
 - (void) authorizeMicrophone:(AuthorizationBlock) completionHandler;
 - (void) authorizeMicrophoneWithTitle:(NSString *)messageTitle
-                                message:(NSString *)message
-                                cancelTitle:(NSString *)cancelTitle
-                                grantTitle:(NSString *)grantTitle
-                                completionHandler:(AuthorizationBlock)completionHandler;
+                              message:(NSString *)message
+                          cancelTitle:(NSString *)cancelTitle
+                           grantTitle:(NSString *)grantTitle
+                    completionHandler:(AuthorizationBlock)completionHandler;
 
 - (BOOL)twitterAuthorized;
 - (void)authorizeTwitter:(AuthorizationBlock)completionHandler;
@@ -97,10 +97,10 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 - (BOOL)facebookAuthorized;
 - (void)authorizeFacebook:(AuthorizationBlock)completionHandler;
 - (void)authorizeFacebookWithTitle:(NSString *)messageTitle
-                            message:(NSString *)message
-                            cancelTitle:(NSString *)cancelTitle
-                            grantTitle:(NSString *)grantTitle
-                            completionHandler:(AuthorizationBlock)completionHandler;
+                           message:(NSString *)message
+                       cancelTitle:(NSString *)cancelTitle
+                        grantTitle:(NSString *)grantTitle
+                 completionHandler:(AuthorizationBlock)completionHandler;
 
 
 - (BOOL)notificationsAuthorized;
@@ -110,8 +110,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                                 message:(NSString *)message
                             cancelTitle:(NSString *)cancelTitle
                              grantTitle:(NSString *)grantTitle
-                      completionHandler:
-                          (NotificationAuthorizationBlock)completionHandler;
+                      completionHandler:(NotificationAuthorizationBlock)completionHandler;
 - (void)unauthorizeNotifications;
 - (void)notificationResult:(NSData *)deviceToken error:(NSError *)error;
 - (NSString *)deviceID;
@@ -127,13 +126,13 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 
 Here is a list of iPhone apps utilizing this library (let me know if you want your app added):
 
-- [Seer Reminders] - [Seer Homepage]
+- [Faysee] - [Faysee Homepage]
 
 ## License
 
 JLAddressBook is available under the MIT license. See the LICENSE file for more info.
 
 [Joe Laws]:https://angel.co/joe-laws
-[Seer Reminders]:https://itunes.apple.com/us/app/seer-reminders/id721450216?ls=1&mt=8
-[Seer Homepage]:http://getseer.com
+[Faysee]:https://itunes.apple.com/us/app/seer-reminders/id721450216?ls=1&mt=8
+[Faysee Homepage]:http://faysee.com
 
