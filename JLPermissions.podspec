@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "JLPermissions"
-  s.version          = "1.2.0"
+  s.version          = "1.2.1"
   s.summary          = "User permission dialogs."
   s.description      = <<-DESC
                        Ask the user for permissions before iOS does increasing the chance of acceptance on future requests.

@@ -976,20 +976,33 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 - (void)actuallyAuthorizeLocations {
   self.locationManager = [[CLLocationManager alloc] init];
   self.locationManager.delegate = self;
-  
-  if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 && [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-    BOOL hasAlwaysKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"] != nil;
-    BOOL hasWhenInUseKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"] != nil;
+
+  if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 &&
+      [CLLocationManager authorizationStatus] ==
+          kCLAuthorizationStatusNotDetermined) {
+    BOOL hasAlwaysKey =
+        [[NSBundle mainBundle]
+            objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"] !=
+        nil;
+    BOOL hasWhenInUseKey =
+        [[NSBundle mainBundle] objectForInfoDictionaryKey:
+                                   @"NSLocationWhenInUseUsageDescription"] !=
+        nil;
     if (hasAlwaysKey) {
       [self.locationManager requestAlwaysAuthorization];
     } else if (hasWhenInUseKey) {
       [self.locationManager requestWhenInUseAuthorization];
     } else {
-      // At least one of the keys NSLocationAlwaysUsageDescription or NSLocationWhenInUseUsageDescription MUST be present in the Info.plist file to use location services on iOS 8+.
-      NSAssert(hasAlwaysKey || hasWhenInUseKey, @"To use location services in iOS 8+, your Info.plist must provide a value for either NSLocationWhenInUseUsageDescription or NSLocationAlwaysUsageDescription.");
+      // At least one of the keys NSLocationAlwaysUsageDescription or
+      // NSLocationWhenInUseUsageDescription MUST be present in the Info.plist
+      // file to use location services on iOS 8+.
+      NSAssert(hasAlwaysKey || hasWhenInUseKey,
+               @"To use location services in iOS 8+, your Info.plist must "
+               @"provide a value for either "
+               @"NSLocationWhenInUseUsageDescription or "
+               @"NSLocationAlwaysUsageDescription.");
     }
-  }
-  else {
+  } else {
     [self.locationManager startUpdatingLocation];
   }
 }
