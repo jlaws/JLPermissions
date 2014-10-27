@@ -295,7 +295,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                           grantTitle:(NSString *)grantTitle
                    completionHandler:(AuthorizationBlock)completionHandler {
   AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-  if ([audioSession respondsToSelector:@selector(recordPermission)]) {
+  if (![audioSession respondsToSelector:@selector(recordPermission)]) {
     completionHandler(false, [self previouslyDeniedError]);
     return;
   }
