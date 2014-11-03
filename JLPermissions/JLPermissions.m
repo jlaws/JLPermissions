@@ -9,32 +9,10 @@
 #import "JLPermissions.h"
 
 @import Accounts;
-@import AddressBook;
-@import AssetsLibrary;
 @import AVFoundation;
 @import CoreLocation;
 @import EventKit;
 @import HealthKit;
-
-@interface JLPermissions () <UIAlertViewDelegate, CLLocationManagerDelegate>
-
-@property(nonatomic, strong) AuthorizationBlock contactsCompletionHandler;
-@property(nonatomic, strong) AuthorizationBlock calendarCompletionHandler;
-@property(nonatomic, strong) AuthorizationBlock photosCompletionHandler;
-@property(nonatomic, strong) AuthorizationBlock remindersCompletionHandler;
-@property(nonatomic, strong) AuthorizationBlock microphoneCompletionHandler;
-@property(nonatomic, strong) AuthorizationBlock healthCompletionHandler;
-@property(nonatomic, strong) AuthorizationBlock locationsCompletionHandler;
-@property(nonatomic, strong) AuthorizationBlock twitterCompletionHandler;
-@property(nonatomic, strong) AuthorizationBlock facebookCompletionHandler;
-@property(nonatomic, strong)
-    NotificationAuthorizationBlock notificationsCompletionHandler;
-
-@property(nonatomic, strong) CLLocationManager *locationManager;
-@property(nonatomic, strong) NSSet *healthReadTypes;
-@property(nonatomic, strong) NSSet *healthWriteTypes;
-
-@end
 
 typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
   kJLPermissionNotDetermined = 0,
@@ -42,18 +20,23 @@ typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
   kJLPermissionAuthorized
 };
 
-typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
-  kContactsTag = 100,
-  kPhotosTag,
-  kNotificationsTag,
-  kCalendarTag,
-  kRemindersTag,
-  kMicrophoneTag,
-  kHealthTag,
-  kTwitterTag,
-  kFacebookTag,
-  kLocationsTag
-};
+@interface JLPermissions () <UIAlertViewDelegate, CLLocationManagerDelegate>
+
+@property(nonatomic, strong) AuthorizationHandler calendarcompletion;
+@property(nonatomic, strong) AuthorizationHandler photoscompletion;
+@property(nonatomic, strong) AuthorizationHandler reminderscompletion;
+@property(nonatomic, strong) AuthorizationHandler microphonecompletion;
+@property(nonatomic, strong) AuthorizationHandler healthcompletion;
+@property(nonatomic, strong) AuthorizationHandler locationscompletion;
+@property(nonatomic, strong) AuthorizationHandler twittercompletion;
+@property(nonatomic, strong) AuthorizationHandler facebookcompletion;
+@property(nonatomic, strong) NotificationAuthorizationHandler notificationscompletion;
+
+@property(nonatomic, strong) CLLocationManager *locationManager;
+@property(nonatomic, strong) NSSet *healthReadTypes;
+@property(nonatomic, strong) NSSet *healthWriteTypes;
+
+@end
 
 #define kJLDeviceToken @"JLDeviceToken"
 #define kJLAskedForNotificationPermission @"JLAskedForNotificationPermission"
@@ -71,53 +54,6 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   return _instance;
 }
 
-#pragma mark - Contacts
-
-- (BOOL)contactsAuthorized {
-  return ABAddressBookGetAuthorizationStatus() ==
-         kABAuthorizationStatusAuthorized;
-}
-
-- (void)authorizeContacts:(AuthorizationBlock)completionHandler {
-  [self authorizeContactsWithTitle:[self defaultTitle:@"Contacts"]
-                           message:[self defaultMessage]
-                       cancelTitle:[self defaultCancelTitle]
-                        grantTitle:[self defaultGrantTitle]
-                 completionHandler:completionHandler];
-}
-
-- (void)authorizeContactsWithTitle:(NSString *)messageTitle
-                           message:(NSString *)message
-                       cancelTitle:(NSString *)cancelTitle
-                        grantTitle:(NSString *)grantTitle
-                 completionHandler:(AuthorizationBlock)completionHandler {
-  ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
-
-  switch (status) {
-    case kABAuthorizationStatusAuthorized: {
-      completionHandler(true, nil);
-    } break;
-    case kABAuthorizationStatusNotDetermined: {
-      self.contactsCompletionHandler = completionHandler;
-      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
-                                                      message:message
-                                                     delegate:self
-                                            cancelButtonTitle:cancelTitle
-                                            otherButtonTitles:grantTitle, nil];
-      alert.tag = kContactsTag;
-      [alert show];
-    } break;
-    case kABAuthorizationStatusRestricted:
-    case kABAuthorizationStatusDenied: {
-      completionHandler(false, [self previouslyDeniedError]);
-    } break;
-  }
-}
-
-- (void)displayContactsErrorDialog {
-  [self displayErrorDialog:@"Contacts"];
-}
-
 #pragma mark - Calendar
 
 - (BOOL)calendarAuthorized {
@@ -125,91 +61,45 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
          EKAuthorizationStatusAuthorized;
 }
 
-- (void)authorizeCalendar:(AuthorizationBlock)completionHandler {
+- (void)authorizeCalendar:(AuthorizationHandler)completion {
   [self authorizeCalendarWithTitle:[self defaultTitle:@"Calendar"]
                            message:[self defaultMessage]
                        cancelTitle:[self defaultCancelTitle]
                         grantTitle:[self defaultGrantTitle]
-                 completionHandler:completionHandler];
+                        completion:completion];
 }
 
 - (void)authorizeCalendarWithTitle:(NSString *)messageTitle
                            message:(NSString *)message
                        cancelTitle:(NSString *)cancelTitle
                         grantTitle:(NSString *)grantTitle
-                 completionHandler:(AuthorizationBlock)completionHandler {
+                        completion:(AuthorizationHandler)completion {
   EKAuthorizationStatus authorizationStatus =
       [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
 
   switch (authorizationStatus) {
     case EKAuthorizationStatusAuthorized: {
-      completionHandler(true, nil);
+      completion(true, nil);
     } break;
     case EKAuthorizationStatusNotDetermined: {
-      self.calendarCompletionHandler = completionHandler;
+      self.calendarcompletion = completion;
       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
                                                       message:message
                                                      delegate:self
                                             cancelButtonTitle:cancelTitle
                                             otherButtonTitles:grantTitle, nil];
-      alert.tag = kCalendarTag;
+      alert.tag = JLCalendar;
       [alert show];
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
-      completionHandler(false, [self previouslyDeniedError]);
+      completion(false, [self previouslyDeniedError]);
     } break;
   }
 }
 
 - (void)displayCalendarErrorDialog {
   [self displayErrorDialog:@"Calendars"];
-}
-
-#pragma mark - Photos
-
-- (BOOL)photosAuthorized {
-  return
-      [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized;
-}
-
-- (void)authorizePhotos:(AuthorizationBlock)completionHandler {
-  [self authorizePhotosWithTitle:[self defaultTitle:@"Photos"]
-                         message:[self defaultMessage]
-                     cancelTitle:[self defaultCancelTitle]
-                      grantTitle:[self defaultGrantTitle]
-               completionHandler:completionHandler];
-}
-
-- (void)authorizePhotosWithTitle:(NSString *)messageTitle
-                         message:(NSString *)message
-                     cancelTitle:(NSString *)cancelTitle
-                      grantTitle:(NSString *)grantTitle
-               completionHandler:(AuthorizationBlock)completionHandler {
-  ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
-  switch (status) {
-    case ALAuthorizationStatusAuthorized:
-      completionHandler(true, nil);
-      break;
-    case ALAuthorizationStatusNotDetermined: {
-      self.photosCompletionHandler = completionHandler;
-      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
-                                                      message:message
-                                                     delegate:self
-                                            cancelButtonTitle:cancelTitle
-                                            otherButtonTitles:grantTitle, nil];
-      alert.tag = kPhotosTag;
-      [alert show];
-    } break;
-    case ALAuthorizationStatusRestricted:
-    case ALAuthorizationStatusDenied: {
-      completionHandler(false, [self previouslyDeniedError]);
-    } break;
-  }
-}
-
-- (void)displayPhotoErrorDialog {
-  [self displayErrorDialog:@"Photos"];
 }
 
 #pragma mark - Reminders
@@ -219,41 +109,41 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
          EKAuthorizationStatusAuthorized;
 }
 
-- (void)authorizeReminders:(AuthorizationBlock)completionHandler {
+- (void)authorizeReminders:(AuthorizationHandler)completion {
   [self authorizeRemindersWithTitle:[self defaultTitle:@"Reminders"]
                             message:[self defaultMessage]
                         cancelTitle:[self defaultCancelTitle]
                          grantTitle:[self defaultGrantTitle]
-                  completionHandler:completionHandler];
+                         completion:completion];
 }
 
 - (void)authorizeRemindersWithTitle:(NSString *)messageTitle
                             message:(NSString *)message
                         cancelTitle:(NSString *)cancelTitle
                          grantTitle:(NSString *)grantTitle
-                  completionHandler:(AuthorizationBlock)completionHandler {
+                         completion:(AuthorizationHandler)completion {
   EKAuthorizationStatus authorizationStatus =
       [EKEventStore authorizationStatusForEntityType:EKEntityTypeReminder];
 
   switch (authorizationStatus) {
     case EKAuthorizationStatusAuthorized: {
-      completionHandler(true, nil);
+      completion(true, nil);
     } break;
     case EKAuthorizationStatusNotDetermined: {
-      self.remindersCompletionHandler = completionHandler;
+      self.reminderscompletion = completion;
       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
                                                       message:message
                                                      delegate:self
                                             cancelButtonTitle:cancelTitle
                                             otherButtonTitles:grantTitle, nil];
-      alert.tag = kRemindersTag;
+      alert.tag = JLReminders;
       [alert show];
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
       [self displayErrorDialog:@"Reminders"];
 
-      completionHandler(false, [self previouslyDeniedError]);
+      completion(false, [self previouslyDeniedError]);
     } break;
   }
 }
@@ -267,8 +157,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 - (BOOL)microphoneAuthorized {
   AVAudioSession *audioSession = [AVAudioSession sharedInstance];
   if ([audioSession respondsToSelector:@selector(recordPermission)]) {
-    AVAudioSessionRecordPermission permission =
-        [[AVAudioSession sharedInstance] recordPermission];
+    AVAudioSessionRecordPermission permission = [[AVAudioSession sharedInstance] recordPermission];
     switch (permission) {
       case AVAudioSessionRecordPermissionGranted:
         return YES;
@@ -281,40 +170,40 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   }
 }
 
-- (void)authorizeMicrophone:(AuthorizationBlock)completionHandler {
+- (void)authorizeMicrophone:(AuthorizationHandler)completion {
   [self authorizeMicrophoneWithTitle:[self defaultTitle:@"Microphone"]
                              message:[self defaultMessage]
                          cancelTitle:[self defaultCancelTitle]
                           grantTitle:[self defaultGrantTitle]
-                   completionHandler:completionHandler];
+                          completion:completion];
 }
 
 - (void)authorizeMicrophoneWithTitle:(NSString *)messageTitle
                              message:(NSString *)message
                          cancelTitle:(NSString *)cancelTitle
                           grantTitle:(NSString *)grantTitle
-                   completionHandler:(AuthorizationBlock)completionHandler {
+                          completion:(AuthorizationHandler)completion {
   AVAudioSession *audioSession = [AVAudioSession sharedInstance];
   if (![audioSession respondsToSelector:@selector(recordPermission)]) {
-    completionHandler(false, [self previouslyDeniedError]);
+    completion(false, [self previouslyDeniedError]);
     return;
   }
   AVAudioSessionRecordPermission permission = [audioSession recordPermission];
   switch (permission) {
     case AVAudioSessionRecordPermissionGranted: {
-      completionHandler(true, nil);
+      completion(true, nil);
     } break;
     case AVAudioSessionRecordPermissionDenied: {
-      completionHandler(false, [self previouslyDeniedError]);
+      completion(false, [self previouslyDeniedError]);
     } break;
     case AVAudioSessionRecordPermissionUndetermined: {
-      self.microphoneCompletionHandler = completionHandler;
+      self.microphonecompletion = completion;
       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
                                                       message:message
                                                      delegate:self
                                             cancelButtonTitle:cancelTitle
                                             otherButtonTitles:grantTitle, nil];
-      alert.tag = kMicrophoneTag;
+      alert.tag = JLMicrophone;
       [alert show];
     } break;
   }
@@ -339,8 +228,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 
   BOOL hasAuthorized = NO;
   for (HKObjectType *sampleType in allTypes) {
-    HKAuthorizationStatus status =
-        [healthStore authorizationStatusForType:sampleType];
+    HKAuthorizationStatus status = [healthStore authorizationStatusForType:sampleType];
     switch (status) {
       case HKAuthorizationStatusSharingDenied:
       case HKAuthorizationStatusNotDetermined:
@@ -353,19 +241,19 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   return hasAuthorized;
 }
 
-- (void)authorizeHealth:(AuthorizationBlock)completionHandler {
+- (void)authorizeHealth:(AuthorizationHandler)completion {
   [self authorizeHealthWithTitle:[self defaultTitle:@"Health"]
                          message:[self defaultMessage]
                      cancelTitle:[self defaultCancelTitle]
                       grantTitle:[self defaultGrantTitle]
-               completionHandler:completionHandler];
+                      completion:completion];
 }
 
 - (void)authorizeHealthWithTitle:(NSString *)messageTitle
                          message:(NSString *)message
                      cancelTitle:(NSString *)cancelTitle
                       grantTitle:(NSString *)grantTitle
-               completionHandler:(AuthorizationBlock)completionHandler {
+                      completion:(AuthorizationHandler)completion {
   NSMutableSet *allTypes = [[NSMutableSet alloc] init];
   if (self.healthReadTypes.count) {
     [allTypes unionSet:self.healthReadTypes];
@@ -377,25 +265,23 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 
   HKHealthStore *healthStore = [[HKHealthStore alloc] init];
   for (HKObjectType *healthType in allTypes) {
-    HKAuthorizationStatus status =
-        [healthStore authorizationStatusForType:healthType];
+    HKAuthorizationStatus status = [healthStore authorizationStatusForType:healthType];
     switch (status) {
       case HKAuthorizationStatusNotDetermined: {
-        self.healthCompletionHandler = completionHandler;
-        UIAlertView *alert =
-            [[UIAlertView alloc] initWithTitle:messageTitle
-                                       message:message
-                                      delegate:self
-                             cancelButtonTitle:cancelTitle
-                             otherButtonTitles:grantTitle, nil];
-        alert.tag = kHealthTag;
+        self.healthcompletion = completion;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                        message:message
+                                                       delegate:self
+                                              cancelButtonTitle:cancelTitle
+                                              otherButtonTitles:grantTitle, nil];
+        alert.tag = JLHealth;
         [alert show];
       } break;
       case HKAuthorizationStatusSharingAuthorized: {
-        completionHandler(true, nil);
+        completion(true, nil);
       } break;
       case HKAuthorizationStatusSharingDenied: {
-        completionHandler(false, [self previouslyDeniedError]);
+        completion(false, [self previouslyDeniedError]);
       } break;
     }
   }
@@ -408,46 +294,43 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 #pragma mark - Locations
 
 - (BOOL)locationsAuthorized {
-  return [CLLocationManager authorizationStatus] ==
-         kCLAuthorizationStatusAuthorizedAlways;
+  return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
 }
 
-- (void)authorizeLocations:(AuthorizationBlock)completionHandler {
-  NSString *title = [NSString
-      stringWithFormat:@"\"%@\" Would Like to Use Your Current Location",
-                       [self appName]];
+- (void)authorizeLocations:(AuthorizationHandler)completion {
+  NSString *title =
+      [NSString stringWithFormat:@"\"%@\" Would Like to Use Your Current Location", [self appName]];
   [self authorizeLocationsWithTitle:title
                             message:[self defaultMessage]
                         cancelTitle:[self defaultCancelTitle]
                          grantTitle:[self defaultGrantTitle]
-                  completionHandler:completionHandler];
+                         completion:completion];
 }
 
 - (void)authorizeLocationsWithTitle:(NSString *)messageTitle
                             message:(NSString *)message
                         cancelTitle:(NSString *)cancelTitle
                          grantTitle:(NSString *)grantTitle
-                  completionHandler:(AuthorizationBlock)completionHandler {
-  CLAuthorizationStatus authorizationStatus =
-      [CLLocationManager authorizationStatus];
+                         completion:(AuthorizationHandler)completion {
+  CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
   switch (authorizationStatus) {
     case kCLAuthorizationStatusAuthorizedAlways:
     case kCLAuthorizationStatusAuthorizedWhenInUse: {
-      completionHandler(true, nil);
+      completion(true, nil);
     } break;
     case kCLAuthorizationStatusNotDetermined: {
-      self.locationsCompletionHandler = completionHandler;
+      self.locationscompletion = completion;
       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
                                                       message:message
                                                      delegate:self
                                             cancelButtonTitle:cancelTitle
                                             otherButtonTitles:grantTitle, nil];
-      alert.tag = kLocationsTag;
+      alert.tag = JLLocations;
       [alert show];
     } break;
     case kCLAuthorizationStatusDenied:
     case kCLAuthorizationStatusRestricted: {
-      completionHandler(false, [self previouslyDeniedError]);
+      completion(false, [self previouslyDeniedError]);
     } break;
   }
 }
@@ -460,45 +343,44 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 
 - (BOOL)twitterAuthorized {
   ACAccountStore *store = [ACAccountStore new];
-  ACAccountType *accountType = [store
-      accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+  ACAccountType *accountType =
+      [store accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
   return [accountType accessGranted];
 }
 
-- (void)authorizeTwitter:(AuthorizationBlock)completionHandler {
-  NSString *title = [NSString
-      stringWithFormat:@"\"%@\" Would Like Access to Twitter Accounts",
-                       [self appName]];
+- (void)authorizeTwitter:(AuthorizationHandler)completion {
+  NSString *title =
+      [NSString stringWithFormat:@"\"%@\" Would Like Access to Twitter Accounts", [self appName]];
   [self authorizeTwitterWithTitle:title
                           message:[self defaultMessage]
                       cancelTitle:[self defaultCancelTitle]
                        grantTitle:[self defaultGrantTitle]
-                completionHandler:completionHandler];
+                       completion:completion];
 }
 
 - (void)authorizeTwitterWithTitle:(NSString *)messageTitle
                           message:(NSString *)message
                       cancelTitle:(NSString *)cancelTitle
                        grantTitle:(NSString *)grantTitle
-                completionHandler:(AuthorizationBlock)completionHandler {
+                       completion:(AuthorizationHandler)completion {
   BOOL authorized = [self twitterAuthorized];
 
-  bool previouslyAsked = [[NSUserDefaults standardUserDefaults]
-      boolForKey:kJLAskedForTwitterPermission];
+  bool previouslyAsked =
+      [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForTwitterPermission];
 
   if (authorized) {
-    completionHandler(true, nil);
+    completion(true, nil);
   } else if (!previouslyAsked) {
-    self.twitterCompletionHandler = completionHandler;
+    self.twittercompletion = completion;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
                                                     message:message
                                                    delegate:self
                                           cancelButtonTitle:cancelTitle
                                           otherButtonTitles:grantTitle, nil];
-    alert.tag = kTwitterTag;
+    alert.tag = JLTwitter;
     [alert show];
   } else {
-    self.twitterCompletionHandler = completionHandler;
+    self.twittercompletion = completion;
     [self actuallyAuthorizeTwitter];
   }
 }
@@ -511,43 +393,42 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 
 - (BOOL)facebookAuthorized {
   ACAccountStore *store = [ACAccountStore new];
-  ACAccountType *accountType = [store
-      accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+  ACAccountType *accountType =
+      [store accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
   return [accountType accessGranted];
 }
 
-- (void)authorizeFacebook:(AuthorizationBlock)completionHandler {
-  NSString *title = [NSString
-      stringWithFormat:@"\"%@\" Would Like Access to Facebook Accounts",
-                       [self appName]];
+- (void)authorizeFacebook:(AuthorizationHandler)completion {
+  NSString *title =
+      [NSString stringWithFormat:@"\"%@\" Would Like Access to Facebook Accounts", [self appName]];
   [self authorizeFacebookWithTitle:title
                            message:[self defaultMessage]
                        cancelTitle:[self defaultCancelTitle]
                         grantTitle:[self defaultGrantTitle]
-                 completionHandler:completionHandler];
+                        completion:completion];
 }
 
 - (void)authorizeFacebookWithTitle:(NSString *)messageTitle
                            message:(NSString *)message
                        cancelTitle:(NSString *)cancelTitle
                         grantTitle:(NSString *)grantTitle
-                 completionHandler:(AuthorizationBlock)completionHandler {
+                        completion:(AuthorizationHandler)completion {
   BOOL authorized = [self facebookAuthorized];
-  bool previouslyAsked = [[NSUserDefaults standardUserDefaults]
-      boolForKey:kJLAskedForFacebookPermission];
+  bool previouslyAsked =
+      [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForFacebookPermission];
   if (authorized) {
-    completionHandler(true, nil);
+    completion(true, nil);
   } else if (!previouslyAsked) {
-    self.facebookCompletionHandler = completionHandler;
+    self.facebookcompletion = completion;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
                                                     message:message
                                                    delegate:self
                                           cancelButtonTitle:cancelTitle
                                           otherButtonTitles:grantTitle, nil];
-    alert.tag = kFacebookTag;
+    alert.tag = JLFacebook;
     [alert show];
   } else {
-    self.facebookCompletionHandler = completionHandler;
+    self.facebookcompletion = completion;
     [self actuallyAuthorizeFacebook];
   }
 }
@@ -559,49 +440,42 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 #pragma mark - Notifications
 
 - (BOOL)notificationsAuthorized {
-  return [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken] !=
-         nil;
+  return [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken] != nil;
 }
 
-- (void)authorizeNotifications:
-            (NotificationAuthorizationBlock)completionHandler {
-  NSString *messageTitle = [NSString
-      stringWithFormat:@"\"%@\" Would Like to Access Your Notifications",
-                       [self appName]];
+- (void)authorizeNotifications:(NotificationAuthorizationHandler)completion {
+  NSString *messageTitle =
+      [NSString stringWithFormat:@"\"%@\" Would Like to Access Your Notifications", [self appName]];
   [self authorizeNotificationsWithTitle:messageTitle
                                 message:[self defaultMessage]
                             cancelTitle:[self defaultCancelTitle]
                              grantTitle:[self defaultGrantTitle]
-                      completionHandler:completionHandler];
+                             completion:completion];
 }
 
 - (void)authorizeNotificationsWithTitle:(NSString *)messageTitle
                                 message:(NSString *)message
                             cancelTitle:(NSString *)cancelTitle
                              grantTitle:(NSString *)grantTitle
-                      completionHandler:
-                          (NotificationAuthorizationBlock)completionHandler {
-  self.notificationsCompletionHandler = completionHandler;
+                             completion:(NotificationAuthorizationHandler)completion {
+  self.notificationscompletion = completion;
 
-  bool previouslyAsked = [[NSUserDefaults standardUserDefaults]
-      boolForKey:kJLAskedForNotificationPermission];
+  bool previouslyAsked =
+      [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForNotificationPermission];
 
-  NSString *existingID =
-      [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
+  NSString *existingID = [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
 
   BOOL notificationsOn = NO;
   if ([[UIApplication sharedApplication]
           respondsToSelector:@selector(currentUserNotificationSettings)]) {
-    notificationsOn =
-        ([[UIApplication sharedApplication] currentUserNotificationSettings]
-             .types != UIUserNotificationTypeNone);
+    notificationsOn = ([[UIApplication sharedApplication] currentUserNotificationSettings].types !=
+                       UIUserNotificationTypeNone);
   } else {
-    notificationsOn =
-        ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] !=
-         UIRemoteNotificationTypeNone);
+    notificationsOn = ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] !=
+                       UIRemoteNotificationTypeNone);
   }
   if (existingID) {
-    completionHandler(existingID, nil);
+    completion(existingID, nil);
   } else if (notificationsOn) {
     [self actuallyAuthorizeNotifications];
   } else if (!previouslyAsked) {
@@ -610,18 +484,17 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
                                                    delegate:self
                                           cancelButtonTitle:cancelTitle
                                           otherButtonTitles:grantTitle, nil];
-    alert.tag = kNotificationsTag;
+    alert.tag = JLNotifications;
     [alert show];
   } else {
-    completionHandler(false, [self previouslyDeniedError]);
+    completion(false, [self previouslyDeniedError]);
   }
 }
 
 - (void)displayNotificationsErrorDialog {
-  NSString *message = [NSString
-      stringWithFormat:@"Please go to Settings -> Notification Center -> "
-                       @"%@ to re-enable push notifications.",
-                       [self appName]];
+  NSString *message = [NSString stringWithFormat:@"Please go to Settings -> Notification Center -> "
+                                                 @"%@ to re-enable push notifications.",
+                                                 [self appName]];
   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                   message:message
                                                  delegate:nil
@@ -633,27 +506,23 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 - (void)unauthorizeNotifications {
   [[UIApplication sharedApplication] unregisterForRemoteNotifications];
   [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kJLDeviceToken];
-  [[NSUserDefaults standardUserDefaults]
-      setBool:false
-       forKey:kJLAskedForNotificationPermission];
+  [[NSUserDefaults standardUserDefaults] setBool:false forKey:kJLAskedForNotificationPermission];
   [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)notificationResult:(NSData *)deviceToken error:(NSError *)error {
   if (deviceToken) {
-    NSString *deviceID =
-        [[JLPermissions sharedInstance] parseDeviceID:deviceToken];
+    NSString *deviceID = [[JLPermissions sharedInstance] parseDeviceID:deviceToken];
 
-    [[NSUserDefaults standardUserDefaults] setObject:deviceID
-                                              forKey:kJLDeviceToken];
+    [[NSUserDefaults standardUserDefaults] setObject:deviceID forKey:kJLDeviceToken];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
-    if (self.notificationsCompletionHandler) {
-      self.notificationsCompletionHandler(deviceID, nil);
+    if (self.notificationscompletion) {
+      self.notificationscompletion(deviceID, nil);
     }
   } else {
-    if (self.notificationsCompletionHandler) {
-      self.notificationsCompletionHandler(nil, [self systemDeniedError:error]);
+    if (self.notificationscompletion) {
+      self.notificationscompletion(nil, [self systemDeniedError:error]);
     }
   }
 }
@@ -664,8 +533,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 
 #pragma mark - UIAlertViewDelegate
 
-- (void)alertView:(UIAlertView *)alertView
-    clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
   BOOL canceled = (buttonIndex == alertView.cancelButtonIndex);
   dispatch_async(dispatch_get_main_queue(), ^{
       if (canceled) {
@@ -679,81 +547,93 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 #pragma mark - Helpers
 
 - (void)canceledDialog:(NSInteger)tag {
-  NSError *error = [NSError errorWithDomain:@"UserDenied"
-                                       code:kJLPermissionDenied
-                                   userInfo:nil];
+  NSError *error = [NSError errorWithDomain:@"UserDenied" code:kJLPermissionDenied userInfo:nil];
   switch (tag) {
-    case kContactsTag:
-      self.contactsCompletionHandler(false, error);
+    case JLNotifications:
+      self.notificationscompletion(false, error);
       break;
-    case kPhotosTag:
-      self.photosCompletionHandler(false, error);
+    case JLCalendar:
+      self.calendarcompletion(false, error);
       break;
-    case kNotificationsTag:
-      self.notificationsCompletionHandler(false, error);
+    case JLReminders:
+      self.reminderscompletion(false, error);
       break;
-    case kCalendarTag:
-      self.calendarCompletionHandler(false, error);
+    case JLMicrophone:
+      self.microphonecompletion(false, error);
       break;
-    case kRemindersTag:
-      self.remindersCompletionHandler(false, error);
+    case JLHealth:
+      self.healthcompletion(false, error);
       break;
-    case kMicrophoneTag:
-      self.microphoneCompletionHandler(false, error);
+    case JLLocations:
+      self.locationscompletion(false, error);
       break;
-    case kHealthTag:
-      self.healthCompletionHandler(false, error);
+    case JLTwitter:
+      self.twittercompletion(false, error);
       break;
-    case kLocationsTag:
-      self.locationsCompletionHandler(false, error);
+    case JLFacebook:
+      self.facebookcompletion(false, error);
       break;
-    case kTwitterTag:
-      self.twitterCompletionHandler(false, error);
-      break;
-    case kFacebookTag:
-      self.facebookCompletionHandler(false, error);
+    default:
       break;
   }
 }
 
 - (void)approvedDialog:(NSInteger)tag {
   switch (tag) {
-    case kContactsTag:
-      [self actuallyAuthorizeContacts];
-      break;
-    case kPhotosTag:
-      [self actuallyAuthorizePhotos];
-      break;
-    case kNotificationsTag:
+    case JLNotifications:
       [self actuallyAuthorizeNotifications];
       break;
-    case kCalendarTag:
+    case JLCalendar:
       [self actuallyAuthorizeCalendar];
       break;
-    case kRemindersTag:
+    case JLReminders:
       [self actuallyAuthorizeReminders];
       break;
-    case kMicrophoneTag:
+    case JLMicrophone:
       [self actuallyAuthorizeMicrophone];
       break;
-    case kHealthTag:
+    case JLHealth:
       [self actuallyAuthorizeHealth];
       break;
-    case kLocationsTag:
+    case JLLocations:
       [self actuallyAuthorizeLocations];
       break;
-    case kTwitterTag:
+    case JLTwitter:
       [self actuallyAuthorizeTwitter];
       break;
-    case kFacebookTag:
+    case JLFacebook:
       [self actuallyAuthorizeFacebook];
+      break;
+    default:
       break;
   }
 }
 
+- (NSString *)parseDeviceID:(NSData *)deviceToken {
+  NSString *token = [deviceToken description];
+  return [[self regex] stringByReplacingMatchesInString:token
+                                                options:0
+                                                  range:NSMakeRange(0, [token length])
+                                           withTemplate:@""];
+}
+
+- (NSRegularExpression *)regex {
+  NSError *error;
+  NSRegularExpression *exp =
+      [NSRegularExpression regularExpressionWithPattern:@"[<> ]"
+                                                options:NSRegularExpressionCaseInsensitive
+                                                  error:&error];
+
+  if (!exp) {
+    NSLog(@"Failed to instantiate the regex parser due to %@", error);
+  }
+
+  return exp;
+}
+
 - (NSString *)defaultTitle:(NSString *)authorizationType {
-  return [NSString stringWithFormat:@"\"%@\" Would Like to Access Your %@",
-                                    [self appName], authorizationType];
+  return [NSString
+      stringWithFormat:@"\"%@\" Would Like to Access Your %@", [self appName], authorizationType];
 }
 
 - (NSString *)defaultMessage {
@@ -769,38 +649,13 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 - (NSString *)appName {
-  return
-      [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-}
-
-- (NSString *)parseDeviceID:(NSData *)deviceToken {
-  NSString *token = [deviceToken description];
-  return [[self regex]
-      stringByReplacingMatchesInString:token
-                               options:0
-                                 range:NSMakeRange(0, [token length])
-                          withTemplate:@""];
-}
-
-- (NSRegularExpression *)regex {
-  NSError *error;
-  NSRegularExpression *exp = [NSRegularExpression
-      regularExpressionWithPattern:@"[<> ]"
-                           options:NSRegularExpressionCaseInsensitive
-                             error:&error];
-
-  if (!exp) {
-    NSLog(@"Failed to instantiate the regex parser due to %@", error);
-  }
-
-  return exp;
+  return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
 }
 
 - (void)displayErrorDialog:(NSString *)authorizationType {
-  NSString *message =
-      [NSString stringWithFormat:@"Please go to Settings -> Privacy -> "
-                                 @"%@ to re-enable %@'s access.",
-                                 authorizationType, [self appName]];
+  NSString *message = [NSString stringWithFormat:@"Please go to Settings -> Privacy -> "
+                                                 @"%@ to re-enable %@'s access.",
+                                                 authorizationType, [self appName]];
   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                   message:message
                                                  delegate:nil
@@ -810,47 +665,15 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 - (NSError *)previouslyDeniedError {
-  return [NSError errorWithDomain:@"PreviouslyDenied"
-                             code:kJLPermissionDenied
-                         userInfo:nil];
+  return [NSError errorWithDomain:@"PreviouslyDenied" code:kJLPermissionDenied userInfo:nil];
 }
 
 - (NSError *)systemDeniedError:(NSError *)error {
-  return [NSError errorWithDomain:@"SystemDenied"
-                             code:kJLPermissionDenied
-                         userInfo:[error userInfo]];
+  return
+      [NSError errorWithDomain:@"SystemDenied" code:kJLPermissionDenied userInfo:[error userInfo]];
 }
 
 #pragma mark - System Authorization
-
-- (void)actuallyAuthorizeContacts {
-  ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
-
-  switch (status) {
-    case kABAuthorizationStatusAuthorized: {
-      self.contactsCompletionHandler(true, nil);
-    } break;
-    case kABAuthorizationStatusNotDetermined: {
-      ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
-      ABAddressBookRequestAccessWithCompletion(
-          addressBook, ^(bool granted, CFErrorRef error) {
-              dispatch_async(dispatch_get_main_queue(), ^{
-                  if (granted) {
-                    self.contactsCompletionHandler(true, nil);
-                  } else {
-                    NSError *e = (__bridge NSError *)error;
-                    self.contactsCompletionHandler(false,
-                                                   [self systemDeniedError:e]);
-                  }
-              });
-          });
-    } break;
-    case kABAuthorizationStatusRestricted:
-    case kABAuthorizationStatusDenied: {
-      self.contactsCompletionHandler(false, [self previouslyDeniedError]);
-    } break;
-  }
-}
 
 - (void)actuallyAuthorizeCalendar {
   EKAuthorizationStatus authorizationStatus =
@@ -858,57 +681,25 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 
   switch (authorizationStatus) {
     case EKAuthorizationStatusAuthorized: {
-      self.calendarCompletionHandler(true, nil);
+      self.calendarcompletion(true, nil);
     } break;
     case EKAuthorizationStatusNotDetermined: {
       EKEventStore *eventStore = [[EKEventStore alloc] init];
       [eventStore requestAccessToEntityType:EKEntityTypeEvent
                                  completion:^(BOOL granted, NSError *error) {
-                                     dispatch_async(dispatch_get_main_queue(),
-                                                    ^{
+                                     dispatch_async(dispatch_get_main_queue(), ^{
                                          if (granted) {
-                                           self.calendarCompletionHandler(true,
-                                                                          nil);
+                                           self.calendarcompletion(true, nil);
                                          } else {
-                                           self.calendarCompletionHandler(
-                                               false,
-                                               [self systemDeniedError:error]);
+                                           self.calendarcompletion(false,
+                                                                   [self systemDeniedError:error]);
                                          }
                                      });
                                  }];
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
-      self.calendarCompletionHandler(false, [self previouslyDeniedError]);
-    } break;
-  }
-}
-
-- (void)actuallyAuthorizePhotos {
-  ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
-  switch (status) {
-    case ALAuthorizationStatusAuthorized:
-      self.photosCompletionHandler(true, nil);
-      break;
-    case ALAuthorizationStatusNotDetermined: {
-      ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-
-      [library enumerateGroupsWithTypes:ALAssetsGroupAll
-          usingBlock:^(ALAssetsGroup *assetGroup, BOOL *stop) {
-              if (*stop) {
-                self.photosCompletionHandler(true, nil);
-              } else {
-                *stop = YES;
-              }
-          }
-          failureBlock:^(NSError *error) {
-              self.photosCompletionHandler(false,
-                                           [self systemDeniedError:error]);
-          }];
-    } break;
-    case ALAuthorizationStatusRestricted:
-    case ALAuthorizationStatusDenied: {
-      self.photosCompletionHandler(false, [self previouslyDeniedError]);
+      self.calendarcompletion(false, [self previouslyDeniedError]);
     } break;
   }
 }
@@ -919,28 +710,25 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 
   switch (authorizationStatus) {
     case EKAuthorizationStatusAuthorized: {
-      self.remindersCompletionHandler(true, nil);
+      self.reminderscompletion(true, nil);
     } break;
     case EKAuthorizationStatusNotDetermined: {
       EKEventStore *eventStore = [[EKEventStore alloc] init];
       [eventStore requestAccessToEntityType:EKEntityTypeReminder
                                  completion:^(BOOL granted, NSError *error) {
-                                     dispatch_async(dispatch_get_main_queue(),
-                                                    ^{
+                                     dispatch_async(dispatch_get_main_queue(), ^{
                                          if (granted) {
-                                           self.remindersCompletionHandler(true,
-                                                                           nil);
+                                           self.reminderscompletion(true, nil);
                                          } else {
-                                           self.remindersCompletionHandler(
-                                               false,
-                                               [self systemDeniedError:error]);
+                                           self.reminderscompletion(false,
+                                                                    [self systemDeniedError:error]);
                                          }
                                      });
                                  }];
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
-      self.remindersCompletionHandler(false, [self previouslyDeniedError]);
+      self.reminderscompletion(false, [self previouslyDeniedError]);
     } break;
   }
 }
@@ -951,26 +739,25 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   [session setCategory:@"AVAudioSessionCategoryPlayAndRecord" error:&error];
   [session requestRecordPermission:^(BOOL granted) {
       if (granted) {
-        self.microphoneCompletionHandler(true, nil);
+        self.microphonecompletion(true, nil);
       } else {
-        self.microphoneCompletionHandler(false, nil);
+        self.microphonecompletion(false, nil);
       }
   }];
 }
 
 - (void)actuallyAuthorizeHealth {
   HKHealthStore *healthStore = [[HKHealthStore alloc] init];
-  [healthStore
-      requestAuthorizationToShareTypes:self.healthWriteTypes
-                             readTypes:self.healthReadTypes
-                            completion:^(BOOL success, NSError *error) {
-                                if (success) {
-                                  self.healthCompletionHandler(true, nil);
-                                } else {
-                                  self.healthCompletionHandler(false, error);
-                                }
+  [healthStore requestAuthorizationToShareTypes:self.healthWriteTypes
+                                      readTypes:self.healthReadTypes
+                                     completion:^(BOOL success, NSError *error) {
+                                         if (success) {
+                                           self.healthcompletion(true, nil);
+                                         } else {
+                                           self.healthcompletion(false, error);
+                                         }
 
-                            }];
+                                     }];
 }
 
 - (void)actuallyAuthorizeLocations {
@@ -978,15 +765,12 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
   self.locationManager.delegate = self;
 
   if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 &&
-      [CLLocationManager authorizationStatus] ==
-          kCLAuthorizationStatusNotDetermined) {
+      [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
     BOOL hasAlwaysKey =
-        [[NSBundle mainBundle]
-            objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"] !=
+        [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"] !=
         nil;
     BOOL hasWhenInUseKey =
-        [[NSBundle mainBundle] objectForInfoDictionaryKey:
-                                   @"NSLocationWhenInUseUsageDescription"] !=
+        [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"] !=
         nil;
     if (hasAlwaysKey) {
       [self.locationManager requestAlwaysAuthorization];
@@ -998,8 +782,7 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
       // file to use location services on iOS 8+.
       NSAssert(hasAlwaysKey || hasWhenInUseKey,
                @"To use location services in iOS 8+, your Info.plist must "
-               @"provide a value for either "
-               @"NSLocationWhenInUseUsageDescription or "
+               @"provide a value for either " @"NSLocationWhenInUseUsageDescription or "
                @"NSLocationAlwaysUsageDescription.");
     }
   } else {
@@ -1008,83 +791,75 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
 }
 
 - (void)actuallyAuthorizeTwitter {
-  bool previouslyAsked = [[NSUserDefaults standardUserDefaults]
-      boolForKey:kJLAskedForTwitterPermission];
-  [[NSUserDefaults standardUserDefaults] setBool:true
-                                          forKey:kJLAskedForTwitterPermission];
+  bool previouslyAsked =
+      [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForTwitterPermission];
+  [[NSUserDefaults standardUserDefaults] setBool:true forKey:kJLAskedForTwitterPermission];
   [[NSUserDefaults standardUserDefaults] synchronize];
 
   ACAccountStore *accountStore = [ACAccountStore new];
-  ACAccountType *accountType = [accountStore
-      accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+  ACAccountType *accountType =
+      [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
 
-  [accountStore
-      requestAccessToAccountsWithType:accountType
-                              options:nil
-                           completion:^(BOOL granted, NSError *error) {
+  [accountStore requestAccessToAccountsWithType:accountType
+                                        options:nil
+                                     completion:^(BOOL granted, NSError *error) {
 
-                               dispatch_async(dispatch_get_main_queue(), ^{
-                                   if (granted) {
-                                     self.twitterCompletionHandler(true, nil);
-                                   } else if (!previouslyAsked) {
-                                     self.twitterCompletionHandler(
-                                         false, [self systemDeniedError:error]);
-                                   } else {
-                                     self.twitterCompletionHandler(
-                                         false, [self previouslyDeniedError]);
-                                   }
-                               });
-                           }];
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                             if (granted) {
+                                               self.twittercompletion(true, nil);
+                                             } else if (!previouslyAsked) {
+                                               self.twittercompletion(
+                                                   false, [self systemDeniedError:error]);
+                                             } else {
+                                               self.twittercompletion(false,
+                                                                      [self previouslyDeniedError]);
+                                             }
+                                         });
+                                     }];
 }
 
 - (void)actuallyAuthorizeFacebook {
-  bool previouslyAsked = [[NSUserDefaults standardUserDefaults]
-      boolForKey:kJLAskedForFacebookPermission];
-  [[NSUserDefaults standardUserDefaults] setBool:YES
-                                          forKey:kJLAskedForFacebookPermission];
+  bool previouslyAsked =
+      [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForFacebookPermission];
+  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kJLAskedForFacebookPermission];
   [[NSUserDefaults standardUserDefaults] synchronize];
 
   ACAccountStore *accountStore = [ACAccountStore new];
-  ACAccountType *accountType = [accountStore
-      accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+  ACAccountType *accountType =
+      [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
   NSDictionary *options = @{
     @"ACFacebookAppIdKey" : @"123456789",
     @"ACFacebookPermissionsKey" : @[ @"publish_stream" ],
     @"ACFacebookAudienceKey" : ACFacebookAudienceEveryone
   };
-  [accountStore
-      requestAccessToAccountsWithType:accountType
-                              options:options
-                           completion:^(BOOL granted, NSError *error) {
-                               dispatch_async(dispatch_get_main_queue(), ^{
-                                   if (granted) {
-                                     self.facebookCompletionHandler(true, nil);
-                                   } else if (!previouslyAsked) {
-                                     self.facebookCompletionHandler(
-                                         false, [self systemDeniedError:error]);
-                                   } else {
-                                     self.facebookCompletionHandler(
-                                         false, [self previouslyDeniedError]);
-                                   }
-                               });
-                           }];
+  [accountStore requestAccessToAccountsWithType:accountType
+                                        options:options
+                                     completion:^(BOOL granted, NSError *error) {
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                             if (granted) {
+                                               self.facebookcompletion(true, nil);
+                                             } else if (!previouslyAsked) {
+                                               self.facebookcompletion(
+                                                   false, [self systemDeniedError:error]);
+                                             } else {
+                                               self.facebookcompletion(
+                                                   false, [self previouslyDeniedError]);
+                                             }
+                                         });
+                                     }];
 }
 
 - (void)actuallyAuthorizeNotifications {
-  [[NSUserDefaults standardUserDefaults]
-      setBool:true
-       forKey:kJLAskedForNotificationPermission];
+  [[NSUserDefaults standardUserDefaults] setBool:true forKey:kJLAskedForNotificationPermission];
   [[NSUserDefaults standardUserDefaults] synchronize];
 
   if ([[UIApplication sharedApplication]
           respondsToSelector:@selector(registerUserNotificationSettings:)]) {
     UIUserNotificationSettings *settings = [UIUserNotificationSettings
-        settingsForTypes:(UIUserNotificationTypeAlert |
-                          UIUserNotificationTypeBadge |
+        settingsForTypes:(UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
                           UIUserNotificationTypeSound)
               categories:nil];
-    [[UIApplication sharedApplication]
-        registerUserNotificationSettings:settings];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
   } else {
     [[UIApplication sharedApplication]
         registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
@@ -1106,14 +881,14 @@ typedef NS_ENUM(NSInteger, JLAuthorizationTags) {
     case kCLAuthorizationStatusAuthorizedAlways: {
       [self.locationManager stopUpdatingLocation];
       self.locationManager = nil;
-      self.locationsCompletionHandler(true, nil);
+      self.locationscompletion(true, nil);
       break;
     }
     case kCLAuthorizationStatusDenied:
     case kCLAuthorizationStatusRestricted: {
       [self.locationManager stopUpdatingLocation];
       self.locationManager = nil;
-      self.locationsCompletionHandler(false, [self systemDeniedError:nil]);
+      self.locationscompletion(false, [self systemDeniedError:nil]);
       break;
     }
   }

@@ -1,18 +1,10 @@
 PODS:
-  - CocoaLumberjack (2.0.0-beta2):
-    - CocoaLumberjack/CLI
-    - CocoaLumberjack/Core
-    - CocoaLumberjack/Extensions
-  - CocoaLumberjack/CLI (2.0.0-beta2):
-    - CocoaLumberjack/Core
-  - CocoaLumberjack/Core (2.0.0-beta2)
-  - CocoaLumberjack/Extensions (2.0.0-beta2):
-    - CocoaLumberjack/Core
+  - OCTotallyLazy (1.1.0)
 
 DEPENDENCIES:
-  - CocoaLumberjack
+  - OCTotallyLazy
 
 SPEC CHECKSUMS:
-  CocoaLumberjack: 956d3fb98fed498a13d56499f262c975ef431c98
+  OCTotallyLazy: 6cbe5581aa46d1f04f7719b03e3474646cec1735
 
 COCOAPODS: 0.34.4

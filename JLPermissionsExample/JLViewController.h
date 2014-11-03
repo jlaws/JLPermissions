@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Joe Laws. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface JLViewController : UIViewController
 

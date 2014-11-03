@@ -1,56 +1,31 @@
 //
 //  JLPermissions.h
-//  Joseph Laws
 //
 //  Created by Joseph Laws on 4/19/14.
 //  Copyright (c) 2014 Joe Laws. All rights reserved.
 //
 
 @import Foundation;
+@import UIKit;
 
-typedef void (^AuthorizationBlock)(bool granted, NSError *error);
-typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
-                                               NSError *error);
+typedef void (^AuthorizationHandler)(bool granted, NSError *error);
+typedef void (^NotificationAuthorizationHandler)(NSString *deviceID, NSError *error);
+
+typedef NS_ENUM(NSInteger, JLAuthorizationType) {
+  JLContacts = 100,
+  JLNotifications,
+  JLCalendar,
+  JLReminders,
+  JLMicrophone,
+  JLHealth,
+  JLTwitter,
+  JLFacebook,
+  JLLocations
+};
 
 @interface JLPermissions : NSObject
 
 + (instancetype)sharedInstance;
-
-/**
- *  @return whether or not user has granted access to the address book
- */
-- (BOOL)contactsAuthorized;
-/**
- *  Uses the default dialog which is identical to the system permission dialog
- *
- *  @param completionHandler the block that will be executed on the main thread
- *when access is granted or denied.  May be called immediately if access was
- *previously established
- */
-- (void)authorizeContacts:(AuthorizationBlock)completionHandler;
-/**
- *  This is identical to the call other call, however it allows you to specify
- *your own custom text for the dialog window rather than using the standard
- *system dialog
- *
- *  @param messageTitle      custom alert message title
- *  @param message           custom alert message
- *  @param cancelTitle       custom cancel button message
- *  @param grantTitle        custom grant button message
- *  @param completionHandler the block that will be executed on the main thread
- *when access is granted or denied.  May be called immediately if access was
- *previously established
- */
-- (void)authorizeContactsWithTitle:(NSString *)messageTitle
-                           message:(NSString *)message
-                       cancelTitle:(NSString *)cancelTitle
-                        grantTitle:(NSString *)grantTitle
-                 completionHandler:(AuthorizationBlock)completionHandler;
-/**
- *  Displays a dialog telling the user how to re-enable contacts permission in
- * the Settings application
- */
-- (void)displayContactsErrorDialog;
 
 /**
  *  @return whether or not user has granted access to the calendar
@@ -59,11 +34,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 /**
  *  Uses the default dialog which is identical to the system permission dialog
  *
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void)authorizeCalendar:(AuthorizationBlock)completionHandler;
+- (void)authorizeCalendar:(AuthorizationHandler)completion;
 /**
  *  This is identical to the call other call, however it allows you to specify
  *your own custom text for the dialog window rather than using the standard
@@ -73,7 +48,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *  @param message           custom alert message
  *  @param cancelTitle       custom cancel button message
  *  @param grantTitle        custom grant button message
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
@@ -81,48 +56,12 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                            message:(NSString *)message
                        cancelTitle:(NSString *)cancelTitle
                         grantTitle:(NSString *)grantTitle
-                 completionHandler:(AuthorizationBlock)completionHandler;
+                        completion:(AuthorizationHandler)completion;
 /**
  *  Displays a dialog telling the user how to re-enable calendar permission in
  * the Settings application
  */
 - (void)displayCalendarErrorDialog;
-
-/**
- *  @return whether or not user has granted access to the photo library
- */
-- (BOOL)photosAuthorized;
-/**
- *  Uses the default dialog which is identical to the system permission dialog
- *
- *  @param completionHandler the block that will be executed on the main thread
- *when access is granted or denied.  May be called immediately if access was
- *previously established
- */
-- (void)authorizePhotos:(AuthorizationBlock)completionHandler;
-/**
- *  This is identical to the call other call, however it allows you to specify
- *your own custom text for the dialog window rather than using the standard
- *system dialog
- *
- *  @param messageTitle      custom alert message title
- *  @param message           custom alert message
- *  @param cancelTitle       custom cancel button message
- *  @param grantTitle        custom grant button message
- *  @param completionHandler the block that will be executed on the main thread
- *when access is granted or denied.  May be called immediately if access was
- *previously established
- */
-- (void)authorizePhotosWithTitle:(NSString *)messageTitle
-                         message:(NSString *)message
-                     cancelTitle:(NSString *)cancelTitle
-                      grantTitle:(NSString *)grantTitle
-               completionHandler:(AuthorizationBlock)completionHandler;
-/**
- *  Displays a dialog telling the user how to re-enable photo permission in
- * the Settings application
- */
-- (void)displayPhotoErrorDialog;
 
 /**
  *  @return whether or not user has granted access to reminders
@@ -131,11 +70,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 /**
  *  Uses the default dialog which is identical to the system permission dialog
  *
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void)authorizeReminders:(AuthorizationBlock)completionHandler;
+- (void)authorizeReminders:(AuthorizationHandler)completion;
 /**
  *  This is identical to the call other call, however it allows you to specify
  *your own custom text for the dialog window rather than using the standard
@@ -145,7 +84,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *  @param message           custom alert message
  *  @param cancelTitle       custom cancel button message
  *  @param grantTitle        custom grant button message
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
@@ -153,7 +92,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                             message:(NSString *)message
                         cancelTitle:(NSString *)cancelTitle
                          grantTitle:(NSString *)grantTitle
-                  completionHandler:(AuthorizationBlock)completionHandler;
+                         completion:(AuthorizationHandler)completion;
 /**
  *  Displays a dialog telling the user how to re-enable reminders permission in
  * the Settings application
@@ -167,11 +106,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 /**
  *  Uses the default dialog which is identical to the system permission dialog
  *
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void)authorizeHealth:(AuthorizationBlock)completionHandler;
+- (void)authorizeHealth:(AuthorizationHandler)completion;
 /**
  *  This is identical to the call other call, however it allows you to specify
  *your own custom text for the dialog window rather than using the standard
@@ -181,7 +120,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *  @param message           custom alert message
  *  @param cancelTitle       custom cancel button message
  *  @param grantTitle        custom grant button message
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
@@ -189,7 +128,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                          message:(NSString *)message
                      cancelTitle:(NSString *)cancelTitle
                       grantTitle:(NSString *)grantTitle
-               completionHandler:(AuthorizationBlock)completionHandler;
+                      completion:(AuthorizationHandler)completion;
 /**
  *  Displays a dialog telling the user how to re-enable health permission in
  * the Settings application
@@ -203,11 +142,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 /**
  *  Uses the default dialog which is identical to the system permission dialog
  *
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void)authorizeLocations:(AuthorizationBlock)completionHandler;
+- (void)authorizeLocations:(AuthorizationHandler)completion;
 /**
  *  This is identical to the call other call, however it allows you to specify
  *your own custom text for the dialog window rather than using the standard
@@ -217,7 +156,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *  @param message           custom alert message
  *  @param cancelTitle       custom cancel button message
  *  @param grantTitle        custom grant button message
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
@@ -225,7 +164,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                             message:(NSString *)message
                         cancelTitle:(NSString *)cancelTitle
                          grantTitle:(NSString *)grantTitle
-                  completionHandler:(AuthorizationBlock)completionHandler;
+                         completion:(AuthorizationHandler)completion;
 /**
  *  Displays a dialog telling the user how to re-enable locations permission in
  * the Settings application
@@ -239,11 +178,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 /**
  *  Uses the default dialog which is identical to the system permission dialog
  *
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void)authorizeTwitter:(AuthorizationBlock)completionHandler;
+- (void)authorizeTwitter:(AuthorizationHandler)completion;
 /**
  *  This is identical to the call other call, however it allows you to specify
  *your own custom text for the dialog window rather than using the standard
@@ -253,7 +192,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *  @param message           custom alert message
  *  @param cancelTitle       custom cancel button message
  *  @param grantTitle        custom grant button message
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
@@ -261,7 +200,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                           message:(NSString *)message
                       cancelTitle:(NSString *)cancelTitle
                        grantTitle:(NSString *)grantTitle
-                completionHandler:(AuthorizationBlock)completionHandler;
+                       completion:(AuthorizationHandler)completion;
 /**
  *  Displays a dialog telling the user how to re-enable twitter permission in
  * the Settings application
@@ -275,11 +214,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 /**
  *  Uses the default dialog which is identical to the system permission dialog
  *
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void)authorizeFacebook:(AuthorizationBlock)completionHandler;
+- (void)authorizeFacebook:(AuthorizationHandler)completion;
 /**
  *  This is identical to the call other call, however it allows you to specify
  *your own custom text for the dialog window rather than using the standard
@@ -289,7 +228,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *  @param message           custom alert message
  *  @param cancelTitle       custom cancel button message
  *  @param grantTitle        custom grant button message
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
@@ -297,7 +236,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                            message:(NSString *)message
                        cancelTitle:(NSString *)cancelTitle
                         grantTitle:(NSString *)grantTitle
-                 completionHandler:(AuthorizationBlock)completionHandler;
+                        completion:(AuthorizationHandler)completion;
 /**
  *  Displays a dialog telling the user how to re-enable facebook permission in
  * the Settings application
@@ -311,11 +250,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 /**
  *  Uses the default dialog which is identical to the system permission dialog
  *
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void)authorizeMicrophone:(AuthorizationBlock)completionHandler;
+- (void)authorizeMicrophone:(AuthorizationHandler)completion;
 /**
  *  This is identical to the call other call, however it allows you to specify
  *your own custom text for the dialog window rather than using the standard
@@ -325,7 +264,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *  @param message           custom alert message
  *  @param cancelTitle       custom cancel button message
  *  @param grantTitle        custom grant button message
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
@@ -333,7 +272,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                              message:(NSString *)message
                          cancelTitle:(NSString *)cancelTitle
                           grantTitle:(NSString *)grantTitle
-                   completionHandler:(AuthorizationBlock)completionHandler;
+                          completion:(AuthorizationHandler)completion;
 /**
  *  Displays a dialog telling the user how to re-enable microphone permission
  * in the Settings application
@@ -347,12 +286,11 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 /**
  *  Uses the default dialog which is identical to the system permission dialog
  *
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void)authorizeNotifications:
-        (NotificationAuthorizationBlock)completionHandler;
+- (void)authorizeNotifications:(NotificationAuthorizationHandler)completion;
 /**
  *  This is identical to the call other call, however it allows you to specify
  *your own custom text for the dialog window rather than using the standard
@@ -362,7 +300,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
  *  @param message           custom alert message
  *  @param cancelTitle       custom cancel button message
  *  @param grantTitle        custom grant button message
- *  @param completionHandler the block that will be executed on the main thread
+ *  @param completion the block that will be executed on the main thread
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
@@ -370,8 +308,7 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                                 message:(NSString *)message
                             cancelTitle:(NSString *)cancelTitle
                              grantTitle:(NSString *)grantTitle
-                      completionHandler:
-                          (NotificationAuthorizationBlock)completionHandler;
+                             completion:(NotificationAuthorizationHandler)completion;
 
 /**
  *  Displays a dialog telling the user how to re-enable notification permission
