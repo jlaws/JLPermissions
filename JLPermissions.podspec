@@ -12,69 +12,68 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '7.0'
   s.requires_arc = true
   s.source_files = 'JLPermissions'
-  s.default_subspecs = 'Core'
 
-  s.subspec 'Core' do |c|
-    s.source_files = 'JLPermissions/JLPermissionsCore.?', 'JLPermissions/JLPermissionsCore+Internal.h'
+  s.subspec 'Core' do |ss|
+    ss.source_files = 'JLPermissions/JLPermissionsCore*'
   end
 
-  s.subspec 'Calendar' do |c|
-    c.dependency 'JLPermissions/Core'
-    c.source_files = 'JLPermissions/JLCalendarPermission.?'
-    c.frameworks = 'EventKit'
+  s.subspec 'Calendar' do |ss|
+    ss.dependency 'JLPermissions/Core'
+    ss.source_files = 'JLPermissions/JLCalendarPermission.?'
+    ss.frameworks = 'EventKit'
   end
 
-  s.subspec 'Contacts' do |p|
-    p.dependency 'JLPermissions/Core'
-    p.source_files = 'JLPermissions/JLContactsPermission.?'
-    p.frameworks = 'AddressBook'
+  s.subspec 'Contacts' do |ss|
+    ss.dependency 'JLPermissions/Core'
+    ss.source_files = 'JLPermissions/JLContactsPermission.?'
+    ss.frameworks = 'AddressBook'
   end
 
-  s.subspec 'Facebook' do |p|
-    p.dependency 'JLPermissions/Core'
-    p.source_files = 'JLPermissions/JLFacebookPermission.?'
-    p.frameworks = 'Accounts'
+  s.subspec 'Facebook' do |ss|
+    ss.dependency 'JLPermissions/Core'
+    ss.source_files = 'JLPermissions/JLFacebookPermission.?'
+    ss.frameworks = 'Accounts'
   end
 
-  s.subspec 'Health' do |p|
-    p.dependency 'JLPermissions/Core'
-    p.source_files = 'JLPermissions/JLHealthPermission.?'
-    p.frameworks = 'HealthKit'
+  s.subspec 'Health' do |ss|
+    ss.dependency 'JLPermissions/Core'
+    ss.source_files = 'JLPermissions/JLHealthPermission.?'
+    ss.frameworks = 'HealthKit'
   end
 
-  s.subspec 'Location' do |p|
-    p.dependency 'JLPermissions/Core'
-    p.source_files = 'JLPermissions/JLLocationPermission.?'
-    p.frameworks = 'CoreLocation'
+  s.subspec 'Location' do |ss|
+    ss.dependency 'JLPermissions/Core'
+    ss.source_files = 'JLPermissions/JLLocationPermission.?'
+    ss.frameworks = 'CoreLocation'
   end
 
-  s.subspec 'Microphone' do |p|
-    p.dependency 'JLPermissions/Core'
-    p.source_files = 'JLPermissions/JLMicrophonePermission.?'
-    p.frameworks = 'AVFoundation'
+  s.subspec 'Microphone' do |ss|
+    ss.dependency 'JLPermissions/Core'
+    ss.source_files = 'JLPermissions/JLMicrophonePermission.?'
+    ss.frameworks = 'AVFoundation'
   end
 
-  s.subspec 'Notification' do |p|
-    p.dependency 'JLPermissions/Core'
-    p.source_files = 'JLPermissions/JLNotificationPermission.?'
+  s.subspec 'Notification' do |ss|
+    ss.dependency 'JLPermissions/Core'
+    ss.source_files = 'JLPermissions/JLNotificationPermission.?'
   end
 
-  s.subspec 'Photos' do |p|
-    p.dependency 'JLPermissions/Core'
-    p.source_files = 'JLPermissions/JLPhotosPermission.?'
-    p.frameworks = 'AssetsLibrary'
+  s.subspec 'Photos' do |ss|
+    ss.dependency 'JLPermissions/Core'
+    ss.source_files = 'JLPermissions/JLPhotosPermission.?'
+    ss.frameworks = 'AssetsLibrary'
   end
 
-  s.subspec 'Reminders' do |p|
-    p.dependency 'JLPermissions/Core'
-    p.source_files = 'JLPermissions/JLRemindersPermission.?'
-    p.frameworks = 'EventKit'
+  s.subspec 'Reminders' do |ss|
+    ss.dependency 'JLPermissions/Core'
+    ss.source_files = 'JLPermissions/JLRemindersPermission.?'
+    ss.frameworks = 'EventKit'
   end
 
-  s.subspec 'Twitter' do |p|
-    p.dependency 'JLPermissions/Core'
-    p.source_files = 'JLPermissions/JLTwitterPermission.?'
-    p.frameworks = 'Accounts'
+  s.subspec 'Twitter' do |ss|
+    ss.dependency 'JLPermissions/Core'
+    ss.source_files = 'JLPermissions/JLTwitterPermission.?'
+    ss.frameworks = 'Accounts'
   end
 
 end
