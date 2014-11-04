@@ -67,13 +67,13 @@ typedef void (^NotificationAuthorizationHandler)(NSString *deviceID, NSError *er
                          grantTitle:(NSString *)grantTitle
                   completionHandler:(AuthorizationBlock)completionHandler;
 
-- (BOOL) healthAuthorized;
-- (void) authorizeHealth:(AuthorizationBlock) completionHandler;
-- (void) authorizeHealthWithTitle:(NSString *)messageTitle
-                          message:(NSString *)message
-                      cancelTitle:(NSString *)cancelTitle
-                       grantTitle:(NSString *)grantTitle
-                completionHandler:(AuthorizationBlock)completionHandler;
+- (BOOL)healthAuthorized;
+- (void)authorizeHealth:(AuthorizationBlock) completionHandler;
+- (void)authorizeHealthWithTitle:(NSString *)messageTitle
+                         message:(NSString *)message
+                     cancelTitle:(NSString *)cancelTitle
+                      grantTitle:(NSString *)grantTitle
+               completionHandler:(AuthorizationBlock)completionHandler;
 
 - (BOOL)locationsAuthorized;
 - (void)authorizeLocations:(AuthorizationBlock)completionHandler;
