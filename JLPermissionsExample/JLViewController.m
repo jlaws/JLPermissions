@@ -11,10 +11,10 @@
 #import "JLCalendarPermission.h"
 #import "JLContactsPermission.h"
 #import "JLFacebookPermission.h"
+#import "JLHealthPermission.h"
 #import "JLLocationPermission.h"
 #import "JLMicrophonePermission.h"
 #import "JLNotificationPermission.h"
-#import "JLPermissions.h"
 #import "JLPhotosPermission.h"
 #import "JLRemindersPermission.h"
 #import "JLTwitterPermission.h"
@@ -46,23 +46,23 @@
   self.calendarLabel.text =
       [self authorizationText:[[JLCalendarPermission sharedInstance] calendarAuthorized]];
   self.pushNotificationLabel.text =
-      [self authorizationText:[[JLPermissions sharedInstance] notificationsAuthorized]];
+      [self authorizationText:[[JLNotificationPermission sharedInstance] notificationsAuthorized]];
   self.addressBookLabel.text =
       [self authorizationText:[[JLContactsPermission sharedInstance] contactsAuthorized]];
   self.photoLibraryLabel.text =
       [self authorizationText:[[JLPhotosPermission sharedInstance] photosAuthorized]];
   self.remindersLabel.text =
-      [self authorizationText:[[JLPermissions sharedInstance] remindersAuthorized]];
+      [self authorizationText:[[JLRemindersPermission sharedInstance] remindersAuthorized]];
   self.locationsLabel.text =
-      [self authorizationText:[[JLPermissions sharedInstance] locationsAuthorized]];
+      [self authorizationText:[[JLLocationPermission sharedInstance] locationsAuthorized]];
   self.twitterLabel.text =
-      [self authorizationText:[[JLPermissions sharedInstance] twitterAuthorized]];
+      [self authorizationText:[[JLTwitterPermission sharedInstance] twitterAuthorized]];
   self.facebookLabel.text =
-      [self authorizationText:[[JLPermissions sharedInstance] facebookAuthorized]];
+      [self authorizationText:[[JLFacebookPermission sharedInstance] facebookAuthorized]];
   self.microphoneLabel.text =
-      [self authorizationText:[[JLPermissions sharedInstance] microphoneAuthorized]];
+      [self authorizationText:[[JLMicrophonePermission sharedInstance] microphoneAuthorized]];
   self.healthLabel.text =
-      [self authorizationText:[[JLPermissions sharedInstance] healthAuthorized]];
+      [self authorizationText:[[JLHealthPermission sharedInstance] healthAuthorized]];
 }
 
 - (NSString *)authorizationText:(BOOL)enabled {
@@ -70,10 +70,11 @@
 }
 
 - (IBAction)pushNotifications:(id)sender {
-  [[JLPermissions sharedInstance] authorizeNotifications:^(NSString *deviceID, NSError *error) {
-      NSLog(@"pushNotifications returned %@ with error %@", deviceID, error);
-      [self updateStatusLabels];
-  }];
+  [[JLNotificationPermission sharedInstance]
+      authorizeNotifications:^(NSString *deviceID, NSError *error) {
+          NSLog(@"pushNotifications returned %@ with error %@", deviceID, error);
+          [self updateStatusLabels];
+      }];
 }
 
 - (IBAction)contacts:(id)sender {
@@ -98,40 +99,40 @@
 }
 
 - (IBAction)reminders:(id)sender {
-  [[JLPermissions sharedInstance] authorizeReminders:^(bool granted, NSError *error) {
+  [[JLRemindersPermission sharedInstance] authorizeReminders:^(bool granted, NSError *error) {
       NSLog(@"reminders returned %@ with error %@", @(granted), error);
       [self updateStatusLabels];
   }];
 }
 - (IBAction)microphone:(id)sender {
-  [[JLPermissions sharedInstance] authorizeMicrophone:^(bool granted, NSError *error) {
+  [[JLMicrophonePermission sharedInstance] authorizeMicrophone:^(bool granted, NSError *error) {
       NSLog(@"microphone returned %@ with error %@", @(granted), error);
       [self updateStatusLabels];
   }];
 }
 - (IBAction)health:(id)sender {
-  [[JLPermissions sharedInstance] authorizeHealth:^(bool granted, NSError *error) {
+  [[JLHealthPermission sharedInstance] authorizeHealth:^(bool granted, NSError *error) {
       NSLog(@"health returned %@ with error %@", @(granted), error);
       [self updateStatusLabels];
   }];
 }
 
 - (IBAction)locations:(id)sender {
-  [[JLPermissions sharedInstance] authorizeLocations:^(bool granted, NSError *error) {
+  [[JLLocationPermission sharedInstance] authorizeLocations:^(bool granted, NSError *error) {
       NSLog(@"locations returned %@ with error %@", @(granted), error);
       [self updateStatusLabels];
   }];
 }
 
 - (IBAction)twitter:(id)sender {
-  [[JLPermissions sharedInstance] authorizeTwitter:^(bool granted, NSError *error) {
+  [[JLTwitterPermission sharedInstance] authorizeTwitter:^(bool granted, NSError *error) {
       NSLog(@"twitter returned %@ with error %@", @(granted), error);
       [self updateStatusLabels];
   }];
 }
 
 - (IBAction)facebook:(id)sender {
-  [[JLPermissions sharedInstance] authorizeFacebook:^(bool granted, NSError *error) {
+  [[JLFacebookPermission sharedInstance] authorizeFacebook:^(bool granted, NSError *error) {
       NSLog(@"facebook returned %@ with error %@", @(granted), error);
       [self updateStatusLabels];
   }];

@@ -25,7 +25,6 @@
 		429EACA21902C2AD0011B7F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 429EACA01902C2AD0011B7F7 /* Main.storyboard */; };
 		429EACA51902C2AD0011B7F7 /* JLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429EACA41902C2AD0011B7F7 /* JLViewController.m */; };
 		429EACA71902C2AD0011B7F7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 429EACA61902C2AD0011B7F7 /* Images.xcassets */; };
-		429EACC51902C45F0011B7F7 /* JLPermissions.m in Sources */ = {isa = PBXBuildFile; fileRef = 429EACC41902C45F0011B7F7 /* JLPermissions.m */; };
 		42A094341A07ADA000A89C04 /* JLPermissionsCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A094331A07ADA000A89C04 /* JLPermissionsCore.m */; };
 		42A094371A07B61800A89C04 /* JLContactsPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A094361A07B61800A89C04 /* JLContactsPermission.m */; };
 		42A0943A1A07C09000A89C04 /* JLPhotosPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A094391A07C09000A89C04 /* JLPhotosPermission.m */; };
@@ -65,8 +64,6 @@
 		429EACA41902C2AD0011B7F7 /* JLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JLViewController.m; sourceTree = "<group>"; };
 		429EACA61902C2AD0011B7F7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		429EACAD1902C2AD0011B7F7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		429EACC31902C45F0011B7F7 /* JLPermissions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JLPermissions.h; path = JLPermissions/JLPermissions.h; sourceTree = SOURCE_ROOT; };
-		429EACC41902C45F0011B7F7 /* JLPermissions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JLPermissions.m; path = JLPermissions/JLPermissions.m; sourceTree = SOURCE_ROOT; };
 		42A094321A07ADA000A89C04 /* JLPermissionsCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JLPermissionsCore.h; path = JLPermissions/JLPermissionsCore.h; sourceTree = SOURCE_ROOT; };
 		42A094331A07ADA000A89C04 /* JLPermissionsCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JLPermissionsCore.m; path = JLPermissions/JLPermissionsCore.m; sourceTree = SOURCE_ROOT; };
 		42A094351A07B61800A89C04 /* JLContactsPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JLContactsPermission.h; path = JLPermissions/JLContactsPermission.h; sourceTree = SOURCE_ROOT; };
@@ -151,8 +148,6 @@
 		429EACC61902C4640011B7F7 /* JLPermissions */ = {
 			isa = PBXGroup;
 			children = (
-				429EACC31902C45F0011B7F7 /* JLPermissions.h */,
-				429EACC41902C45F0011B7F7 /* JLPermissions.m */,
 				42A094321A07ADA000A89C04 /* JLPermissionsCore.h */,
 				428A42441A086F51003176D2 /* JLPermissionsCore+Internal.h */,
 				42A094331A07ADA000A89C04 /* JLPermissionsCore.m */,
@@ -291,7 +286,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				428A424A1A087339003176D2 /* JLFacebookPermission.m in Sources */,
-				429EACC51902C45F0011B7F7 /* JLPermissions.m in Sources */,
 				428A42531A087379003176D2 /* JLMicrophonePermission.m in Sources */,
 				429EAC9F1902C2AD0011B7F7 /* JLAppDelegate.m in Sources */,
 				429EACA51902C2AD0011B7F7 /* JLViewController.m in Sources */,

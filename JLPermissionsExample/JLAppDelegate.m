@@ -7,7 +7,7 @@
 //
 
 #import "JLAppDelegate.h"
-#import "JLPermissions.h"
+#import "JLNotificationPermission.h"
 
 @implementation JLAppDelegate
 
@@ -20,17 +20,16 @@
 
 - (void)application:(UIApplication *)application
     didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-  NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken %@",
-        [deviceToken description]);
+  NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken %@", [deviceToken description]);
 
-  [[JLPermissions sharedInstance] notificationResult:deviceToken error:nil];
+  [[JLNotificationPermission sharedInstance] notificationResult:deviceToken error:nil];
 }
 
 - (void)application:(UIApplication *)application
     didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
   NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
 
-  [[JLPermissions sharedInstance] notificationResult:nil error:error];
+  [[JLNotificationPermission sharedInstance] notificationResult:nil error:error];
 }
 
 @end
