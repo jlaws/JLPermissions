@@ -22,7 +22,6 @@ typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
 
 @interface JLPermissions () <UIAlertViewDelegate, CLLocationManagerDelegate>
 
-@property(nonatomic, strong) AuthorizationHandler calendarcompletion;
 @property(nonatomic, strong) AuthorizationHandler photoscompletion;
 @property(nonatomic, strong) AuthorizationHandler reminderscompletion;
 @property(nonatomic, strong) AuthorizationHandler microphonecompletion;

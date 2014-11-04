@@ -12,15 +12,13 @@ typedef void (^AuthorizationHandler)(bool granted, NSError *error);
 typedef void (^NotificationAuthorizationHandler)(NSString *deviceID, NSError *error);
 
 typedef NS_ENUM(NSInteger, JLAuthorizationType) {
-  JLContacts = 100,
-  JLNotifications,
-  JLCalendar,
-  JLReminders,
-  JLMicrophone,
-  JLHealth,
-  JLTwitter,
   JLFacebook,
-  JLLocations
+  JLHealth,
+  JLLocations,
+  JLMicrophone,
+  JLNotifications,
+  JLReminders,
+  JLTwitter,
 };
 
 @interface JLPermissions : NSObject

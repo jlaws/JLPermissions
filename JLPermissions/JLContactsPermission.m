@@ -5,21 +5,21 @@
 //  Copyright (c) 2014 Joe Laws. All rights reserved.
 //
 
-#import "JLContactsPermissions.h"
+#import "JLContactsPermission.h"
 
 #import "JLPermissionsCore+Internal.h"
 
 @import AddressBook;
 
-@implementation JLContactsPermissions {
+@implementation JLContactsPermission {
   AuthorizationHandler _completion;
 }
 
 + (instancetype)sharedInstance {
-  static JLContactsPermissions *_instance = nil;
+  static JLContactsPermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLContactsPermissions alloc] init]; });
+  dispatch_once(&onceToken, ^{ _instance = [[JLContactsPermission alloc] init]; });
 
   return _instance;
 }

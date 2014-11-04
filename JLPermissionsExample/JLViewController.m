@@ -8,10 +8,16 @@
 
 #import "JLViewController.h"
 
-#import "JLCalendarPermissions.h"
-#import "JLContactsPermissions.h"
+#import "JLCalendarPermission.h"
+#import "JLContactsPermission.h"
+#import "JLFacebookPermission.h"
+#import "JLLocationPermission.h"
+#import "JLMicrophonePermission.h"
+#import "JLNotificationPermission.h"
 #import "JLPermissions.h"
-#import "JLPhotosPermissions.h"
+#import "JLPhotosPermission.h"
+#import "JLRemindersPermission.h"
+#import "JLTwitterPermission.h"
 
 @interface JLViewController ()
 
@@ -38,13 +44,13 @@
 
 - (void)updateStatusLabels {
   self.calendarLabel.text =
-      [self authorizationText:[[JLCalendarPermissions sharedInstance] calendarAuthorized]];
+      [self authorizationText:[[JLCalendarPermission sharedInstance] calendarAuthorized]];
   self.pushNotificationLabel.text =
       [self authorizationText:[[JLPermissions sharedInstance] notificationsAuthorized]];
   self.addressBookLabel.text =
-      [self authorizationText:[[JLContactsPermissions sharedInstance] contactsAuthorized]];
+      [self authorizationText:[[JLContactsPermission sharedInstance] contactsAuthorized]];
   self.photoLibraryLabel.text =
-      [self authorizationText:[[JLPhotosPermissions sharedInstance] photosAuthorized]];
+      [self authorizationText:[[JLPhotosPermission sharedInstance] photosAuthorized]];
   self.remindersLabel.text =
       [self authorizationText:[[JLPermissions sharedInstance] remindersAuthorized]];
   self.locationsLabel.text =
@@ -71,21 +77,21 @@
 }
 
 - (IBAction)contacts:(id)sender {
-  [[JLContactsPermissions sharedInstance] authorizeContacts:^(bool granted, NSError *error) {
+  [[JLContactsPermission sharedInstance] authorizeContacts:^(bool granted, NSError *error) {
       NSLog(@"contacts returned %@ with error %@", @(granted), error);
       [self updateStatusLabels];
   }];
 }
 
 - (IBAction)photoLibrary:(id)sender {
-  [[JLPhotosPermissions sharedInstance] authorizePhotos:^(bool granted, NSError *error) {
+  [[JLPhotosPermission sharedInstance] authorizePhotos:^(bool granted, NSError *error) {
       NSLog(@"photoLibrary returned %@ with error %@", @(granted), error);
       [self updateStatusLabels];
   }];
 }
 
 - (IBAction)calendar:(id)sender {
-  [[JLCalendarPermissions sharedInstance] authorizeCalendar:^(bool granted, NSError *error) {
+  [[JLCalendarPermission sharedInstance] authorizeCalendar:^(bool granted, NSError *error) {
       NSLog(@"calendar returned %@ with error %@", @(granted), error);
       [self updateStatusLabels];
   }];

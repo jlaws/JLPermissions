@@ -5,21 +5,21 @@
 //  Copyright (c) 2014 Joe Laws. All rights reserved.
 //
 
-#import "JLCalendarPermissions.h"
+#import "JLCalendarPermission.h"
 
 @import EventKit;
 
 #import "JLPermissionsCore+Internal.h"
 
-@implementation JLCalendarPermissions {
+@implementation JLCalendarPermission {
   AuthorizationHandler _completion;
 }
 
 + (instancetype)sharedInstance {
-  static JLCalendarPermissions *_instance = nil;
+  static JLCalendarPermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLCalendarPermissions alloc] init]; });
+  dispatch_once(&onceToken, ^{ _instance = [[JLCalendarPermission alloc] init]; });
 
   return _instance;
 }

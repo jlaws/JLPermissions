@@ -5,21 +5,21 @@
 //  Copyright (c) 2014 Joe Laws. All rights reserved.
 //
 
-#import "JLPhotosPermissions.h"
+#import "JLPhotosPermission.h"
 
 #import "JLPermissionsCore+Internal.h"
 
 @import AssetsLibrary;
 
-@implementation JLPhotosPermissions {
+@implementation JLPhotosPermission {
   AuthorizationHandler _completion;
 }
 
 + (instancetype)sharedInstance {
-  static JLPhotosPermissions *_instance = nil;
+  static JLPhotosPermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLPhotosPermissions alloc] init]; });
+  dispatch_once(&onceToken, ^{ _instance = [[JLPhotosPermission alloc] init]; });
 
   return _instance;
 }

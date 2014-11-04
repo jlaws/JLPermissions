@@ -7,7 +7,7 @@
 
 #import "JLPermissionsCore.h"
 
-@interface JLContactsPermissions : JLPermissionsCore
+@interface JLContactsPermission : JLPermissionsCore
 
 + (instancetype)sharedInstance;
 
