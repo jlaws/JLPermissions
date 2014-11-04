@@ -9,26 +9,31 @@ iOS 7.0+
 
 ## Installation
 
-JLPermissions is available through [CocoaPods](http://cocoapods.org), to install
-it simply add the following line to your Podfile:
+JLPermissions is available through [CocoaPods](http://cocoapods.org), to install it simply add the following line to your Podfile:
 
-    pod "JLPermissions"
+    pod "JLPermissions/Calendar"
+    pod "JLPermissions/Contacts"
+    pod "JLPermissions/Facebook"
+    pod "JLPermissions/Health"
+    pod "JLPermissions/Location"
+    pod "JLPermissions/Microphone"
+    pod "JLPermissions/Notification"
+    pod "JLPermissions/Photos"
+    pod "JLPermissions/Reminders"
+    pod "JLPermissions/Twitter" 
+
+Only add the pod for the permissions you plan on using.  Apple rejects apps that include Healthkit API's but do not use them.
 
 ## Usage
 
 To run the example project; clone the repo, and run `pod install`, then open JLPermissionsExample.xcworkspace.
 
-The method for asking for each type of permission (other than push notifications) is virtually identical.  Here is the the API (in the header file these methods are commented):
+The method for asking for each type of permission (other than push notifications) is virtually identical.  Here are the core methods from each permissions API header file:
 
 ```objective-c
 
-typedef void (^AuthorizationBlock)(bool granted, NSError *error);
-typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
-                                               NSError *error);
-
-@interface JLPermissions : NSObject
-
-+ (instancetype)sharedInstance;
+typedef void (^AuthorizationHandler)(bool granted, NSError *error);
+typedef void (^NotificationAuthorizationHandler)(NSString *deviceID, NSError *error);
 
 - (BOOL)contactsAuthorized;
 - (void)authorizeContacts:(AuthorizationBlock)completionHandler;
@@ -78,13 +83,13 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
                          grantTitle:(NSString *)grantTitle
                   completionHandler:(AuthorizationBlock)completionHandler;
 
-- (BOOL) microphoneAuthorized;
-- (void) authorizeMicrophone:(AuthorizationBlock) completionHandler;
-- (void) authorizeMicrophoneWithTitle:(NSString *)messageTitle
-                              message:(NSString *)message
-                          cancelTitle:(NSString *)cancelTitle
-                           grantTitle:(NSString *)grantTitle
-                    completionHandler:(AuthorizationBlock)completionHandler;
+- (BOOL)microphoneAuthorized;
+- (void)authorizeMicrophone:(AuthorizationBlock) completionHandler;
+- (void)authorizeMicrophoneWithTitle:(NSString *)messageTitle
+                             message:(NSString *)message
+                         cancelTitle:(NSString *)cancelTitle
+                          grantTitle:(NSString *)grantTitle
+                   completionHandler:(AuthorizationBlock)completionHandler;
 
 - (BOOL)twitterAuthorized;
 - (void)authorizeTwitter:(AuthorizationBlock)completionHandler;
@@ -115,7 +120,6 @@ typedef void (^NotificationAuthorizationBlock)(NSString *deviceID,
 - (void)notificationResult:(NSData *)deviceToken error:(NSError *)error;
 - (NSString *)deviceID;
 
-@end
 ```
 
 ## Author
