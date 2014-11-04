@@ -28,7 +28,7 @@ Only add the pod for the permissions you plan on using.  Apple rejects apps that
 
 To run the example project; clone the repo, and run `pod install`, then open JLPermissionsExample.xcworkspace.
 
-The method for asking for each type of permission (other than push notifications) is virtually identical.  Here are the core methods from each permissions API header file:
+The method for asking for each type of permission (other than push notifications) is virtually identical.  Here are some examples:
 
 ```objective-c
 
@@ -36,86 +36,20 @@ typedef void (^AuthorizationHandler)(bool granted, NSError *error);
 typedef void (^NotificationAuthorizationHandler)(NSString *deviceID, NSError *error);
 
 - (BOOL)contactsAuthorized;
-- (void)authorizeContacts:(AuthorizationBlock)completionHandler;
+- (void)authorizeContacts:(AuthorizationHandler)completion;
 - (void)authorizeContactsWithTitle:(NSString *)messageTitle
                            message:(NSString *)message
                        cancelTitle:(NSString *)cancelTitle
                         grantTitle:(NSString *)grantTitle
-                 completionHandler:(AuthorizationBlock)completionHandler;
-
-- (BOOL)calendarAuthorized;
-- (void)authorizeCalendar:(AuthorizationBlock)completionHandler;
-- (void)authorizeCalendarWithTitle:(NSString *)messageTitle
-                           message:(NSString *)message
-                       cancelTitle:(NSString *)cancelTitle
-                        grantTitle:(NSString *)grantTitle
-                 completionHandler:(AuthorizationBlock)completionHandler;
-
-- (BOOL)photosAuthorized;
-- (void)authorizePhotos:(AuthorizationBlock)completionHandler;
-- (void)authorizePhotosWithTitle:(NSString *)messageTitle
-                         message:(NSString *)message
-                     cancelTitle:(NSString *)cancelTitle
-                      grantTitle:(NSString *)grantTitle
-               completionHandler:(AuthorizationBlock)completionHandler;
-
-- (BOOL)remindersAuthorized;
-- (void)authorizeReminders:(AuthorizationBlock)completionHandler;
-- (void)authorizeRemindersWithTitle:(NSString *)messageTitle
-                            message:(NSString *)message
-                        cancelTitle:(NSString *)cancelTitle
-                         grantTitle:(NSString *)grantTitle
-                  completionHandler:(AuthorizationBlock)completionHandler;
-
-- (BOOL)healthAuthorized;
-- (void)authorizeHealth:(AuthorizationBlock) completionHandler;
-- (void)authorizeHealthWithTitle:(NSString *)messageTitle
-                         message:(NSString *)message
-                     cancelTitle:(NSString *)cancelTitle
-                      grantTitle:(NSString *)grantTitle
-               completionHandler:(AuthorizationBlock)completionHandler;
-
-- (BOOL)locationsAuthorized;
-- (void)authorizeLocations:(AuthorizationBlock)completionHandler;
-- (void)authorizeLocationsWithTitle:(NSString *)messageTitle
-                            message:(NSString *)message
-                        cancelTitle:(NSString *)cancelTitle
-                         grantTitle:(NSString *)grantTitle
-                  completionHandler:(AuthorizationBlock)completionHandler;
-
-- (BOOL)microphoneAuthorized;
-- (void)authorizeMicrophone:(AuthorizationBlock) completionHandler;
-- (void)authorizeMicrophoneWithTitle:(NSString *)messageTitle
-                             message:(NSString *)message
-                         cancelTitle:(NSString *)cancelTitle
-                          grantTitle:(NSString *)grantTitle
-                   completionHandler:(AuthorizationBlock)completionHandler;
-
-- (BOOL)twitterAuthorized;
-- (void)authorizeTwitter:(AuthorizationBlock)completionHandler;
-- (void)authorizeTwitterWithTitle:(NSString *)messageTitle
-                          message:(NSString *)message
-                      cancelTitle:(NSString *)cancelTitle
-                       grantTitle:(NSString *)grantTitle
-                completionHandler:(AuthorizationBlock)completionHandler;
-
-- (BOOL)facebookAuthorized;
-- (void)authorizeFacebook:(AuthorizationBlock)completionHandler;
-- (void)authorizeFacebookWithTitle:(NSString *)messageTitle
-                           message:(NSString *)message
-                       cancelTitle:(NSString *)cancelTitle
-                        grantTitle:(NSString *)grantTitle
-                 completionHandler:(AuthorizationBlock)completionHandler;
-
+                        completion:(AuthorizationHandler)completion;
 
 - (BOOL)notificationsAuthorized;
-- (void)authorizeNotifications:
-        (NotificationAuthorizationBlock)completionHandler;
+- (void)authorizeNotifications:(NotificationAuthorizationHandler)completion;
 - (void)authorizeNotificationsWithTitle:(NSString *)messageTitle
                                 message:(NSString *)message
                             cancelTitle:(NSString *)cancelTitle
                              grantTitle:(NSString *)grantTitle
-                      completionHandler:(NotificationAuthorizationBlock)completionHandler;
+                             completion:(NotificationAuthorizationHandler)completion;
 - (void)unauthorizeNotifications;
 - (void)notificationResult:(NSData *)deviceToken error:(NSError *)error;
 - (NSString *)deviceID;
