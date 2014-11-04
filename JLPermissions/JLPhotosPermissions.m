@@ -7,6 +7,8 @@
 
 #import "JLPhotosPermissions.h"
 
+#import "JLPermissionsCore+Internal.h"
+
 @import AssetsLibrary;
 
 @implementation JLPhotosPermissions {

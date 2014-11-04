@@ -7,6 +7,8 @@
 
 #import "JLContactsPermissions.h"
 
+#import "JLPermissionsCore+Internal.h"
+
 @import AddressBook;
 
 @implementation JLContactsPermissions {

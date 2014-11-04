@@ -54,54 +54,6 @@ typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
   return _instance;
 }
 
-#pragma mark - Calendar
-
-- (BOOL)calendarAuthorized {
-  return [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent] ==
-         EKAuthorizationStatusAuthorized;
-}
-
-- (void)authorizeCalendar:(AuthorizationHandler)completion {
-  [self authorizeCalendarWithTitle:[self defaultTitle:@"Calendar"]
-                           message:[self defaultMessage]
-                       cancelTitle:[self defaultCancelTitle]
-                        grantTitle:[self defaultGrantTitle]
-                        completion:completion];
-}
-
-- (void)authorizeCalendarWithTitle:(NSString *)messageTitle
-                           message:(NSString *)message
-                       cancelTitle:(NSString *)cancelTitle
-                        grantTitle:(NSString *)grantTitle
-                        completion:(AuthorizationHandler)completion {
-  EKAuthorizationStatus authorizationStatus =
-      [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
-
-  switch (authorizationStatus) {
-    case EKAuthorizationStatusAuthorized: {
-      completion(true, nil);
-    } break;
-    case EKAuthorizationStatusNotDetermined: {
-      self.calendarcompletion = completion;
-      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
-                                                      message:message
-                                                     delegate:self
-                                            cancelButtonTitle:cancelTitle
-                                            otherButtonTitles:grantTitle, nil];
-      alert.tag = JLCalendar;
-      [alert show];
-    } break;
-    case EKAuthorizationStatusRestricted:
-    case EKAuthorizationStatusDenied: {
-      completion(false, [self previouslyDeniedError]);
-    } break;
-  }
-}
-
-- (void)displayCalendarErrorDialog {
-  [self displayErrorDialog:@"Calendars"];
-}
-
 #pragma mark - Reminders
 
 - (BOOL)remindersAuthorized {
@@ -547,66 +499,9 @@ typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
 #pragma mark - Helpers
 
 - (void)canceledDialog:(NSInteger)tag {
-  NSError *error = [NSError errorWithDomain:@"UserDenied" code:kJLPermissionDenied userInfo:nil];
-  switch (tag) {
-    case JLNotifications:
-      self.notificationscompletion(false, error);
-      break;
-    case JLCalendar:
-      self.calendarcompletion(false, error);
-      break;
-    case JLReminders:
-      self.reminderscompletion(false, error);
-      break;
-    case JLMicrophone:
-      self.microphonecompletion(false, error);
-      break;
-    case JLHealth:
-      self.healthcompletion(false, error);
-      break;
-    case JLLocations:
-      self.locationscompletion(false, error);
-      break;
-    case JLTwitter:
-      self.twittercompletion(false, error);
-      break;
-    case JLFacebook:
-      self.facebookcompletion(false, error);
-      break;
-    default:
-      break;
-  }
 }
 
 - (void)approvedDialog:(NSInteger)tag {
-  switch (tag) {
-    case JLNotifications:
-      [self actuallyAuthorizeNotifications];
-      break;
-    case JLCalendar:
-      [self actuallyAuthorizeCalendar];
-      break;
-    case JLReminders:
-      [self actuallyAuthorizeReminders];
-      break;
-    case JLMicrophone:
-      [self actuallyAuthorizeMicrophone];
-      break;
-    case JLHealth:
-      [self actuallyAuthorizeHealth];
-      break;
-    case JLLocations:
-      [self actuallyAuthorizeLocations];
-      break;
-    case JLTwitter:
-      [self actuallyAuthorizeTwitter];
-      break;
-    case JLFacebook:
-      [self actuallyAuthorizeFacebook];
-      break;
-    default:
-      break;
-  }
 }
 
 - (NSString *)parseDeviceID:(NSData *)deviceToken {
@@ -674,35 +569,6 @@ typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
 }
 
 #pragma mark - System Authorization
-
-- (void)actuallyAuthorizeCalendar {
-  EKAuthorizationStatus authorizationStatus =
-      [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
-
-  switch (authorizationStatus) {
-    case EKAuthorizationStatusAuthorized: {
-      self.calendarcompletion(true, nil);
-    } break;
-    case EKAuthorizationStatusNotDetermined: {
-      EKEventStore *eventStore = [[EKEventStore alloc] init];
-      [eventStore requestAccessToEntityType:EKEntityTypeEvent
-                                 completion:^(BOOL granted, NSError *error) {
-                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                         if (granted) {
-                                           self.calendarcompletion(true, nil);
-                                         } else {
-                                           self.calendarcompletion(false,
-                                                                   [self systemDeniedError:error]);
-                                         }
-                                     });
-                                 }];
-    } break;
-    case EKAuthorizationStatusRestricted:
-    case EKAuthorizationStatusDenied: {
-      self.calendarcompletion(false, [self previouslyDeniedError]);
-    } break;
-  }
-}
 
 - (void)actuallyAuthorizeReminders {
   EKAuthorizationStatus authorizationStatus =

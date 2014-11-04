@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		36C52B5B3A6749FD89CE8B7E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABA7EE80F404007895117EC /* libPods.a */; };
+		428A42471A087060003176D2 /* JLCalendarPermissions.m in Sources */ = {isa = PBXBuildFile; fileRef = 428A42461A087060003176D2 /* JLCalendarPermissions.m */; };
 		429EAC8F1902C2AD0011B7F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EAC8E1902C2AD0011B7F7 /* Foundation.framework */; };
 		429EAC911902C2AD0011B7F7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EAC901902C2AD0011B7F7 /* CoreGraphics.framework */; };
 		429EAC931902C2AD0011B7F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EAC921902C2AD0011B7F7 /* UIKit.framework */; };
@@ -25,6 +26,9 @@
 
 /* Begin PBXFileReference section */
 		419A2285821FA23AEB1E58D4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		428A42441A086F51003176D2 /* JLPermissionsCore+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "JLPermissionsCore+Internal.h"; path = "JLPermissions/JLPermissionsCore+Internal.h"; sourceTree = SOURCE_ROOT; };
+		428A42451A087060003176D2 /* JLCalendarPermissions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JLCalendarPermissions.h; path = JLPermissions/JLCalendarPermissions.h; sourceTree = SOURCE_ROOT; };
+		428A42461A087060003176D2 /* JLCalendarPermissions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JLCalendarPermissions.m; path = JLPermissions/JLCalendarPermissions.m; sourceTree = SOURCE_ROOT; };
 		429EAC8B1902C2AD0011B7F7 /* JLPermissionsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JLPermissionsExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		429EAC8E1902C2AD0011B7F7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		429EAC901902C2AD0011B7F7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -129,7 +133,10 @@
 				429EACC31902C45F0011B7F7 /* JLPermissions.h */,
 				429EACC41902C45F0011B7F7 /* JLPermissions.m */,
 				42A094321A07ADA000A89C04 /* JLPermissionsCore.h */,
+				428A42441A086F51003176D2 /* JLPermissionsCore+Internal.h */,
 				42A094331A07ADA000A89C04 /* JLPermissionsCore.m */,
+				428A42451A087060003176D2 /* JLCalendarPermissions.h */,
+				428A42461A087060003176D2 /* JLCalendarPermissions.m */,
 				42A094351A07B61800A89C04 /* JLContactsPermissions.h */,
 				42A094361A07B61800A89C04 /* JLContactsPermissions.m */,
 				42A094381A07C09000A89C04 /* JLPhotosPermissions.h */,
@@ -254,6 +261,7 @@
 				42A094371A07B61800A89C04 /* JLContactsPermissions.m in Sources */,
 				42A0943A1A07C09000A89C04 /* JLPhotosPermissions.m in Sources */,
 				429EAC9B1902C2AD0011B7F7 /* main.m in Sources */,
+				428A42471A087060003176D2 /* JLCalendarPermissions.m in Sources */,
 				42A094341A07ADA000A89C04 /* JLPermissionsCore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

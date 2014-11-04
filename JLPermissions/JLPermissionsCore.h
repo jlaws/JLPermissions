@@ -19,23 +19,4 @@ typedef void (^NotificationAuthorizationHandler)(NSString *deviceID, NSError *er
 
 @interface JLPermissionsCore : NSObject<UIAlertViewDelegate>
 
-- (NSString *)appName;
-- (NSString *)defaultTitle:(NSString *)authorizationType;
-- (NSString *)defaultMessage;
-- (NSString *)defaultCancelTitle;
-- (NSString *)defaultGrantTitle;
-- (void)displayErrorDialog:(NSString *)authorizationType;
-- (NSError *)previouslyDeniedError;
-- (NSError *)systemDeniedError:(NSError *)error;
-
-/**
- * This should be overridden by subclasses.
- */
-- (void)actuallyAuthorize;
-
-/**
- * This should be overridden by subclasses.
- */
-- (void)canceledAuthorization:(NSError *)error;
-
 @end

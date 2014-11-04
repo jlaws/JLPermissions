@@ -8,6 +8,7 @@
 
 #import "JLViewController.h"
 
+#import "JLCalendarPermissions.h"
 #import "JLContactsPermissions.h"
 #import "JLPermissions.h"
 #import "JLPhotosPermissions.h"
@@ -37,7 +38,7 @@
 
 - (void)updateStatusLabels {
   self.calendarLabel.text =
-      [self authorizationText:[[JLPermissions sharedInstance] calendarAuthorized]];
+      [self authorizationText:[[JLCalendarPermissions sharedInstance] calendarAuthorized]];
   self.pushNotificationLabel.text =
       [self authorizationText:[[JLPermissions sharedInstance] notificationsAuthorized]];
   self.addressBookLabel.text =
@@ -84,7 +85,7 @@
 }
 
 - (IBAction)calendar:(id)sender {
-  [[JLPermissions sharedInstance] authorizeCalendar:^(bool granted, NSError *error) {
+  [[JLCalendarPermissions sharedInstance] authorizeCalendar:^(bool granted, NSError *error) {
       NSLog(@"calendar returned %@ with error %@", @(granted), error);
       [self updateStatusLabels];
   }];
