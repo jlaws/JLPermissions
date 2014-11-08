@@ -11,10 +11,14 @@
 
 + (instancetype)sharedInstance;
 
+@property(nonatomic) NSMutableSet *readTypes;
+@property(nonatomic) NSMutableSet *writeTypes;
+
 /**
  *  @return whether or not user has granted access to health information
  */
-- (BOOL)healthAuthorized;
+- (JLAuthorizationStatus)authorizationStatus;
+
 /**
  *  Uses the default dialog which is identical to the system permission dialog
  *
@@ -22,7 +26,8 @@
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void)authorizeHealth:(AuthorizationHandler)completion;
+- (void)authorize:(AuthorizationHandler)completion;
+
 /**
  *  This is identical to the call other call, however it allows you to specify
  *your own custom text for the dialog window rather than using the standard
@@ -36,15 +41,16 @@
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void)authorizeHealthWithTitle:(NSString *)messageTitle
-                         message:(NSString *)message
-                     cancelTitle:(NSString *)cancelTitle
-                      grantTitle:(NSString *)grantTitle
-                      completion:(AuthorizationHandler)completion;
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(AuthorizationHandler)completion;
+
 /**
  *  Displays a dialog telling the user how to re-enable health permission in
  * the Settings application
  */
-- (void)displayHealthErrorDialog;
+- (void)displayErrorDialog;
 
 @end

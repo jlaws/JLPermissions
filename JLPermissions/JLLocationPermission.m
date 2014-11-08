@@ -31,25 +31,35 @@
 
 #pragma mark - Locations
 
-- (BOOL)locationsAuthorized {
-  return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
+- (JLAuthorizationStatus)authorizationStatus {
+  CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+  switch (authorizationStatus) {
+    case kCLAuthorizationStatusAuthorizedAlways:
+    case kCLAuthorizationStatusAuthorizedWhenInUse:
+      return JLPermissionAuthorized;
+    case kCLAuthorizationStatusNotDetermined:
+      return JLPermissionNotDetermined;
+    case kCLAuthorizationStatusDenied:
+    case kCLAuthorizationStatusRestricted:
+      return JLPermissionDenied;
+  }
 }
 
-- (void)authorizeLocations:(AuthorizationHandler)completion {
+- (void)authorize:(AuthorizationHandler)completion {
   NSString *title =
       [NSString stringWithFormat:@"\"%@\" Would Like to Use Your Current Location", [self appName]];
-  [self authorizeLocationsWithTitle:title
-                            message:[self defaultMessage]
-                        cancelTitle:[self defaultCancelTitle]
-                         grantTitle:[self defaultGrantTitle]
-                         completion:completion];
+  [self authorizeWithTitle:title
+                   message:[self defaultMessage]
+               cancelTitle:[self defaultCancelTitle]
+                grantTitle:[self defaultGrantTitle]
+                completion:completion];
 }
 
-- (void)authorizeLocationsWithTitle:(NSString *)messageTitle
-                            message:(NSString *)message
-                        cancelTitle:(NSString *)cancelTitle
-                         grantTitle:(NSString *)grantTitle
-                         completion:(AuthorizationHandler)completion {
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(AuthorizationHandler)completion {
   CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
   switch (authorizationStatus) {
     case kCLAuthorizationStatusAuthorizedAlways:
@@ -76,7 +86,7 @@
   }
 }
 
-- (void)displayLocationsErrorDialog {
+- (void)displayErrorDialog {
   [self displayErrorDialog:@"Location"];
 }
 

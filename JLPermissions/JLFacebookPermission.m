@@ -28,29 +28,37 @@
 
 #pragma mark - Facebook
 
-- (BOOL)facebookAuthorized {
+- (JLAuthorizationStatus)authorizationStatus {
   ACAccountStore *store = [ACAccountStore new];
   ACAccountType *accountType =
       [store accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
-  return [accountType accessGranted];
+  bool previouslyAsked =
+      [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForFacebookPermission];
+  if ([accountType accessGranted]) {
+    return JLPermissionAuthorized;
+  } else if (previouslyAsked) {
+    return JLPermissionDenied;
+  } else {
+    return JLPermissionNotDetermined;
+  }
 }
 
-- (void)authorizeFacebook:(AuthorizationHandler)completion {
+- (void)authorize:(AuthorizationHandler)completion {
   NSString *title =
       [NSString stringWithFormat:@"\"%@\" Would Like Access to Facebook Accounts", [self appName]];
-  [self authorizeFacebookWithTitle:title
-                           message:[self defaultMessage]
-                       cancelTitle:[self defaultCancelTitle]
-                        grantTitle:[self defaultGrantTitle]
-                        completion:completion];
+  [self authorizeWithTitle:title
+                   message:[self defaultMessage]
+               cancelTitle:[self defaultCancelTitle]
+                grantTitle:[self defaultGrantTitle]
+                completion:completion];
 }
 
-- (void)authorizeFacebookWithTitle:(NSString *)messageTitle
-                           message:(NSString *)message
-                       cancelTitle:(NSString *)cancelTitle
-                        grantTitle:(NSString *)grantTitle
-                        completion:(AuthorizationHandler)completion {
-  BOOL authorized = [self facebookAuthorized];
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(AuthorizationHandler)completion {
+  BOOL authorized = [self authorizationStatus] == JLPermissionAuthorized;
   bool previouslyAsked =
       [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForFacebookPermission];
   if (authorized) {
@@ -71,7 +79,7 @@
   }
 }
 
-- (void)displayFacebookErrorDialog {
+- (void)displayErrorDialog {
   [self displayErrorDialog:@"Facebook"];
 }
 

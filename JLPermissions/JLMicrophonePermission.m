@@ -26,35 +26,36 @@
 
 #pragma mark - Microphone
 
-- (BOOL)microphoneAuthorized {
+- (JLAuthorizationStatus)authorizationStatus {
   AVAudioSession *audioSession = [AVAudioSession sharedInstance];
   if ([audioSession respondsToSelector:@selector(recordPermission)]) {
     AVAudioSessionRecordPermission permission = [[AVAudioSession sharedInstance] recordPermission];
     switch (permission) {
       case AVAudioSessionRecordPermissionGranted:
-        return YES;
+        return JLPermissionAuthorized;
       case AVAudioSessionRecordPermissionDenied:
+        return JLPermissionDenied;
       case AVAudioSessionRecordPermissionUndetermined:
-        return NO;
+        return JLPermissionNotDetermined;
     }
   } else {
-    return NO;
+    return JLPermissionNotDetermined;
   }
 }
 
-- (void)authorizeMicrophone:(AuthorizationHandler)completion {
-  [self authorizeMicrophoneWithTitle:[self defaultTitle:@"Microphone"]
-                             message:[self defaultMessage]
-                         cancelTitle:[self defaultCancelTitle]
-                          grantTitle:[self defaultGrantTitle]
-                          completion:completion];
+- (void)authorize:(AuthorizationHandler)completion {
+  [self authorizeWithTitle:[self defaultTitle:@"Microphone"]
+                   message:[self defaultMessage]
+               cancelTitle:[self defaultCancelTitle]
+                grantTitle:[self defaultGrantTitle]
+                completion:completion];
 }
 
-- (void)authorizeMicrophoneWithTitle:(NSString *)messageTitle
-                             message:(NSString *)message
-                         cancelTitle:(NSString *)cancelTitle
-                          grantTitle:(NSString *)grantTitle
-                          completion:(AuthorizationHandler)completion {
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(AuthorizationHandler)completion {
   AVAudioSession *audioSession = [AVAudioSession sharedInstance];
   if (![audioSession respondsToSelector:@selector(recordPermission)]) {
     [audioSession requestRecordPermission:^(BOOL granted) {
@@ -94,7 +95,7 @@
   }
 }
 
-- (void)displayMicrophoneErrorDialog {
+- (void)displayErrorDialog {
   [self displayErrorDialog:@"Microphone"];
 }
 

@@ -32,27 +32,22 @@ The method for asking for each type of permission (other than push notifications
 
 ```objective-c
 
+typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
+  JLPermissionNotDetermined = 0,
+  JLPermissionDenied,
+  JLPermissionAuthorized
+};
+
 typedef void (^AuthorizationHandler)(bool granted, NSError *error);
-typedef void (^NotificationAuthorizationHandler)(NSString *deviceID, NSError *error);
 
-- (BOOL)contactsAuthorized;
-- (void)authorizeContacts:(AuthorizationHandler)completion;
-- (void)authorizeContactsWithTitle:(NSString *)messageTitle
-                           message:(NSString *)message
-                       cancelTitle:(NSString *)cancelTitle
-                        grantTitle:(NSString *)grantTitle
-                        completion:(AuthorizationHandler)completion;
-
-- (BOOL)notificationsAuthorized;
-- (void)authorizeNotifications:(NotificationAuthorizationHandler)completion;
-- (void)authorizeNotificationsWithTitle:(NSString *)messageTitle
-                                message:(NSString *)message
-                            cancelTitle:(NSString *)cancelTitle
-                             grantTitle:(NSString *)grantTitle
-                             completion:(NotificationAuthorizationHandler)completion;
-- (void)unauthorizeNotifications;
-- (void)notificationResult:(NSData *)deviceToken error:(NSError *)error;
-- (NSString *)deviceID;
+- (JLAuthorizationStatus)authorizationStatus;
+- (void)authorize:(AuthorizationHandler)completion;
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(AuthorizationHandler)completion;
+- (void)displayErrorDialog;
 
 ```
 

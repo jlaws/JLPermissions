@@ -26,24 +26,34 @@
 
 #pragma mark - Reminders
 
-- (BOOL)remindersAuthorized {
-  return [EKEventStore authorizationStatusForEntityType:EKEntityTypeReminder] ==
-         EKAuthorizationStatusAuthorized;
+- (JLAuthorizationStatus)authorizationStatus {
+  EKAuthorizationStatus authorizationStatus =
+      [EKEventStore authorizationStatusForEntityType:EKEntityTypeReminder];
+
+  switch (authorizationStatus) {
+    case EKAuthorizationStatusAuthorized:
+      return JLPermissionAuthorized;
+    case EKAuthorizationStatusNotDetermined:
+      return JLPermissionNotDetermined;
+    case EKAuthorizationStatusRestricted:
+    case EKAuthorizationStatusDenied:
+      return JLPermissionDenied;
+  }
 }
 
-- (void)authorizeReminders:(AuthorizationHandler)completion {
-  [self authorizeRemindersWithTitle:[self defaultTitle:@"Reminders"]
-                            message:[self defaultMessage]
-                        cancelTitle:[self defaultCancelTitle]
-                         grantTitle:[self defaultGrantTitle]
-                         completion:completion];
+- (void)authorize:(AuthorizationHandler)completion {
+  [self authorizeWithTitle:[self defaultTitle:@"Reminders"]
+                   message:[self defaultMessage]
+               cancelTitle:[self defaultCancelTitle]
+                grantTitle:[self defaultGrantTitle]
+                completion:completion];
 }
 
-- (void)authorizeRemindersWithTitle:(NSString *)messageTitle
-                            message:(NSString *)message
-                        cancelTitle:(NSString *)cancelTitle
-                         grantTitle:(NSString *)grantTitle
-                         completion:(AuthorizationHandler)completion {
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(AuthorizationHandler)completion {
   EKAuthorizationStatus authorizationStatus =
       [EKEventStore authorizationStatusForEntityType:EKEntityTypeReminder];
 
@@ -71,7 +81,7 @@
   }
 }
 
-- (void)displayRemindersErrorDialog {
+- (void)displayErrorDialog {
   [self displayErrorDialog:@"Reminders"];
 }
 

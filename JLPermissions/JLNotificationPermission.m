@@ -27,25 +27,37 @@
 
 #pragma mark - Notifications
 
-- (BOOL)notificationsAuthorized {
-  return [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken] != nil;
+- (JLAuthorizationStatus)authorizationStatus {
+  BOOL previouslyAsked =
+      [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForNotificationPermission];
+  NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
+  if (token) {
+    return JLPermissionAuthorized;
+  } else if (previouslyAsked) {
+    return JLPermissionDenied;
+  } else {
+    return JLPermissionNotDetermined;
+  }
 }
 
-- (void)authorizeNotifications:(NotificationAuthorizationHandler)completion {
+- (void)authorize:(NotificationAuthorizationHandler)completion {
   NSString *messageTitle =
-      [NSString stringWithFormat:@"\"%@\" Would Like to Access Your Notifications", [self appName]];
-  [self authorizeNotificationsWithTitle:messageTitle
-                                message:[self defaultMessage]
-                            cancelTitle:[self defaultCancelTitle]
-                             grantTitle:[self defaultGrantTitle]
-                             completion:completion];
+      [NSString stringWithFormat:@"\"%@\" Would Like to Send You Notifications", [self appName]];
+  NSString *message =
+      [NSString stringWithFormat:@"Notifications may include alerts, sounds, and icon badges. "
+                @"These can be configured in settings."];
+  [self authorizeWithTitle:messageTitle
+                   message:message
+               cancelTitle:[self defaultCancelTitle]
+                grantTitle:[self defaultGrantTitle]
+                completion:completion];
 }
 
-- (void)authorizeNotificationsWithTitle:(NSString *)messageTitle
-                                message:(NSString *)message
-                            cancelTitle:(NSString *)cancelTitle
-                             grantTitle:(NSString *)grantTitle
-                             completion:(NotificationAuthorizationHandler)completion {
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(NotificationAuthorizationHandler)completion {
   bool previouslyAsked =
       [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForNotificationPermission];
 
@@ -82,7 +94,7 @@
   }
 }
 
-- (void)displayNotificationsErrorDialog {
+- (void)displayErrorDialog {
   NSString *message = [NSString stringWithFormat:@"Please go to Settings -> Notification Center -> "
                                                  @"%@ to re-enable push notifications.",
                                                  [self appName]];
@@ -94,7 +106,7 @@
   [alert show];
 }
 
-- (void)unauthorizeNotifications {
+- (void)unauthorize {
   [[UIApplication sharedApplication] unregisterForRemoteNotifications];
   [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kJLDeviceToken];
   [[NSUserDefaults standardUserDefaults] setBool:false forKey:kJLAskedForNotificationPermission];

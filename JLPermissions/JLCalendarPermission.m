@@ -26,24 +26,33 @@
 
 #pragma mark - Calendar
 
-- (BOOL)calendarAuthorized {
-  return [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent] ==
-         EKAuthorizationStatusAuthorized;
+- (JLAuthorizationStatus)authorizationStatus {
+  EKAuthorizationStatus authorizationStatus =
+      [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
+  switch (authorizationStatus) {
+    case EKAuthorizationStatusAuthorized:
+      return JLPermissionAuthorized;
+    case EKAuthorizationStatusNotDetermined:
+      return JLPermissionNotDetermined;
+    case EKAuthorizationStatusRestricted:
+    case EKAuthorizationStatusDenied:
+      return JLPermissionDenied;
+  }
 }
 
-- (void)authorizeCalendar:(AuthorizationHandler)completion {
-  [self authorizeCalendarWithTitle:[self defaultTitle:@"Calendar"]
-                           message:[self defaultMessage]
-                       cancelTitle:[self defaultCancelTitle]
-                        grantTitle:[self defaultGrantTitle]
-                        completion:completion];
+- (void)authorize:(AuthorizationHandler)completion {
+  [self authorizeWithTitle:[self defaultTitle:@"Calendar"]
+                   message:[self defaultMessage]
+               cancelTitle:[self defaultCancelTitle]
+                grantTitle:[self defaultGrantTitle]
+                completion:completion];
 }
 
-- (void)authorizeCalendarWithTitle:(NSString *)messageTitle
-                           message:(NSString *)message
-                       cancelTitle:(NSString *)cancelTitle
-                        grantTitle:(NSString *)grantTitle
-                        completion:(AuthorizationHandler)completion {
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(AuthorizationHandler)completion {
   EKAuthorizationStatus authorizationStatus =
       [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
 
@@ -71,7 +80,7 @@
   }
 }
 
-- (void)displayCalendarErrorDialog {
+- (void)displayErrorDialog {
   [self displayErrorDialog:@"Calendars"];
 }
 

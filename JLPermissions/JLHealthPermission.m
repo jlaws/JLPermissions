@@ -13,8 +13,6 @@
 
 @implementation JLHealthPermission {
   AuthorizationHandler _completion;
-  NSSet *_readTypes;
-  NSSet *_writeTypes;
 }
 
 + (instancetype)sharedInstance {
@@ -29,48 +27,47 @@
 - (instancetype)init {
   self = [super init];
   if (self) {
-    _readTypes = [NSSet set];
-    _writeTypes = [NSSet set];
+    _readTypes = [NSMutableSet set];
+    _writeTypes = [NSMutableSet set];
   }
   return self;
 }
 
 #pragma mark - Health
 
-- (BOOL)healthAuthorized {
+- (JLAuthorizationStatus)authorizationStatus {
   HKHealthStore *healthStore = [[HKHealthStore alloc] init];
   NSMutableSet *allTypes = [NSMutableSet set];
   [allTypes unionSet:_readTypes];
   [allTypes unionSet:_writeTypes];
 
-  BOOL hasAuthorized = NO;
   for (HKObjectType *sampleType in allTypes) {
     HKAuthorizationStatus status = [healthStore authorizationStatusForType:sampleType];
     switch (status) {
       case HKAuthorizationStatusSharingDenied:
+        return JLPermissionDenied;
+      case HKAuthorizationStatusSharingAuthorized:
+        return JLPermissionAuthorized;
       case HKAuthorizationStatusNotDetermined:
-        return NO;
-      case HKAuthorizationStatusSharingAuthorized: {
-        hasAuthorized = YES;
-      }
+        break;
     }
   }
-  return hasAuthorized;
+  return JLPermissionNotDetermined;
 }
 
-- (void)authorizeHealth:(AuthorizationHandler)completion {
-  [self authorizeHealthWithTitle:[self defaultTitle:@"Health"]
-                         message:[self defaultMessage]
-                     cancelTitle:[self defaultCancelTitle]
-                      grantTitle:[self defaultGrantTitle]
-                      completion:completion];
+- (void)authorize:(AuthorizationHandler)completion {
+  [self authorizeWithTitle:[self defaultTitle:@"Health"]
+                   message:[self defaultMessage]
+               cancelTitle:[self defaultCancelTitle]
+                grantTitle:[self defaultGrantTitle]
+                completion:completion];
 }
 
-- (void)authorizeHealthWithTitle:(NSString *)messageTitle
-                         message:(NSString *)message
-                     cancelTitle:(NSString *)cancelTitle
-                      grantTitle:(NSString *)grantTitle
-                      completion:(AuthorizationHandler)completion {
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(AuthorizationHandler)completion {
   NSMutableSet *allTypes = [NSMutableSet set];
   [allTypes unionSet:_readTypes];
   [allTypes unionSet:_writeTypes];
@@ -102,7 +99,7 @@
   }
 }
 
-- (void)displayHealthErrorDialog {
+- (void)displayErrorDialog {
   [self displayErrorDialog:@"Health"];
 }
 

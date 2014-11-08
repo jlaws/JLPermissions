@@ -28,29 +28,37 @@
 
 #pragma mark - Twitter
 
-- (BOOL)twitterAuthorized {
+- (JLAuthorizationStatus)authorizationStatus {
   ACAccountStore *store = [ACAccountStore new];
   ACAccountType *accountType =
       [store accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-  return [accountType accessGranted];
+  bool previouslyAsked =
+      [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForTwitterPermission];
+  if ([accountType accessGranted]) {
+    return JLPermissionAuthorized;
+  } else if (previouslyAsked) {
+    return JLPermissionDenied;
+  } else {
+    return JLPermissionNotDetermined;
+  }
 }
 
-- (void)authorizeTwitter:(AuthorizationHandler)completion {
+- (void)authorize:(AuthorizationHandler)completion {
   NSString *title =
       [NSString stringWithFormat:@"\"%@\" Would Like Access to Twitter Accounts", [self appName]];
-  [self authorizeTwitterWithTitle:title
-                          message:[self defaultMessage]
-                      cancelTitle:[self defaultCancelTitle]
-                       grantTitle:[self defaultGrantTitle]
-                       completion:completion];
+  [self authorizeWithTitle:title
+                   message:[self defaultMessage]
+               cancelTitle:[self defaultCancelTitle]
+                grantTitle:[self defaultGrantTitle]
+                completion:completion];
 }
 
-- (void)authorizeTwitterWithTitle:(NSString *)messageTitle
-                          message:(NSString *)message
-                      cancelTitle:(NSString *)cancelTitle
-                       grantTitle:(NSString *)grantTitle
-                       completion:(AuthorizationHandler)completion {
-  BOOL authorized = [self twitterAuthorized];
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(AuthorizationHandler)completion {
+  BOOL authorized = [self authorizationStatus];
 
   bool previouslyAsked =
       [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForTwitterPermission];
@@ -73,7 +81,7 @@
   }
 }
 
-- (void)displayTwitterErrorDialog {
+- (void)displayErrorDialog {
   [self displayErrorDialog:@"Twitter"];
 }
 

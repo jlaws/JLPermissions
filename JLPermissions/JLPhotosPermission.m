@@ -26,23 +26,32 @@
 
 #pragma mark - Photos
 
-- (BOOL)photosAuthorized {
-  return [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized;
+- (JLAuthorizationStatus)authorizationStatus {
+  ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
+  switch (status) {
+    case ALAuthorizationStatusAuthorized:
+      return JLPermissionAuthorized;
+    case ALAuthorizationStatusNotDetermined:
+      return JLPermissionNotDetermined;
+    case ALAuthorizationStatusRestricted:
+    case ALAuthorizationStatusDenied:
+      return JLPermissionDenied;
+  }
 }
 
-- (void)authorizePhotos:(AuthorizationHandler)completion {
-  [self authorizePhotosWithTitle:[self defaultTitle:@"Photos"]
-                         message:[self defaultMessage]
-                     cancelTitle:[self defaultCancelTitle]
-                      grantTitle:[self defaultGrantTitle]
-                      completion:completion];
+- (void)authorize:(AuthorizationHandler)completion {
+  [self authorizeWithTitle:[self defaultTitle:@"Photos"]
+                   message:[self defaultMessage]
+               cancelTitle:[self defaultCancelTitle]
+                grantTitle:[self defaultGrantTitle]
+                completion:completion];
 }
 
-- (void)authorizePhotosWithTitle:(NSString *)messageTitle
-                         message:(NSString *)message
-                     cancelTitle:(NSString *)cancelTitle
-                      grantTitle:(NSString *)grantTitle
-                      completion:(AuthorizationHandler)completion {
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(AuthorizationHandler)completion {
   ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
   switch (status) {
     case ALAuthorizationStatusAuthorized:
@@ -68,7 +77,7 @@
   }
 }
 
-- (void)displayPhotoErrorDialog {
+- (void)displayErrorDialog {
   [self displayErrorDialog:@"Photos"];
 }
 

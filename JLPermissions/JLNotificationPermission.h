@@ -14,7 +14,7 @@
 /**
  *  @return whether or not user has granted access to push notifications
  */
-- (BOOL)notificationsAuthorized;
+- (JLAuthorizationStatus)authorizationStatus;
 
 /**
  *  Uses the default dialog which is identical to the system permission dialog
@@ -23,7 +23,7 @@
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void)authorizeNotifications:(NotificationAuthorizationHandler)completion;
+- (void)authorize:(NotificationAuthorizationHandler)completion;
 
 /**
  *  This is identical to the call other call, however it allows you to specify
@@ -38,23 +38,23 @@
  *when access is granted or denied.  May be called immediately if access was
  *previously established
  */
-- (void)authorizeNotificationsWithTitle:(NSString *)messageTitle
-                                message:(NSString *)message
-                            cancelTitle:(NSString *)cancelTitle
-                             grantTitle:(NSString *)grantTitle
-                             completion:(NotificationAuthorizationHandler)completion;
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(NotificationAuthorizationHandler)completion;
 
 /**
  *  Displays a dialog telling the user how to re-enable notification permission
  * in the Settings application
  */
-- (void)displayNotificationsErrorDialog;
+- (void)displayErrorDialog;
 
 /**
  *  Removes the apps push notification authorization at the system level and
  * clears the cached deviceID.
  */
-- (void)unauthorizeNotifications;
+- (void)unauthorize;
 
 /**
  *  This callback must be called in the AppDelegate or else your push
@@ -84,4 +84,5 @@
  *  @return the deviceID with <,>, and spaces removed
  */
 - (NSString *)deviceID;
+
 @end

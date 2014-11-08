@@ -26,23 +26,32 @@
 
 #pragma mark - Contacts
 
-- (BOOL)contactsAuthorized {
-  return ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized;
+- (JLAuthorizationStatus)authorizationStatus {
+  ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+  switch (status) {
+    case kABAuthorizationStatusAuthorized:
+      return JLPermissionAuthorized;
+    case kABAuthorizationStatusNotDetermined:
+      return JLPermissionNotDetermined;
+    case kABAuthorizationStatusRestricted:
+    case kABAuthorizationStatusDenied:
+      return JLPermissionDenied;
+  }
 }
 
-- (void)authorizeContacts:(AuthorizationHandler)completion {
-  [self authorizeContactsWithTitle:[self defaultTitle:@"Contacts"]
-                           message:[self defaultMessage]
-                       cancelTitle:[self defaultCancelTitle]
-                        grantTitle:[self defaultGrantTitle]
-                        completion:completion];
+- (void)authorize:(AuthorizationHandler)completion {
+  [self authorizeWithTitle:[self defaultTitle:@"Contacts"]
+                   message:[self defaultMessage]
+               cancelTitle:[self defaultCancelTitle]
+                grantTitle:[self defaultGrantTitle]
+                completion:completion];
 }
 
-- (void)authorizeContactsWithTitle:(NSString *)messageTitle
-                           message:(NSString *)message
-                       cancelTitle:(NSString *)cancelTitle
-                        grantTitle:(NSString *)grantTitle
-                        completion:(AuthorizationHandler)completion {
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                completion:(AuthorizationHandler)completion {
   ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
 
   switch (status) {
@@ -69,7 +78,7 @@
   }
 }
 
-- (void)displayContactsErrorDialog {
+- (void)displayErrorDialog {
   [self displayErrorDialog:@"Contacts"];
 }
 
