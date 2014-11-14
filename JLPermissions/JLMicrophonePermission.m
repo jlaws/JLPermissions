@@ -39,7 +39,28 @@
         return JLPermissionNotDetermined;
     }
   } else {
-    return JLPermissionNotDetermined;
+      dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+      __block BOOL hasAccess;
+      
+      [audioSession requestRecordPermission:^(BOOL granted) {
+          if (granted) {
+              hasAccess = YES;
+              dispatch_semaphore_signal(sema);
+          } else {
+              hasAccess = NO;
+              dispatch_semaphore_signal(sema);
+          }
+      }];
+      
+      dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+      
+      if (hasAccess) {
+          return JLPermissionAuthorized;
+      }
+      
+      else {
+          return JLPermissionDenied;
+      }
   }
 }
 

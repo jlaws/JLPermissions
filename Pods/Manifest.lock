@@ -1,0 +1,10 @@
+PODS:
+  - OCTotallyLazy (1.1.0)
+
+DEPENDENCIES:
+  - OCTotallyLazy
+
+SPEC CHECKSUMS:
+  OCTotallyLazy: 6cbe5581aa46d1f04f7719b03e3474646cec1735
+
+COCOAPODS: 0.34.4
