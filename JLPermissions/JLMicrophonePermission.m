@@ -13,6 +13,16 @@
 
 @implementation JLMicrophonePermission {
   AuthorizationHandler _completion;
+  JLAuthorizationStatus _authorizationStatus;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    _authorizationStatus = JLPermissionNotDetermined;
+    return self;
 }
 
 + (instancetype)sharedInstance {
@@ -39,28 +49,7 @@
         return JLPermissionNotDetermined;
     }
   } else {
-      dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-      __block BOOL hasAccess;
-      
-      [audioSession requestRecordPermission:^(BOOL granted) {
-          if (granted) {
-              hasAccess = YES;
-              dispatch_semaphore_signal(sema);
-          } else {
-              hasAccess = NO;
-              dispatch_semaphore_signal(sema);
-          }
-      }];
-      
-      dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-      
-      if (hasAccess) {
-          return JLPermissionAuthorized;
-      }
-      
-      else {
-          return JLPermissionDenied;
-      }
+      return _authorizationStatus;
   }
 }
 
@@ -83,8 +72,10 @@
         if (completion) {
           dispatch_async(dispatch_get_main_queue(), ^{
               if (granted) {
+                _authorizationStatus = JLPermissionAuthorized;
                 completion(granted, nil);
               } else {
+                _authorizationStatus = JLPermissionDenied;
                 completion(false, nil);
               }
           });

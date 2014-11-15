@@ -1,762 +1,2888 @@
-// !$*UTF8*$!
-{
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXBuildFile section */
-		027C59968F5DA0724E75E4B1 /* Callables.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C596BAF9D5EBB3021FD38E /* Callables.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		02E9CCCC30FCBF63181C2385 /* TakeWhileEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF2D3A160DA9B83E172059F /* TakeWhileEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		05EB07518E1DB84C65759ED4 /* Group.h in Headers */ = {isa = PBXBuildFile; fileRef = 849DABF8223542B069642AC2 /* Group.h */; };
-		06CA56668FA43DC6E64FDBF1 /* NSEnumerator+OCTotallyLazy.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C664940C834074421C1A6C7 /* NSEnumerator+OCTotallyLazy.h */; };
-		07CFAAB8FEA148165B20F6C6 /* RepeatEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 842DA77838BA9DA5C7384CF6 /* RepeatEnumerator.h */; };
-		0DB6BE25A97D8C18AAEEE974 /* FlattenEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BFB21FE818C339977067B7D /* FlattenEnumerator.h */; };
-		0F6F7A2A49E5BEC9EAEE3FBD /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D95A3506AE3B40F48473FB1 /* Pods-dummy.m */; };
-		1C51336FF43E53D031054A5F /* MergeEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2350BDFFBECC9D68E70B9FEB /* MergeEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		1CEA36B5AD2965FC0F676952 /* Some.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD582E8160B4D57107066F2 /* Some.h */; };
-		1D4950D156BD85D6A0EF5A1D /* MapEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ED294BD8D9073073C653AA8 /* MapEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		208099DAB52CE86F8362AEF7 /* Pair.h in Headers */ = {isa = PBXBuildFile; fileRef = 98BDF6C4611DEAC12E772743 /* Pair.h */; };
-		2A828BA2ECDAA7AE1314D705 /* Enumerable.h in Headers */ = {isa = PBXBuildFile; fileRef = E4A187E0B3BDE74EFC32A007 /* Enumerable.h */; };
-		2F6F4A7A68CAF00D0E4CD2B7 /* Flattenable.h in Headers */ = {isa = PBXBuildFile; fileRef = A08FCD6D403F9FF92973AFD8 /* Flattenable.h */; };
-		335F5DE37BFF905B94D6C97B /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1248C06B5B2D370F4720EB02 /* Functions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		34A074FE9642953D132B777F /* GroupedEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 09159ACDABCD6341D81166CD /* GroupedEnumerator.h */; };
-		38575861D9B91CD5C80EC735 /* PartitionEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = A54F52EDF54FC5A0C14E9B8A /* PartitionEnumerator.h */; };
-		3B5BAC6E0070606E171C09D0 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F147E1CB4B605665A5E77 /* Group.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		40A95C7F3C4686302715EBA0 /* NoSuchElementException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD1B4131C35AB75B58BBD36D /* NoSuchElementException.h */; };
-		4310F4C7020D04C4C58644AC /* Predicates.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C035F856C3FAD12A4F98088 /* Predicates.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		4490A9F5000DCFA236BBB8E4 /* None.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B77A9C248165E5A7033662E /* None.h */; };
-		482B0441147234566B9CE793 /* Coercions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5564B449F997B61523B5D4AC /* Coercions.h */; };
-		4883E5A6C73218AE41CD7DC9 /* Function1.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0F3B7763E9D43CCC5F7811 /* Function1.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		493DE036E053986E7BEB32BD /* Option.h in Headers */ = {isa = PBXBuildFile; fileRef = F04E0C80A12E00C81DFD36C7 /* Option.h */; };
-		4AB3B5E7EAFA26B82EF16507 /* RepeatEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B98A8FD5544BFE77D4C58D /* RepeatEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		4B1984A87F7819DF3D60DDD0 /* TakeWhileEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = AA28F2B6CB0DF36861D4E09B /* TakeWhileEnumerator.h */; };
-		4D0DA82490CD8E95939147B6 /* Pods-OCTotallyLazy-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1210C19598C34F9AF4C7FBDB /* Pods-OCTotallyLazy-dummy.m */; };
-		4EFAF76CC8620EA3DD07D53F /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = BA0D2FC847D60E92A9424821 /* Types.h */; };
-		507D55EDBBA092007C033F66 /* Callables.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C9893F41ABF7D6BFFA6E15E /* Callables.h */; };
-		545EC297B3D41EB850F54785 /* EnumerateEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = C29F52EAAD4F296A556EA8E7 /* EnumerateEnumerator.h */; };
-		55B213683B5327DC211A9EB7 /* NSEnumerator+OCTotallyLazy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E523D9B79BFA5DC7C12AE16 /* NSEnumerator+OCTotallyLazy.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		5859E4A5A0154264D8D6079E /* Pair.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A1D927E624552FA52F03B0 /* Pair.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		5DCCB62DCCAC9F0BDF976D93 /* Option.m in Sources */ = {isa = PBXBuildFile; fileRef = 3648CCB9915FC686820A2514 /* Option.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		5E56206C3E8BCB65993C96ED /* Predicates.h in Headers */ = {isa = PBXBuildFile; fileRef = 02824E036E35D4E8D43C51C7 /* Predicates.h */; };
-		6055A501492D99CB76AF4AC4 /* SingleValueEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 39EE824F7A187F289D45BD1D /* SingleValueEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		6D3B73DB7D82094A8CA989D8 /* Foldable.h in Headers */ = {isa = PBXBuildFile; fileRef = 986AA82851214784B5A2FBC6 /* Foldable.h */; };
-		720529D312B11C828F88B1B5 /* NSArray+OCTotallyLazy.h in Headers */ = {isa = PBXBuildFile; fileRef = AFC7B85416F22F6A887E4ECF /* NSArray+OCTotallyLazy.h */; };
-		73850C44E6C7573C8FDEF385 /* EnumerateEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E368ABD6D52976172BE050 /* EnumerateEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		745B427E198D93CB6B0577A6 /* NSSet+OCTotallyLazy.h in Headers */ = {isa = PBXBuildFile; fileRef = 757F5A843FF89DFF8E8551D6 /* NSSet+OCTotallyLazy.h */; };
-		7880206BD41EA36F3DFA2101 /* FlattenEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = B284D56FD93545886F23E4EE /* FlattenEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		78F83CA5F88CFC23597C0864 /* PairEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BA064B154A19F6D16A40CE0E /* PairEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		7B9FE8D171FFFB434B49B207 /* GroupedEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B04E8474CA5744C846A16B3 /* GroupedEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		7C7064A4145E394DAF6AFA0C /* Sequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C14C9538ECDC7B92D7B0049 /* Sequence.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		7E8F35FEBB56270EE5D452F3 /* Range.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8F3B9C680389E6C9BF47C9 /* Range.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		7FCFB1EC6C1D360C807BE6B0 /* EmptyEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D79F595E9AE3D6044A9D635B /* EmptyEnumerator.h */; };
-		89CDFFAB8C9F803D69284559 /* MemoisedSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F34DB403AC09E0C8BAAD70 /* MemoisedSequence.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		8D446E0C122F52A872DABAAB /* Functions.h in Headers */ = {isa = PBXBuildFile; fileRef = 602C440A160093A4B8FEE350 /* Functions.h */; };
-		97773D1290E1ACBBA6DE9812 /* MapEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = E627364437AEA185D8F1F3FE /* MapEnumerator.h */; };
-		98E76FD14DFFB80036E840F0 /* Numbers.m in Sources */ = {isa = PBXBuildFile; fileRef = 945235DF9C59F336FE4D51EC /* Numbers.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		AD87D51347063CF6E7A12B7C /* Function1.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D116AF7D88A91322525206 /* Function1.h */; };
-		AEE482F7F5EACA635E4C6FB1 /* Function2.h in Headers */ = {isa = PBXBuildFile; fileRef = D194C78A3C56EA33BA4A17F3 /* Function2.h */; };
-		B32E3F9FADD785F4BA94A1D8 /* PairEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D310D2A75D77A57D669F53B3 /* PairEnumerator.h */; };
-		B36C8AB1703FBAE1ADA505F0 /* Some.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FC77D3B67A462E36C09C45 /* Some.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		BFEA49EA0C487754D0414FFB /* FilterEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 010C91BE33CB0FB64D717A32 /* FilterEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		C342476816CE4B6F02B07D37 /* SingleValueEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 4AD626395BF5816D4BCE0D15 /* SingleValueEnumerator.h */; };
-		C4BCADC382B6ACD7661BE530 /* Numbers.h in Headers */ = {isa = PBXBuildFile; fileRef = 71DC6216D181EACF3DE7A521 /* Numbers.h */; };
-		CB250DCAFB185F00F333C397 /* PartitionEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C58ED5EAD67FA76C78E6898 /* PartitionEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		CBD9995F9ADEA096D1D0FF28 /* EasyEnumerable.h in Headers */ = {isa = PBXBuildFile; fileRef = A65513F1CDB3C5637FCA0E8D /* EasyEnumerable.h */; };
-		CD9B9FE87DA3A7CE794B85F1 /* Queue.h in Headers */ = {isa = PBXBuildFile; fileRef = 266379C9D4A956A1739E1227 /* Queue.h */; };
-		CF37FADA6A5E4FC5578F4C36 /* EmptyEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A013563E11C2C8494FBB696 /* EmptyEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		CF75DE6AB503D8304CEE3D57 /* EasyEnumerable.m in Sources */ = {isa = PBXBuildFile; fileRef = 456C0D29CA7F75DA7CF59C35 /* EasyEnumerable.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		D2DDFF12E979C35E19DAFE40 /* NSArray+OCTotallyLazy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A230A9B51B5284D2AAC90D3 /* NSArray+OCTotallyLazy.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		D30240EA429E2696DA11D5B8 /* NSDictionary+OCTotallyLazy.h in Headers */ = {isa = PBXBuildFile; fileRef = A19E802F5B134E0F7B218470 /* NSDictionary+OCTotallyLazy.h */; };
-		D332DE3A07D87DD8116130D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F80E506649639651392533B7 /* Foundation.framework */; };
-		D37ACCBBA12C128A6820E221 /* None.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA88AE5686D8170A2D61175 /* None.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		D39D7C1F6848CEC6714050BF /* FilterEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC9EC8A924349018A5CE574 /* FilterEnumerator.h */; };
-		D3CC660EF2A0EB7B0F0DE38B /* Mappable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0934F8D318E228DDC3E36544 /* Mappable.h */; };
-		D538239931B6CF5504C20DAA /* MergeEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = CCDD2D72148EAA80EC67B30B /* MergeEnumerator.h */; };
-		DC83CB40B975035D27FBBA71 /* Sequence.h in Headers */ = {isa = PBXBuildFile; fileRef = D793D46083F8A8868A2C47CC /* Sequence.h */; };
-		E2E6B636A217AEAA7F6BB58F /* MemoisedEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = CE418C18EC28DE6A98D30949 /* MemoisedEnumerator.h */; };
-		E3741871CAF3C748C04FCC78 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F80E506649639651392533B7 /* Foundation.framework */; };
-		E594D741E00639D0FE0AC121 /* Function2.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E5995F5F02D666A130A513 /* Function2.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		ECA3D2578C50D19EC7394F20 /* NSDictionary+OCTotallyLazy.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B0380A9528DDE86597DB28 /* NSDictionary+OCTotallyLazy.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		ED3CA1F09B80A2B4F3981323 /* MemoisedSequence.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC6820653D27EA2E588B630 /* MemoisedSequence.h */; };
-		F3ADAF8FEDAB328B0F8C3F47 /* MemoisedEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 705BB07E78EE6CEE7A0B8E9B /* MemoisedEnumerator.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		F4221F7AA4098E5D4EE7FC88 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C2977EE75197231ED76936 /* Queue.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		F48BEC877C8869580C9835F5 /* OCTotallyLazy.h in Headers */ = {isa = PBXBuildFile; fileRef = 488E3CE1F2AAA59C04A6982F /* OCTotallyLazy.h */; };
-		F695DE5D1494FF28EF89C9E9 /* Range.h in Headers */ = {isa = PBXBuildFile; fileRef = FBA14280E510B664B09AE825 /* Range.h */; };
-		F735251A6B328A3AF663D863 /* NSSet+OCTotallyLazy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6B197BEDC27962C9381FCF /* NSSet+OCTotallyLazy.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		FDF237E4717FC2244757BDBF /* NoSuchElementException.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D0C9F1196DB8563242041 /* NoSuchElementException.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		42C4FFBB0E1D1575633C7037 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AEFE535DE44826FD80BC507A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 586B78DAD239E30CD7C1F2BF;
-			remoteInfo = "Pods-OCTotallyLazy";
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXFileReference section */
-		010C91BE33CB0FB64D717A32 /* FilterEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FilterEnumerator.m; path = src/main/enumerators/FilterEnumerator.m; sourceTree = "<group>"; };
-		01B98A8FD5544BFE77D4C58D /* RepeatEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RepeatEnumerator.m; path = src/main/enumerators/RepeatEnumerator.m; sourceTree = "<group>"; };
-		02824E036E35D4E8D43C51C7 /* Predicates.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Predicates.h; path = src/main/predicates/Predicates.h; sourceTree = "<group>"; };
-		05C596BAF9D5EBB3021FD38E /* Callables.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Callables.m; path = src/main/Callables.m; sourceTree = "<group>"; };
-		09159ACDABCD6341D81166CD /* GroupedEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GroupedEnumerator.h; path = src/main/enumerators/GroupedEnumerator.h; sourceTree = "<group>"; };
-		0934F8D318E228DDC3E36544 /* Mappable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Mappable.h; path = src/main/Mappable.h; sourceTree = "<group>"; };
-		1210C19598C34F9AF4C7FBDB /* Pods-OCTotallyLazy-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OCTotallyLazy-dummy.m"; sourceTree = "<group>"; };
-		1248C06B5B2D370F4720EB02 /* Functions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Functions.m; path = src/main/functions/Functions.m; sourceTree = "<group>"; };
-		1C0D0C9F1196DB8563242041 /* NoSuchElementException.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NoSuchElementException.m; path = src/main/NoSuchElementException.m; sourceTree = "<group>"; };
-		20A1D927E624552FA52F03B0 /* Pair.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Pair.m; path = src/main/Pair.m; sourceTree = "<group>"; };
-		2350BDFFBECC9D68E70B9FEB /* MergeEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MergeEnumerator.m; path = src/main/enumerators/MergeEnumerator.m; sourceTree = "<group>"; };
-		266379C9D4A956A1739E1227 /* Queue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Queue.h; path = src/main/Queue.h; sourceTree = "<group>"; };
-		26FC77D3B67A462E36C09C45 /* Some.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Some.m; path = src/main/Some.m; sourceTree = "<group>"; };
-		2B77A9C248165E5A7033662E /* None.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = None.h; path = src/main/None.h; sourceTree = "<group>"; };
-		2DC9EC8A924349018A5CE574 /* FilterEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FilterEnumerator.h; path = src/main/enumerators/FilterEnumerator.h; sourceTree = "<group>"; };
-		2E523D9B79BFA5DC7C12AE16 /* NSEnumerator+OCTotallyLazy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSEnumerator+OCTotallyLazy.m"; path = "src/main/enumerators/NSEnumerator+OCTotallyLazy.m"; sourceTree = "<group>"; };
-		310396EE3BA44E30CE5E44DF /* Pods-OCTotallyLazy-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-OCTotallyLazy-prefix.pch"; sourceTree = "<group>"; };
-		32D116AF7D88A91322525206 /* Function1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Function1.h; path = src/main/functions/Function1.h; sourceTree = "<group>"; };
-		3648CCB9915FC686820A2514 /* Option.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Option.m; path = src/main/Option.m; sourceTree = "<group>"; };
-		3887E5DBBC95C933EEAA3E10 /* Pods-OCTotallyLazy.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OCTotallyLazy.xcconfig"; sourceTree = "<group>"; };
-		39EE824F7A187F289D45BD1D /* SingleValueEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SingleValueEnumerator.m; path = src/main/enumerators/SingleValueEnumerator.m; sourceTree = "<group>"; };
-		3B04E8474CA5744C846A16B3 /* GroupedEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GroupedEnumerator.m; path = src/main/enumerators/GroupedEnumerator.m; sourceTree = "<group>"; };
-		3D4EFBC79C607FE0A800AD42 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
-		456C0D29CA7F75DA7CF59C35 /* EasyEnumerable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EasyEnumerable.m; path = src/main/EasyEnumerable.m; sourceTree = "<group>"; };
-		488E3CE1F2AAA59C04A6982F /* OCTotallyLazy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCTotallyLazy.h; path = src/main/OCTotallyLazy.h; sourceTree = "<group>"; };
-		48E368ABD6D52976172BE050 /* EnumerateEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EnumerateEnumerator.m; path = src/main/enumerators/EnumerateEnumerator.m; sourceTree = "<group>"; };
-		494F147E1CB4B605665A5E77 /* Group.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Group.m; path = src/main/Group.m; sourceTree = "<group>"; };
-		49E5995F5F02D666A130A513 /* Function2.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Function2.m; path = src/main/functions/Function2.m; sourceTree = "<group>"; };
-		4AD626395BF5816D4BCE0D15 /* SingleValueEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SingleValueEnumerator.h; path = src/main/enumerators/SingleValueEnumerator.h; sourceTree = "<group>"; };
-		4C14C9538ECDC7B92D7B0049 /* Sequence.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Sequence.m; path = src/main/Sequence.m; sourceTree = "<group>"; };
-		4CD582E8160B4D57107066F2 /* Some.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Some.h; path = src/main/Some.h; sourceTree = "<group>"; };
-		5564B449F997B61523B5D4AC /* Coercions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Coercions.h; path = src/main/Coercions.h; sourceTree = "<group>"; };
-		55B0380A9528DDE86597DB28 /* NSDictionary+OCTotallyLazy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+OCTotallyLazy.m"; path = "src/main/NSDictionary+OCTotallyLazy.m"; sourceTree = "<group>"; };
-		5C58ED5EAD67FA76C78E6898 /* PartitionEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PartitionEnumerator.m; path = src/main/enumerators/PartitionEnumerator.m; sourceTree = "<group>"; };
-		5ED294BD8D9073073C653AA8 /* MapEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MapEnumerator.m; path = src/main/enumerators/MapEnumerator.m; sourceTree = "<group>"; };
-		602C440A160093A4B8FEE350 /* Functions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Functions.h; path = src/main/functions/Functions.h; sourceTree = "<group>"; };
-		6C9893F41ABF7D6BFFA6E15E /* Callables.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Callables.h; path = src/main/Callables.h; sourceTree = "<group>"; };
-		6D95A3506AE3B40F48473FB1 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
-		705BB07E78EE6CEE7A0B8E9B /* MemoisedEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MemoisedEnumerator.m; path = src/main/enumerators/MemoisedEnumerator.m; sourceTree = "<group>"; };
-		71DC6216D181EACF3DE7A521 /* Numbers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Numbers.h; path = src/main/numbers/Numbers.h; sourceTree = "<group>"; };
-		757F5A843FF89DFF8E8551D6 /* NSSet+OCTotallyLazy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSSet+OCTotallyLazy.h"; path = "src/main/NSSet+OCTotallyLazy.h"; sourceTree = "<group>"; };
-		7A230A9B51B5284D2AAC90D3 /* NSArray+OCTotallyLazy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+OCTotallyLazy.m"; path = "src/main/NSArray+OCTotallyLazy.m"; sourceTree = "<group>"; };
-		7C664940C834074421C1A6C7 /* NSEnumerator+OCTotallyLazy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSEnumerator+OCTotallyLazy.h"; path = "src/main/enumerators/NSEnumerator+OCTotallyLazy.h"; sourceTree = "<group>"; };
-		842DA77838BA9DA5C7384CF6 /* RepeatEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RepeatEnumerator.h; path = src/main/enumerators/RepeatEnumerator.h; sourceTree = "<group>"; };
-		849DABF8223542B069642AC2 /* Group.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Group.h; path = src/main/Group.h; sourceTree = "<group>"; };
-		890B5CE1574104AF9EFE5361 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
-		89B3CFE105834D1956B9BC05 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		8C035F856C3FAD12A4F98088 /* Predicates.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Predicates.m; path = src/main/predicates/Predicates.m; sourceTree = "<group>"; };
-		8FC6820653D27EA2E588B630 /* MemoisedSequence.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MemoisedSequence.h; path = src/main/MemoisedSequence.h; sourceTree = "<group>"; };
-		928B0034C1447195A63F7C54 /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
-		945235DF9C59F336FE4D51EC /* Numbers.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Numbers.m; path = src/main/numbers/Numbers.m; sourceTree = "<group>"; };
-		986AA82851214784B5A2FBC6 /* Foldable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Foldable.h; path = src/main/Foldable.h; sourceTree = "<group>"; };
-		98BDF6C4611DEAC12E772743 /* Pair.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Pair.h; path = src/main/Pair.h; sourceTree = "<group>"; };
-		9A013563E11C2C8494FBB696 /* EmptyEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EmptyEnumerator.m; path = src/main/enumerators/EmptyEnumerator.m; sourceTree = "<group>"; };
-		9BFB21FE818C339977067B7D /* FlattenEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FlattenEnumerator.h; path = src/main/enumerators/FlattenEnumerator.h; sourceTree = "<group>"; };
-		9C6B197BEDC27962C9381FCF /* NSSet+OCTotallyLazy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSSet+OCTotallyLazy.m"; path = "src/main/NSSet+OCTotallyLazy.m"; sourceTree = "<group>"; };
-		9D0F3B7763E9D43CCC5F7811 /* Function1.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Function1.m; path = src/main/functions/Function1.m; sourceTree = "<group>"; };
-		9F6A6CDC5F8A5AA782F95B81 /* Pods-OCTotallyLazy-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OCTotallyLazy-Private.xcconfig"; sourceTree = "<group>"; };
-		A08FCD6D403F9FF92973AFD8 /* Flattenable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Flattenable.h; path = src/main/Flattenable.h; sourceTree = "<group>"; };
-		A19E802F5B134E0F7B218470 /* NSDictionary+OCTotallyLazy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+OCTotallyLazy.h"; path = "src/main/NSDictionary+OCTotallyLazy.h"; sourceTree = "<group>"; };
-		A54F52EDF54FC5A0C14E9B8A /* PartitionEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PartitionEnumerator.h; path = src/main/enumerators/PartitionEnumerator.h; sourceTree = "<group>"; };
-		A65513F1CDB3C5637FCA0E8D /* EasyEnumerable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EasyEnumerable.h; path = src/main/EasyEnumerable.h; sourceTree = "<group>"; };
-		AA28F2B6CB0DF36861D4E09B /* TakeWhileEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TakeWhileEnumerator.h; path = src/main/enumerators/TakeWhileEnumerator.h; sourceTree = "<group>"; };
-		AFC7B85416F22F6A887E4ECF /* NSArray+OCTotallyLazy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+OCTotallyLazy.h"; path = "src/main/NSArray+OCTotallyLazy.h"; sourceTree = "<group>"; };
-		B284D56FD93545886F23E4EE /* FlattenEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FlattenEnumerator.m; path = src/main/enumerators/FlattenEnumerator.m; sourceTree = "<group>"; };
-		BA064B154A19F6D16A40CE0E /* PairEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PairEnumerator.m; path = src/main/enumerators/PairEnumerator.m; sourceTree = "<group>"; };
-		BA0D2FC847D60E92A9424821 /* Types.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Types.h; path = src/main/Types.h; sourceTree = "<group>"; };
-		C29F52EAAD4F296A556EA8E7 /* EnumerateEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EnumerateEnumerator.h; path = src/main/enumerators/EnumerateEnumerator.h; sourceTree = "<group>"; };
-		C2A7D33F4CF9B1A28DA400A6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
-		CCDD2D72148EAA80EC67B30B /* MergeEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MergeEnumerator.h; path = src/main/enumerators/MergeEnumerator.h; sourceTree = "<group>"; };
-		CD1B4131C35AB75B58BBD36D /* NoSuchElementException.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NoSuchElementException.h; path = src/main/NoSuchElementException.h; sourceTree = "<group>"; };
-		CE418C18EC28DE6A98D30949 /* MemoisedEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MemoisedEnumerator.h; path = src/main/enumerators/MemoisedEnumerator.h; sourceTree = "<group>"; };
-		D194C78A3C56EA33BA4A17F3 /* Function2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Function2.h; path = src/main/functions/Function2.h; sourceTree = "<group>"; };
-		D310D2A75D77A57D669F53B3 /* PairEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PairEnumerator.h; path = src/main/enumerators/PairEnumerator.h; sourceTree = "<group>"; };
-		D793D46083F8A8868A2C47CC /* Sequence.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Sequence.h; path = src/main/Sequence.h; sourceTree = "<group>"; };
-		D79F595E9AE3D6044A9D635B /* EmptyEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EmptyEnumerator.h; path = src/main/enumerators/EmptyEnumerator.h; sourceTree = "<group>"; };
-		D8C2977EE75197231ED76936 /* Queue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Queue.m; path = src/main/Queue.m; sourceTree = "<group>"; };
-		E4A187E0B3BDE74EFC32A007 /* Enumerable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Enumerable.h; path = src/main/Enumerable.h; sourceTree = "<group>"; };
-		E627364437AEA185D8F1F3FE /* MapEnumerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MapEnumerator.h; path = src/main/enumerators/MapEnumerator.h; sourceTree = "<group>"; };
-		E6FD511EE62DBFF3FAD2CA46 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E9F34DB403AC09E0C8BAAD70 /* MemoisedSequence.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MemoisedSequence.m; path = src/main/MemoisedSequence.m; sourceTree = "<group>"; };
-		EE742EBA9F9F572D13B559E7 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
-		EF8F3B9C680389E6C9BF47C9 /* Range.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Range.m; path = src/main/Range.m; sourceTree = "<group>"; };
-		EFF2D3A160DA9B83E172059F /* TakeWhileEnumerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TakeWhileEnumerator.m; path = src/main/enumerators/TakeWhileEnumerator.m; sourceTree = "<group>"; };
-		F04E0C80A12E00C81DFD36C7 /* Option.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Option.h; path = src/main/Option.h; sourceTree = "<group>"; };
-		F2BD3B32697A9CB49F791FA7 /* libPods-OCTotallyLazy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OCTotallyLazy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F66B284FC4029F900D62C600 /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
-		F80E506649639651392533B7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		FAA88AE5686D8170A2D61175 /* None.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = None.m; path = src/main/None.m; sourceTree = "<group>"; };
-		FBA14280E510B664B09AE825 /* Range.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Range.h; path = src/main/Range.h; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		31EA9C750FF912A8EEEAB888 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E3741871CAF3C748C04FCC78 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5D1C74031B2D4F7F0F4850B0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D332DE3A07D87DD8116130D9 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		3672EDF0C9CFE0911297B71C /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				F80E506649639651392533B7 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		4154B34EC360BDC70F62FC82 /* OCTotallyLazy */ = {
-			isa = PBXGroup;
-			children = (
-				6C9893F41ABF7D6BFFA6E15E /* Callables.h */,
-				05C596BAF9D5EBB3021FD38E /* Callables.m */,
-				5564B449F997B61523B5D4AC /* Coercions.h */,
-				A65513F1CDB3C5637FCA0E8D /* EasyEnumerable.h */,
-				456C0D29CA7F75DA7CF59C35 /* EasyEnumerable.m */,
-				D79F595E9AE3D6044A9D635B /* EmptyEnumerator.h */,
-				9A013563E11C2C8494FBB696 /* EmptyEnumerator.m */,
-				E4A187E0B3BDE74EFC32A007 /* Enumerable.h */,
-				C29F52EAAD4F296A556EA8E7 /* EnumerateEnumerator.h */,
-				48E368ABD6D52976172BE050 /* EnumerateEnumerator.m */,
-				2DC9EC8A924349018A5CE574 /* FilterEnumerator.h */,
-				010C91BE33CB0FB64D717A32 /* FilterEnumerator.m */,
-				9BFB21FE818C339977067B7D /* FlattenEnumerator.h */,
-				B284D56FD93545886F23E4EE /* FlattenEnumerator.m */,
-				A08FCD6D403F9FF92973AFD8 /* Flattenable.h */,
-				986AA82851214784B5A2FBC6 /* Foldable.h */,
-				32D116AF7D88A91322525206 /* Function1.h */,
-				9D0F3B7763E9D43CCC5F7811 /* Function1.m */,
-				D194C78A3C56EA33BA4A17F3 /* Function2.h */,
-				49E5995F5F02D666A130A513 /* Function2.m */,
-				602C440A160093A4B8FEE350 /* Functions.h */,
-				1248C06B5B2D370F4720EB02 /* Functions.m */,
-				849DABF8223542B069642AC2 /* Group.h */,
-				494F147E1CB4B605665A5E77 /* Group.m */,
-				09159ACDABCD6341D81166CD /* GroupedEnumerator.h */,
-				3B04E8474CA5744C846A16B3 /* GroupedEnumerator.m */,
-				E627364437AEA185D8F1F3FE /* MapEnumerator.h */,
-				5ED294BD8D9073073C653AA8 /* MapEnumerator.m */,
-				0934F8D318E228DDC3E36544 /* Mappable.h */,
-				CE418C18EC28DE6A98D30949 /* MemoisedEnumerator.h */,
-				705BB07E78EE6CEE7A0B8E9B /* MemoisedEnumerator.m */,
-				8FC6820653D27EA2E588B630 /* MemoisedSequence.h */,
-				E9F34DB403AC09E0C8BAAD70 /* MemoisedSequence.m */,
-				CCDD2D72148EAA80EC67B30B /* MergeEnumerator.h */,
-				2350BDFFBECC9D68E70B9FEB /* MergeEnumerator.m */,
-				AFC7B85416F22F6A887E4ECF /* NSArray+OCTotallyLazy.h */,
-				7A230A9B51B5284D2AAC90D3 /* NSArray+OCTotallyLazy.m */,
-				A19E802F5B134E0F7B218470 /* NSDictionary+OCTotallyLazy.h */,
-				55B0380A9528DDE86597DB28 /* NSDictionary+OCTotallyLazy.m */,
-				7C664940C834074421C1A6C7 /* NSEnumerator+OCTotallyLazy.h */,
-				2E523D9B79BFA5DC7C12AE16 /* NSEnumerator+OCTotallyLazy.m */,
-				757F5A843FF89DFF8E8551D6 /* NSSet+OCTotallyLazy.h */,
-				9C6B197BEDC27962C9381FCF /* NSSet+OCTotallyLazy.m */,
-				CD1B4131C35AB75B58BBD36D /* NoSuchElementException.h */,
-				1C0D0C9F1196DB8563242041 /* NoSuchElementException.m */,
-				2B77A9C248165E5A7033662E /* None.h */,
-				FAA88AE5686D8170A2D61175 /* None.m */,
-				71DC6216D181EACF3DE7A521 /* Numbers.h */,
-				945235DF9C59F336FE4D51EC /* Numbers.m */,
-				488E3CE1F2AAA59C04A6982F /* OCTotallyLazy.h */,
-				F04E0C80A12E00C81DFD36C7 /* Option.h */,
-				3648CCB9915FC686820A2514 /* Option.m */,
-				98BDF6C4611DEAC12E772743 /* Pair.h */,
-				20A1D927E624552FA52F03B0 /* Pair.m */,
-				D310D2A75D77A57D669F53B3 /* PairEnumerator.h */,
-				BA064B154A19F6D16A40CE0E /* PairEnumerator.m */,
-				A54F52EDF54FC5A0C14E9B8A /* PartitionEnumerator.h */,
-				5C58ED5EAD67FA76C78E6898 /* PartitionEnumerator.m */,
-				02824E036E35D4E8D43C51C7 /* Predicates.h */,
-				8C035F856C3FAD12A4F98088 /* Predicates.m */,
-				266379C9D4A956A1739E1227 /* Queue.h */,
-				D8C2977EE75197231ED76936 /* Queue.m */,
-				FBA14280E510B664B09AE825 /* Range.h */,
-				EF8F3B9C680389E6C9BF47C9 /* Range.m */,
-				842DA77838BA9DA5C7384CF6 /* RepeatEnumerator.h */,
-				01B98A8FD5544BFE77D4C58D /* RepeatEnumerator.m */,
-				D793D46083F8A8868A2C47CC /* Sequence.h */,
-				4C14C9538ECDC7B92D7B0049 /* Sequence.m */,
-				4AD626395BF5816D4BCE0D15 /* SingleValueEnumerator.h */,
-				39EE824F7A187F289D45BD1D /* SingleValueEnumerator.m */,
-				4CD582E8160B4D57107066F2 /* Some.h */,
-				26FC77D3B67A462E36C09C45 /* Some.m */,
-				AA28F2B6CB0DF36861D4E09B /* TakeWhileEnumerator.h */,
-				EFF2D3A160DA9B83E172059F /* TakeWhileEnumerator.m */,
-				BA0D2FC847D60E92A9424821 /* Types.h */,
-				51A94E7176A05373D697ABBA /* Support Files */,
-			);
-			path = OCTotallyLazy;
-			sourceTree = "<group>";
-		};
-		51A94E7176A05373D697ABBA /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				3887E5DBBC95C933EEAA3E10 /* Pods-OCTotallyLazy.xcconfig */,
-				9F6A6CDC5F8A5AA782F95B81 /* Pods-OCTotallyLazy-Private.xcconfig */,
-				1210C19598C34F9AF4C7FBDB /* Pods-OCTotallyLazy-dummy.m */,
-				310396EE3BA44E30CE5E44DF /* Pods-OCTotallyLazy-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-OCTotallyLazy";
-			sourceTree = "<group>";
-		};
-		8109852A41BBE0F1BF7EAE36 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3672EDF0C9CFE0911297B71C /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		841E43F026D60BA1A121F185 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E6FD511EE62DBFF3FAD2CA46 /* libPods.a */,
-				F2BD3B32697A9CB49F791FA7 /* libPods-OCTotallyLazy.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		885E950D40F5F3430D18D211 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				3D4EFBC79C607FE0A800AD42 /* Pods-acknowledgements.markdown */,
-				EE742EBA9F9F572D13B559E7 /* Pods-acknowledgements.plist */,
-				6D95A3506AE3B40F48473FB1 /* Pods-dummy.m */,
-				F66B284FC4029F900D62C600 /* Pods-environment.h */,
-				928B0034C1447195A63F7C54 /* Pods-resources.sh */,
-				890B5CE1574104AF9EFE5361 /* Pods.debug.xcconfig */,
-				C2A7D33F4CF9B1A28DA400A6 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			path = "Target Support Files/Pods";
-			sourceTree = "<group>";
-		};
-		92B16FEF057A75BDAF11089B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4154B34EC360BDC70F62FC82 /* OCTotallyLazy */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		B7AFA65C3E37ED37A2555032 = {
-			isa = PBXGroup;
-			children = (
-				89B3CFE105834D1956B9BC05 /* Podfile */,
-				8109852A41BBE0F1BF7EAE36 /* Frameworks */,
-				92B16FEF057A75BDAF11089B /* Pods */,
-				841E43F026D60BA1A121F185 /* Products */,
-				EAA589B62AD1B7EFA9D985C2 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		EAA589B62AD1B7EFA9D985C2 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				885E950D40F5F3430D18D211 /* Pods */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-/* End PBXGroup section */
-
-/* Begin PBXHeadersBuildPhase section */
-		4B4E47C47A7689D5527F0E77 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				507D55EDBBA092007C033F66 /* Callables.h in Headers */,
-				482B0441147234566B9CE793 /* Coercions.h in Headers */,
-				CBD9995F9ADEA096D1D0FF28 /* EasyEnumerable.h in Headers */,
-				7FCFB1EC6C1D360C807BE6B0 /* EmptyEnumerator.h in Headers */,
-				2A828BA2ECDAA7AE1314D705 /* Enumerable.h in Headers */,
-				545EC297B3D41EB850F54785 /* EnumerateEnumerator.h in Headers */,
-				D39D7C1F6848CEC6714050BF /* FilterEnumerator.h in Headers */,
-				0DB6BE25A97D8C18AAEEE974 /* FlattenEnumerator.h in Headers */,
-				2F6F4A7A68CAF00D0E4CD2B7 /* Flattenable.h in Headers */,
-				6D3B73DB7D82094A8CA989D8 /* Foldable.h in Headers */,
-				AD87D51347063CF6E7A12B7C /* Function1.h in Headers */,
-				AEE482F7F5EACA635E4C6FB1 /* Function2.h in Headers */,
-				8D446E0C122F52A872DABAAB /* Functions.h in Headers */,
-				05EB07518E1DB84C65759ED4 /* Group.h in Headers */,
-				34A074FE9642953D132B777F /* GroupedEnumerator.h in Headers */,
-				97773D1290E1ACBBA6DE9812 /* MapEnumerator.h in Headers */,
-				D3CC660EF2A0EB7B0F0DE38B /* Mappable.h in Headers */,
-				E2E6B636A217AEAA7F6BB58F /* MemoisedEnumerator.h in Headers */,
-				ED3CA1F09B80A2B4F3981323 /* MemoisedSequence.h in Headers */,
-				D538239931B6CF5504C20DAA /* MergeEnumerator.h in Headers */,
-				720529D312B11C828F88B1B5 /* NSArray+OCTotallyLazy.h in Headers */,
-				D30240EA429E2696DA11D5B8 /* NSDictionary+OCTotallyLazy.h in Headers */,
-				06CA56668FA43DC6E64FDBF1 /* NSEnumerator+OCTotallyLazy.h in Headers */,
-				745B427E198D93CB6B0577A6 /* NSSet+OCTotallyLazy.h in Headers */,
-				40A95C7F3C4686302715EBA0 /* NoSuchElementException.h in Headers */,
-				4490A9F5000DCFA236BBB8E4 /* None.h in Headers */,
-				C4BCADC382B6ACD7661BE530 /* Numbers.h in Headers */,
-				F48BEC877C8869580C9835F5 /* OCTotallyLazy.h in Headers */,
-				493DE036E053986E7BEB32BD /* Option.h in Headers */,
-				208099DAB52CE86F8362AEF7 /* Pair.h in Headers */,
-				B32E3F9FADD785F4BA94A1D8 /* PairEnumerator.h in Headers */,
-				38575861D9B91CD5C80EC735 /* PartitionEnumerator.h in Headers */,
-				5E56206C3E8BCB65993C96ED /* Predicates.h in Headers */,
-				CD9B9FE87DA3A7CE794B85F1 /* Queue.h in Headers */,
-				F695DE5D1494FF28EF89C9E9 /* Range.h in Headers */,
-				07CFAAB8FEA148165B20F6C6 /* RepeatEnumerator.h in Headers */,
-				DC83CB40B975035D27FBBA71 /* Sequence.h in Headers */,
-				C342476816CE4B6F02B07D37 /* SingleValueEnumerator.h in Headers */,
-				1CEA36B5AD2965FC0F676952 /* Some.h in Headers */,
-				4B1984A87F7819DF3D60DDD0 /* TakeWhileEnumerator.h in Headers */,
-				4EFAF76CC8620EA3DD07D53F /* Types.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
-/* Begin PBXNativeTarget section */
-		586B78DAD239E30CD7C1F2BF /* Pods-OCTotallyLazy */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D8623B8D47138C2B58AB36CB /* Build configuration list for PBXNativeTarget "Pods-OCTotallyLazy" */;
-			buildPhases = (
-				3DC753282EA077043DEC10F4 /* Sources */,
-				5D1C74031B2D4F7F0F4850B0 /* Frameworks */,
-				4B4E47C47A7689D5527F0E77 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-OCTotallyLazy";
-			productName = "Pods-OCTotallyLazy";
-			productReference = F2BD3B32697A9CB49F791FA7 /* libPods-OCTotallyLazy.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		7787012DCEAAA1B415051CF4 /* Pods */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 900117C9DD9FD2210394B27B /* Build configuration list for PBXNativeTarget "Pods" */;
-			buildPhases = (
-				238B244F26DF198B82B5716A /* Sources */,
-				31EA9C750FF912A8EEEAB888 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C608A21799A4FDF5E5730C7D /* PBXTargetDependency */,
-			);
-			name = Pods;
-			productName = Pods;
-			productReference = E6FD511EE62DBFF3FAD2CA46 /* libPods.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		AEFE535DE44826FD80BC507A /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastUpgradeCheck = 0510;
-			};
-			buildConfigurationList = BD7DDB00B640A56C7B5CDAF5 /* Build configuration list for PBXProject "Pods" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-			);
-			mainGroup = B7AFA65C3E37ED37A2555032;
-			productRefGroup = 841E43F026D60BA1A121F185 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				7787012DCEAAA1B415051CF4 /* Pods */,
-				586B78DAD239E30CD7C1F2BF /* Pods-OCTotallyLazy */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXSourcesBuildPhase section */
-		238B244F26DF198B82B5716A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0F6F7A2A49E5BEC9EAEE3FBD /* Pods-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3DC753282EA077043DEC10F4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				027C59968F5DA0724E75E4B1 /* Callables.m in Sources */,
-				CF75DE6AB503D8304CEE3D57 /* EasyEnumerable.m in Sources */,
-				CF37FADA6A5E4FC5578F4C36 /* EmptyEnumerator.m in Sources */,
-				73850C44E6C7573C8FDEF385 /* EnumerateEnumerator.m in Sources */,
-				BFEA49EA0C487754D0414FFB /* FilterEnumerator.m in Sources */,
-				7880206BD41EA36F3DFA2101 /* FlattenEnumerator.m in Sources */,
-				4883E5A6C73218AE41CD7DC9 /* Function1.m in Sources */,
-				E594D741E00639D0FE0AC121 /* Function2.m in Sources */,
-				335F5DE37BFF905B94D6C97B /* Functions.m in Sources */,
-				3B5BAC6E0070606E171C09D0 /* Group.m in Sources */,
-				7B9FE8D171FFFB434B49B207 /* GroupedEnumerator.m in Sources */,
-				1D4950D156BD85D6A0EF5A1D /* MapEnumerator.m in Sources */,
-				F3ADAF8FEDAB328B0F8C3F47 /* MemoisedEnumerator.m in Sources */,
-				89CDFFAB8C9F803D69284559 /* MemoisedSequence.m in Sources */,
-				1C51336FF43E53D031054A5F /* MergeEnumerator.m in Sources */,
-				D2DDFF12E979C35E19DAFE40 /* NSArray+OCTotallyLazy.m in Sources */,
-				ECA3D2578C50D19EC7394F20 /* NSDictionary+OCTotallyLazy.m in Sources */,
-				55B213683B5327DC211A9EB7 /* NSEnumerator+OCTotallyLazy.m in Sources */,
-				F735251A6B328A3AF663D863 /* NSSet+OCTotallyLazy.m in Sources */,
-				FDF237E4717FC2244757BDBF /* NoSuchElementException.m in Sources */,
-				D37ACCBBA12C128A6820E221 /* None.m in Sources */,
-				98E76FD14DFFB80036E840F0 /* Numbers.m in Sources */,
-				5DCCB62DCCAC9F0BDF976D93 /* Option.m in Sources */,
-				5859E4A5A0154264D8D6079E /* Pair.m in Sources */,
-				78F83CA5F88CFC23597C0864 /* PairEnumerator.m in Sources */,
-				CB250DCAFB185F00F333C397 /* PartitionEnumerator.m in Sources */,
-				4D0DA82490CD8E95939147B6 /* Pods-OCTotallyLazy-dummy.m in Sources */,
-				4310F4C7020D04C4C58644AC /* Predicates.m in Sources */,
-				F4221F7AA4098E5D4EE7FC88 /* Queue.m in Sources */,
-				7E8F35FEBB56270EE5D452F3 /* Range.m in Sources */,
-				4AB3B5E7EAFA26B82EF16507 /* RepeatEnumerator.m in Sources */,
-				7C7064A4145E394DAF6AFA0C /* Sequence.m in Sources */,
-				6055A501492D99CB76AF4AC4 /* SingleValueEnumerator.m in Sources */,
-				B36C8AB1703FBAE1ADA505F0 /* Some.m in Sources */,
-				02E9CCCC30FCBF63181C2385 /* TakeWhileEnumerator.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C608A21799A4FDF5E5730C7D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 586B78DAD239E30CD7C1F2BF /* Pods-OCTotallyLazy */;
-			targetProxy = 42C4FFBB0E1D1575633C7037 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin XCBuildConfiguration section */
-		1B9CE8E56998A6C3DE8039E2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F6A6CDC5F8A5AA782F95B81 /* Pods-OCTotallyLazy-Private.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-OCTotallyLazy/Pods-OCTotallyLazy-prefix.pch";
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_CFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		20287E94288250B3E7324652 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				STRIP_INSTALLED_PRODUCT = NO;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		6183F79E215591345A2A9EDA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F6A6CDC5F8A5AA782F95B81 /* Pods-OCTotallyLazy-Private.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-OCTotallyLazy/Pods-OCTotallyLazy-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		890CFB5A372454A186E9D889 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 890B5CE1574104AF9EFE5361 /* Pods.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		92AB6D952B879F5DF65D93C9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C2A7D33F4CF9B1A28DA400A6 /* Pods.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_CFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		9DCE9236CF1087E5A388D67B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
-			};
-			name = Debug;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		900117C9DD9FD2210394B27B /* Build configuration list for PBXNativeTarget "Pods" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				890CFB5A372454A186E9D889 /* Debug */,
-				92AB6D952B879F5DF65D93C9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BD7DDB00B640A56C7B5CDAF5 /* Build configuration list for PBXProject "Pods" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9DCE9236CF1087E5A388D67B /* Debug */,
-				20287E94288250B3E7324652 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D8623B8D47138C2B58AB36CB /* Build configuration list for PBXNativeTarget "Pods-OCTotallyLazy" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6183F79E215591345A2A9EDA /* Debug */,
-				1B9CE8E56998A6C3DE8039E2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
-	};
-	rootObject = AEFE535DE44826FD80BC507A /* Project object */;
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>archiveVersion</key>
+	<string>1</string>
+	<key>classes</key>
+	<dict/>
+	<key>objectVersion</key>
+	<string>46</string>
+	<key>objects</key>
+	<dict>
+		<key>0049348A1EEB7A19859C3B52</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0101C13C05FE1F24400D67A0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>AECC826417A21CDD4AF873D2</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0610284B4F19E242145C1B11</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>None.m</string>
+			<key>path</key>
+			<string>src/main/None.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0647F1428D795C6D12A0763D</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>09098D3B3B45C2E1A245DF40</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>070EF3729D34085DA4741963</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>FlattenEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/FlattenEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>07FB94D9616FDA4837B7495F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>89422BC3780EF77D22FE2547</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>08BEEC16D21719E2555AFA48</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>0049348A1EEB7A19859C3B52</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>DSTROOT</key>
+				<string>/tmp/xcodeproj.dst</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>INSTALL_PATH</key>
+				<string>$(BUILT_PRODUCTS_DIR)</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>OTHER_CFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_CPLUSPLUSFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>09098D3B3B45C2E1A245DF40</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4064016F68DC1EAF03674083</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>09F059E4E9AB0136EF832198</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5F94A7AC4FEB017E05560C32</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0B002B2FD7562679D54DAFCE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2F84CEA95E6DB77E123D4B21</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>0B042ED6B8CFC7B4BBD6DD35</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>NSArray+OCTotallyLazy.h</string>
+			<key>path</key>
+			<string>src/main/NSArray+OCTotallyLazy.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0C479AD6AFB6F0AD469B9F5B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A533D148C3BD5A812E7A2867</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>1073459F33BE6E8DD620E9F5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>MemoisedSequence.m</string>
+			<key>path</key>
+			<string>src/main/MemoisedSequence.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>13D19AD770744166F7E1D3F0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>FA077019CC9DD6FDAFC98F34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>15411FC9B55832E9C618C114</key>
+		<dict>
+			<key>fileRef</key>
+			<string>CC6C01DAA84EE6776FF9FB26</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>160B7BB9ADA1BFDAEDA7B7B6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Queue.h</string>
+			<key>path</key>
+			<string>src/main/Queue.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>172E5C1A900C90DC7F558FD8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D284C913937E6461F1ECBFEC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>17661742AB5617F467B93CD8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-OCTotallyLazy.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>18041EBD35CBB9E2ED5AD9AA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Pair.m</string>
+			<key>path</key>
+			<string>src/main/Pair.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>19552977CD6850F4788E1173</key>
+		<dict>
+			<key>fileRef</key>
+			<string>77638FDDEF87E72CA5766C3D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>19B22E947E98CC9D212FCD33</key>
+		<dict>
+			<key>fileRef</key>
+			<string>45472C276DD2FFD9EF3F321D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>19E2BEA4B1F8FAAFFF07C60D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EnumerateEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/EnumerateEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1A8FF02A192FD006DB9D49A6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>NSDictionary+OCTotallyLazy.m</string>
+			<key>path</key>
+			<string>src/main/NSDictionary+OCTotallyLazy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1D5933AEBE9E2EC7D5C6F2AC</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>NSEnumerator+OCTotallyLazy.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/NSEnumerator+OCTotallyLazy.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1DD990C932FF13527C735B20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F23892235D187ACEC84C2726</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>1E96BB4E795695C5693EC264</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>OCTotallyLazy.h</string>
+			<key>path</key>
+			<string>src/main/OCTotallyLazy.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>20140925CC06CFD278FE0AFD</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>BDC744EC3A7F894BE61C18C1</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>208DD469A924CC041EE43EF6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6355E963A014A609167201EF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>20B4086BDDBD12665DE40AEC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1D5933AEBE9E2EC7D5C6F2AC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>239A5133E9815ED55CBB5860</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>MergeEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/MergeEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>239F3A194C5F8524FB649726</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8CBD06CE7908E932E64EBAFF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2474669110EECDF762213A19</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Numbers.m</string>
+			<key>path</key>
+			<string>src/main/numbers/Numbers.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>266EFEA98283E259DED9466B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>448AA8ED83E3E542498AF8C3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>267158843C52E1D2AD0252C8</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>9F841C0F88FCF7F7E6A55560</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>DSTROOT</key>
+				<string>/tmp/xcodeproj.dst</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>INSTALL_PATH</key>
+				<string>$(BUILT_PRODUCTS_DIR)</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>26E75D88E1BF44FF3781BD1C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>911AED9DF6750F1583972549</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>27D77EAF55B3A90697730C2B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Function2.h</string>
+			<key>path</key>
+			<string>src/main/functions/Function2.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28CFA9F7D8024B65FA7168CB</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4AC25435EDD945A58FF2C522</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>2B5A1350E367B31E21A5EB02</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>17661742AB5617F467B93CD8</string>
+				<string>428F173F5354925B6632B690</string>
+				<string>C4EF1C7D3101F3220E421556</string>
+				<string>902E3A922F4CA06F949DCB7A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/Pods-OCTotallyLazy</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2E09D04821887C87F5868C20</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>path</key>
+			<string>Pods-acknowledgements.markdown</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2F1DFA86C06655A8946E70AC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F818A9144A560C771E353140</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2F84CEA95E6DB77E123D4B21</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>PairEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/PairEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>30293070D785E46BC4ABDB29</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Range.h</string>
+			<key>path</key>
+			<string>src/main/Range.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>31B068026DA162502BD5599D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8D8C69E69EC47ED9E794294B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>343BF01B8926F0C2A37C54C8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Types.h</string>
+			<key>path</key>
+			<string>src/main/Types.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>35BD6B161443B337EF56CAB8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8A2078169048BEAAC9F6245D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>37CE7438C3DB790FE505FCFA</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>428F173F5354925B6632B690</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>DSTROOT</key>
+				<string>/tmp/xcodeproj.dst</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/Pods-OCTotallyLazy/Pods-OCTotallyLazy-prefix.pch</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>INSTALL_PATH</key>
+				<string>$(BUILT_PRODUCTS_DIR)</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>37E9C79B64ADD4D822DEEB98</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-environment.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>38B4F278DB0460225674D24E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Predicates.h</string>
+			<key>path</key>
+			<string>src/main/predicates/Predicates.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>39AD2D817EC133BBF9DFE438</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1A8FF02A192FD006DB9D49A6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>39AF9F1104B9516108D15726</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Function1.m</string>
+			<key>path</key>
+			<string>src/main/functions/Function1.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3FF23977D64F45D22F9CADD7</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>781C2EE7A86424D1B3CC9F36</string>
+				<string>172E5C1A900C90DC7F558FD8</string>
+				<string>28CFA9F7D8024B65FA7168CB</string>
+				<string>92FED5E4F1BFAA68055F8391</string>
+				<string>96566EBBE43AE8AE12966830</string>
+				<string>795B097AF57889C531A3F3D6</string>
+				<string>789D56CE41844831CFF1B559</string>
+				<string>07FB94D9616FDA4837B7495F</string>
+				<string>19552977CD6850F4788E1173</string>
+				<string>5C4B89050D7B42385CF7D9B1</string>
+				<string>266EFEA98283E259DED9466B</string>
+				<string>B8E3F0C0F8EFAFB8D7B8FDD2</string>
+				<string>D4B144F274C9EFA2E03CDB05</string>
+				<string>6E7EC5CC7A86CACCAE2D71C7</string>
+				<string>56E1D36E7C3DE0C9B5F50463</string>
+				<string>A3D1D2F1D728243A3E2083F5</string>
+				<string>39AD2D817EC133BBF9DFE438</string>
+				<string>55136B50B311C2A659B0E6D8</string>
+				<string>208DD469A924CC041EE43EF6</string>
+				<string>969E6C95EFAA4B6F523D5E80</string>
+				<string>65CD1C521CF4ECD62E489FBE</string>
+				<string>B5B0E6ECCD7E9AAC8BAC6346</string>
+				<string>DA08ED5E524C35C004E20C4A</string>
+				<string>74EE958D00ACDF9A4B1E4FF3</string>
+				<string>0B002B2FD7562679D54DAFCE</string>
+				<string>AB5F4A494C43E5847A148C88</string>
+				<string>557A8F0A27A56B7FB0099506</string>
+				<string>9D0E6BCD2036AA560E200329</string>
+				<string>8756E88D5328D691505DEB73</string>
+				<string>0C479AD6AFB6F0AD469B9F5B</string>
+				<string>E567BFFC3F83D6FFF9BD014C</string>
+				<string>8CDAC66C29A89D40D21BF061</string>
+				<string>ADB575E61EFE003874C425C8</string>
+				<string>F72C4EE8D77CF563B2CA1286</string>
+				<string>DBAF409C827DB54D0293F492</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>4064016F68DC1EAF03674083</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>41A0656CBB37339211C6F4B6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4210CC642D8CECB48BB26BA2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>MemoisedSequence.h</string>
+			<key>path</key>
+			<string>src/main/MemoisedSequence.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>428F173F5354925B6632B690</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-OCTotallyLazy-Private.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4365CAA500F58C3E0337B15E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>FBCC2E3EA9F67B0B37542399</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>448AA8ED83E3E542498AF8C3</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>GroupedEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/GroupedEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>45472C276DD2FFD9EF3F321D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Group.h</string>
+			<key>path</key>
+			<string>src/main/Group.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>46B5FF2F9CB69F884988D7D3</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>86C950C33E723C75DC39D1F2</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>47AACDB3D5456AFD848234A5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>617EF6BACE632E2AA13E46D8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>47FE761F15815949B87EA41D</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>4907E33D6028838AA80AA00C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>RepeatEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/RepeatEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>494D78B879DDBD691C0B9B60</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>TakeWhileEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/TakeWhileEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4AC25435EDD945A58FF2C522</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>EmptyEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/EmptyEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4B070A3BAC0A41B70D1CFD40</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>MemoisedEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/MemoisedEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4C1744036370ECC662C4159D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Callables.m</string>
+			<key>path</key>
+			<string>src/main/Callables.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4DFBEE8D7FB3CEE472E20D08</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Coercions.h</string>
+			<key>path</key>
+			<string>src/main/Coercions.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>52B974F80F19F96192825D80</key>
+		<dict>
+			<key>fileRef</key>
+			<string>BC7A00FD1DFE7FA7CD134A9A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>52E381892B87B3877EEFFD7E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>NSArray+OCTotallyLazy.m</string>
+			<key>path</key>
+			<string>src/main/NSArray+OCTotallyLazy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>52EB487BD96E94B25C2D7798</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>RepeatEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/RepeatEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>53B1AA42896156C6ACF932BF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>968250628585B1EEE31ACCBF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>55136B50B311C2A659B0E6D8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E71E439481547B9322CAFCCA</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>5565552F4178390D2815A50B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>PartitionEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/PartitionEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>557A8F0A27A56B7FB0099506</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C4EF1C7D3101F3220E421556</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>55A5342BF5B01838B9882C49</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>FilterEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/FilterEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>56067FB2B78A4E48899C5E6E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9519DF7020CEF33B8BF054B7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>5668CE9030BE8D2082053906</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-resources.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>56E1D36E7C3DE0C9B5F50463</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A2EDD3A22090A2DE56CF82F7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>5762EE19F521D18125CB0D6F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5565552F4178390D2815A50B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>5BFE97F9D382168513712481</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-OCTotallyLazy.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>5C4B89050D7B42385CF7D9B1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B6D0B47D5AC83C038933BC9A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>5D44F55E6277117079773DBD</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>37CE7438C3DB790FE505FCFA</string>
+				<string>957A507FE6AD1537A029A53C</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>5F94A7AC4FEB017E05560C32</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Numbers.h</string>
+			<key>path</key>
+			<string>src/main/numbers/Numbers.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>617EF6BACE632E2AA13E46D8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>MapEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/MapEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>62F544CBCEC3D1A8BEBB9F29</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2E09D04821887C87F5868C20</string>
+				<string>9FCCEA29BD1677B69727A2F1</string>
+				<string>41A0656CBB37339211C6F4B6</string>
+				<string>37E9C79B64ADD4D822DEEB98</string>
+				<string>5668CE9030BE8D2082053906</string>
+				<string>9F841C0F88FCF7F7E6A55560</string>
+				<string>0049348A1EEB7A19859C3B52</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>path</key>
+			<string>Target Support Files/Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>63438EF4E82C51709F259D2B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>239A5133E9815ED55CBB5860</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>6355E963A014A609167201EF</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>NSSet+OCTotallyLazy.m</string>
+			<key>path</key>
+			<string>src/main/NSSet+OCTotallyLazy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>639BE4FCBA9B771CF80B9CE5</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>B7D324404C173738D6869F8C</string>
+				<string>CED9BEF78C6910A9AAFF2AB9</string>
+				<string>939CCB215B43601BD4981B97</string>
+				<string>DAED5CA9DA70F05EED55D528</string>
+				<string>9655EF8071D3332EFD3D2CEA</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CD1C521CF4ECD62E489FBE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>0610284B4F19E242145C1B11</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>68FC921E14E502800A82E6FE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>TakeWhileEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/TakeWhileEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>694A7F7DF66A64B5B65DFB3A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Queue.m</string>
+			<key>path</key>
+			<string>src/main/Queue.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6C165AF8A23D72485AD45397</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Option.m</string>
+			<key>path</key>
+			<string>src/main/Option.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6D44E4DC025E401B86FF348F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>NoSuchElementException.h</string>
+			<key>path</key>
+			<string>src/main/NoSuchElementException.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6D5F3A0DC92934DE1833C444</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>FlattenEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/FlattenEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6E41184AD1FE72BDD9CADFA1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>38B4F278DB0460225674D24E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>6E7EC5CC7A86CACCAE2D71C7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1073459F33BE6E8DD620E9F5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>7232C2D032D72ABB27481726</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>CAAE247818ED14B6E2056D31</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>8DB291BEB35863D0237D6E26</string>
+			<key>remoteInfo</key>
+			<string>Pods-OCTotallyLazy</string>
+		</dict>
+		<key>74EE958D00ACDF9A4B1E4FF3</key>
+		<dict>
+			<key>fileRef</key>
+			<string>18041EBD35CBB9E2ED5AD9AA</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>77638FDDEF87E72CA5766C3D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Functions.m</string>
+			<key>path</key>
+			<string>src/main/functions/Functions.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>781C2EE7A86424D1B3CC9F36</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4C1744036370ECC662C4159D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>789D56CE41844831CFF1B559</key>
+		<dict>
+			<key>fileRef</key>
+			<string>39AF9F1104B9516108D15726</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>795B097AF57889C531A3F3D6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>070EF3729D34085DA4741963</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>7C8FA8616321DD99F7BABCBC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A9572BDBD746D81D3BB275ED</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7D157321306E528B88C4550C</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>F8D0B844B5E72C512CCAA453</string>
+			<key>buildPhases</key>
+			<array>
+				<string>20140925CC06CFD278FE0AFD</string>
+				<string>46B5FF2F9CB69F884988D7D3</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>9D8B22E3E3A4E3771A89A845</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>productName</key>
+			<string>Pods</string>
+			<key>productReference</key>
+			<string>47FE761F15815949B87EA41D</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>7E9AD466F135CDB746D88193</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Some.m</string>
+			<key>path</key>
+			<string>src/main/Some.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>817E1F3C8CD6E7120264AAE1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>EnumerateEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/EnumerateEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>81B22A64E8FF7238AE3626BC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4210CC642D8CECB48BB26BA2</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>8439193BD879DEEDF9B7E269</key>
+		<dict>
+			<key>fileRef</key>
+			<string>CFF63B10FDC3BB1810D3741F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>867103DB74DC7703D6B1E75D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>PartitionEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/PartitionEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>86C950C33E723C75DC39D1F2</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4064016F68DC1EAF03674083</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>8756E88D5328D691505DEB73</key>
+		<dict>
+			<key>fileRef</key>
+			<string>694A7F7DF66A64B5B65DFB3A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>885C8FD91E80A603748E0BF7</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>NO</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>STRIP_INSTALLED_PRODUCT</key>
+				<string>NO</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>89422BC3780EF77D22FE2547</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Function2.m</string>
+			<key>path</key>
+			<string>src/main/functions/Function2.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8A2078169048BEAAC9F6245D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Mappable.h</string>
+			<key>path</key>
+			<string>src/main/Mappable.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8AB9638D270DCB16E8C5CA78</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4DFBEE8D7FB3CEE472E20D08</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>8CBD06CE7908E932E64EBAFF</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Some.h</string>
+			<key>path</key>
+			<string>src/main/Some.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8CDAC66C29A89D40D21BF061</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A1EF3B7AD540284949B24272</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>8D0BFDD5E737EBCDA417F391</key>
+		<dict>
+			<key>fileRef</key>
+			<string>27D77EAF55B3A90697730C2B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>8D8C69E69EC47ED9E794294B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Sequence.h</string>
+			<key>path</key>
+			<string>src/main/Sequence.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8DB291BEB35863D0237D6E26</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>5D44F55E6277117079773DBD</string>
+			<key>buildPhases</key>
+			<array>
+				<string>3FF23977D64F45D22F9CADD7</string>
+				<string>0647F1428D795C6D12A0763D</string>
+				<string>D7F67DEA393BD7A5F4D93DFF</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-OCTotallyLazy</string>
+			<key>productName</key>
+			<string>Pods-OCTotallyLazy</string>
+			<key>productReference</key>
+			<string>5BFE97F9D382168513712481</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>8F5980EAC5292E2AE25535A6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>494D78B879DDBD691C0B9B60</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>8FE911C45FA7591089414934</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Function1.h</string>
+			<key>path</key>
+			<string>src/main/functions/Function1.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>902E3A922F4CA06F949DCB7A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-OCTotallyLazy-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>911AED9DF6750F1583972549</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Callables.h</string>
+			<key>path</key>
+			<string>src/main/Callables.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>92FED5E4F1BFAA68055F8391</key>
+		<dict>
+			<key>fileRef</key>
+			<string>817E1F3C8CD6E7120264AAE1</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>939CCB215B43601BD4981B97</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>FA0698A03E5810F4445AF78D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9519DF7020CEF33B8BF054B7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Option.h</string>
+			<key>path</key>
+			<string>src/main/Option.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9575EC39A3A326021F8DCD68</key>
+		<dict>
+			<key>fileRef</key>
+			<string>FAD0293682B27F2A3AA8FF21</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>957A507FE6AD1537A029A53C</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>428F173F5354925B6632B690</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>DSTROOT</key>
+				<string>/tmp/xcodeproj.dst</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/Pods-OCTotallyLazy/Pods-OCTotallyLazy-prefix.pch</string>
+				<key>INSTALL_PATH</key>
+				<string>$(BUILT_PRODUCTS_DIR)</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>OTHER_CFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_CPLUSPLUSFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>9655EF8071D3332EFD3D2CEA</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>62F544CBCEC3D1A8BEBB9F29</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Targets Support Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>96566EBBE43AE8AE12966830</key>
+		<dict>
+			<key>fileRef</key>
+			<string>55A5342BF5B01838B9882C49</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>968250628585B1EEE31ACCBF</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>NSSet+OCTotallyLazy.h</string>
+			<key>path</key>
+			<string>src/main/NSSet+OCTotallyLazy.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>969E6C95EFAA4B6F523D5E80</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D412848DAA49156D7FADB8B6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>9D0E6BCD2036AA560E200329</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D92EC318C849EC8269F091D8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>9D8B22E3E3A4E3771A89A845</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>8DB291BEB35863D0237D6E26</string>
+			<key>targetProxy</key>
+			<string>7232C2D032D72ABB27481726</string>
+		</dict>
+		<key>9F841C0F88FCF7F7E6A55560</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9FCCEA29BD1677B69727A2F1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Pods-acknowledgements.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A1CDD1BB0EFE0F34F46B5D8B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>PairEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/PairEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A1EF3B7AD540284949B24272</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Sequence.m</string>
+			<key>path</key>
+			<string>src/main/Sequence.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A28B0224EFC9898CCDF81871</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>None.h</string>
+			<key>path</key>
+			<string>src/main/None.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A2EDD3A22090A2DE56CF82F7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>MergeEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/MergeEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A3D1D2F1D728243A3E2083F5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>52E381892B87B3877EEFFD7E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>A4DCF78194940B9ED2113641</key>
+		<dict>
+			<key>fileRef</key>
+			<string>160B7BB9ADA1BFDAEDA7B7B6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A533D148C3BD5A812E7A2867</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Range.m</string>
+			<key>path</key>
+			<string>src/main/Range.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A7F54396E21B7B94CB049A4A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A28B0224EFC9898CCDF81871</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A9572BDBD746D81D3BB275ED</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Pair.h</string>
+			<key>path</key>
+			<string>src/main/Pair.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>AA34F4B22491AC1BEE2790C1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>0B042ED6B8CFC7B4BBD6DD35</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>AAEBC409AC01D7DA630E2E14</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>NO</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>RELEASE=1</string>
+				</array>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>STRIP_INSTALLED_PRODUCT</key>
+				<string>NO</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>AB5F4A494C43E5847A148C88</key>
+		<dict>
+			<key>fileRef</key>
+			<string>867103DB74DC7703D6B1E75D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>AC9C90F512C9C70E57DE75D9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A1CDD1BB0EFE0F34F46B5D8B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>ADB575E61EFE003874C425C8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E37B2A6BBB0F24214DFF2551</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>AECC826417A21CDD4AF873D2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Foldable.h</string>
+			<key>path</key>
+			<string>src/main/Foldable.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>AF4E330B40823B3B3E08691D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>343BF01B8926F0C2A37C54C8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>B271111ADD375F18B897A5DD</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>MapEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/MapEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B5B0E6ECCD7E9AAC8BAC6346</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2474669110EECDF762213A19</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>B66D7818A4725E35334E5193</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4064016F68DC1EAF03674083</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>iOS</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B6D0B47D5AC83C038933BC9A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Group.m</string>
+			<key>path</key>
+			<string>src/main/Group.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B797BDE3C8901C7E0D580E74</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Enumerable.h</string>
+			<key>path</key>
+			<string>src/main/Enumerable.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B7D324404C173738D6869F8C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>name</key>
+			<string>Podfile</string>
+			<key>path</key>
+			<string>../Podfile</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.ruby</string>
+		</dict>
+		<key>B8E3F0C0F8EFAFB8D7B8FDD2</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B271111ADD375F18B897A5DD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>BC7A00FD1DFE7FA7CD134A9A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>FilterEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/FilterEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BDC744EC3A7F894BE61C18C1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>41A0656CBB37339211C6F4B6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C4EF1C7D3101F3220E421556</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-OCTotallyLazy-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C9D37C43CAE7AD96CA8935BD</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1E96BB4E795695C5693EC264</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>CAAE247818ED14B6E2056D31</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>LastUpgradeCheck</key>
+				<string>0510</string>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>D8A60B6D71536A3114FC2972</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+			</array>
+			<key>mainGroup</key>
+			<string>639BE4FCBA9B771CF80B9CE5</string>
+			<key>productRefGroup</key>
+			<string>DAED5CA9DA70F05EED55D528</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>7D157321306E528B88C4550C</string>
+				<string>8DB291BEB35863D0237D6E26</string>
+			</array>
+		</dict>
+		<key>CBEE1AFD3BDDFA73A13E4E66</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4907E33D6028838AA80AA00C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>CC6C01DAA84EE6776FF9FB26</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>NSDictionary+OCTotallyLazy.h</string>
+			<key>path</key>
+			<string>src/main/NSDictionary+OCTotallyLazy.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CED9BEF78C6910A9AAFF2AB9</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>B66D7818A4725E35334E5193</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CFF63B10FDC3BB1810D3741F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>SingleValueEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/SingleValueEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D272BACAE765BA59FBF8E324</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6D44E4DC025E401B86FF348F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>D284C913937E6461F1ECBFEC</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>EasyEnumerable.m</string>
+			<key>path</key>
+			<string>src/main/EasyEnumerable.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D2E91BC66FAACD5E29EE0446</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DEE423E7453AFF1B53FB334B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>D412848DAA49156D7FADB8B6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>NoSuchElementException.m</string>
+			<key>path</key>
+			<string>src/main/NoSuchElementException.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D4B144F274C9EFA2E03CDB05</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4B070A3BAC0A41B70D1CFD40</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>D7F67DEA393BD7A5F4D93DFF</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>26E75D88E1BF44FF3781BD1C</string>
+				<string>8AB9638D270DCB16E8C5CA78</string>
+				<string>2F1DFA86C06655A8946E70AC</string>
+				<string>4365CAA500F58C3E0337B15E</string>
+				<string>DE4DE7C95CCEB0E5DF23E444</string>
+				<string>E4B566A44348987F14811F75</string>
+				<string>52B974F80F19F96192825D80</string>
+				<string>DED5F2FCF430840FA54AF2B1</string>
+				<string>13D19AD770744166F7E1D3F0</string>
+				<string>0101C13C05FE1F24400D67A0</string>
+				<string>DB8B2B105A17E74A505A7305</string>
+				<string>8D0BFDD5E737EBCDA417F391</string>
+				<string>1DD990C932FF13527C735B20</string>
+				<string>19B22E947E98CC9D212FCD33</string>
+				<string>D2E91BC66FAACD5E29EE0446</string>
+				<string>47AACDB3D5456AFD848234A5</string>
+				<string>35BD6B161443B337EF56CAB8</string>
+				<string>9575EC39A3A326021F8DCD68</string>
+				<string>81B22A64E8FF7238AE3626BC</string>
+				<string>63438EF4E82C51709F259D2B</string>
+				<string>AA34F4B22491AC1BEE2790C1</string>
+				<string>15411FC9B55832E9C618C114</string>
+				<string>20B4086BDDBD12665DE40AEC</string>
+				<string>53B1AA42896156C6ACF932BF</string>
+				<string>D272BACAE765BA59FBF8E324</string>
+				<string>A7F54396E21B7B94CB049A4A</string>
+				<string>09F059E4E9AB0136EF832198</string>
+				<string>C9D37C43CAE7AD96CA8935BD</string>
+				<string>56067FB2B78A4E48899C5E6E</string>
+				<string>7C8FA8616321DD99F7BABCBC</string>
+				<string>AC9C90F512C9C70E57DE75D9</string>
+				<string>5762EE19F521D18125CB0D6F</string>
+				<string>6E41184AD1FE72BDD9CADFA1</string>
+				<string>A4DCF78194940B9ED2113641</string>
+				<string>FE60BB23BEDD4363E5143B4E</string>
+				<string>CBEE1AFD3BDDFA73A13E4E66</string>
+				<string>31B068026DA162502BD5599D</string>
+				<string>8439193BD879DEEDF9B7E269</string>
+				<string>239F3A194C5F8524FB649726</string>
+				<string>8F5980EAC5292E2AE25535A6</string>
+				<string>AF4E330B40823B3B3E08691D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>D8A60B6D71536A3114FC2972</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>885C8FD91E80A603748E0BF7</string>
+				<string>AAEBC409AC01D7DA630E2E14</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>D92EC318C849EC8269F091D8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Predicates.m</string>
+			<key>path</key>
+			<string>src/main/predicates/Predicates.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DA08ED5E524C35C004E20C4A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6C165AF8A23D72485AD45397</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>DAED5CA9DA70F05EED55D528</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>47FE761F15815949B87EA41D</string>
+				<string>5BFE97F9D382168513712481</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DB8B2B105A17E74A505A7305</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8FE911C45FA7591089414934</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>DBAF409C827DB54D0293F492</key>
+		<dict>
+			<key>fileRef</key>
+			<string>68FC921E14E502800A82E6FE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>DE4DE7C95CCEB0E5DF23E444</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B797BDE3C8901C7E0D580E74</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>DED5F2FCF430840FA54AF2B1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6D5F3A0DC92934DE1833C444</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>DEE423E7453AFF1B53FB334B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>GroupedEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/GroupedEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E37B2A6BBB0F24214DFF2551</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>SingleValueEnumerator.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/SingleValueEnumerator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E4B566A44348987F14811F75</key>
+		<dict>
+			<key>fileRef</key>
+			<string>19E2BEA4B1F8FAAFFF07C60D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>E567BFFC3F83D6FFF9BD014C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>52EB487BD96E94B25C2D7798</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>E71E439481547B9322CAFCCA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>NSEnumerator+OCTotallyLazy.m</string>
+			<key>path</key>
+			<string>src/main/enumerators/NSEnumerator+OCTotallyLazy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F23892235D187ACEC84C2726</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Functions.h</string>
+			<key>path</key>
+			<string>src/main/functions/Functions.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F72C4EE8D77CF563B2CA1286</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E9AD466F135CDB746D88193</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode</string>
+			</dict>
+		</dict>
+		<key>F818A9144A560C771E353140</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EasyEnumerable.h</string>
+			<key>path</key>
+			<string>src/main/EasyEnumerable.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8D0B844B5E72C512CCAA453</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>267158843C52E1D2AD0252C8</string>
+				<string>08BEEC16D21719E2555AFA48</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>FA0698A03E5810F4445AF78D</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>911AED9DF6750F1583972549</string>
+				<string>4C1744036370ECC662C4159D</string>
+				<string>4DFBEE8D7FB3CEE472E20D08</string>
+				<string>F818A9144A560C771E353140</string>
+				<string>D284C913937E6461F1ECBFEC</string>
+				<string>FBCC2E3EA9F67B0B37542399</string>
+				<string>4AC25435EDD945A58FF2C522</string>
+				<string>B797BDE3C8901C7E0D580E74</string>
+				<string>19E2BEA4B1F8FAAFFF07C60D</string>
+				<string>817E1F3C8CD6E7120264AAE1</string>
+				<string>BC7A00FD1DFE7FA7CD134A9A</string>
+				<string>55A5342BF5B01838B9882C49</string>
+				<string>6D5F3A0DC92934DE1833C444</string>
+				<string>070EF3729D34085DA4741963</string>
+				<string>FA077019CC9DD6FDAFC98F34</string>
+				<string>AECC826417A21CDD4AF873D2</string>
+				<string>8FE911C45FA7591089414934</string>
+				<string>39AF9F1104B9516108D15726</string>
+				<string>27D77EAF55B3A90697730C2B</string>
+				<string>89422BC3780EF77D22FE2547</string>
+				<string>F23892235D187ACEC84C2726</string>
+				<string>77638FDDEF87E72CA5766C3D</string>
+				<string>45472C276DD2FFD9EF3F321D</string>
+				<string>B6D0B47D5AC83C038933BC9A</string>
+				<string>DEE423E7453AFF1B53FB334B</string>
+				<string>448AA8ED83E3E542498AF8C3</string>
+				<string>617EF6BACE632E2AA13E46D8</string>
+				<string>B271111ADD375F18B897A5DD</string>
+				<string>8A2078169048BEAAC9F6245D</string>
+				<string>FAD0293682B27F2A3AA8FF21</string>
+				<string>4B070A3BAC0A41B70D1CFD40</string>
+				<string>4210CC642D8CECB48BB26BA2</string>
+				<string>1073459F33BE6E8DD620E9F5</string>
+				<string>239A5133E9815ED55CBB5860</string>
+				<string>A2EDD3A22090A2DE56CF82F7</string>
+				<string>0B042ED6B8CFC7B4BBD6DD35</string>
+				<string>52E381892B87B3877EEFFD7E</string>
+				<string>CC6C01DAA84EE6776FF9FB26</string>
+				<string>1A8FF02A192FD006DB9D49A6</string>
+				<string>1D5933AEBE9E2EC7D5C6F2AC</string>
+				<string>E71E439481547B9322CAFCCA</string>
+				<string>968250628585B1EEE31ACCBF</string>
+				<string>6355E963A014A609167201EF</string>
+				<string>6D44E4DC025E401B86FF348F</string>
+				<string>D412848DAA49156D7FADB8B6</string>
+				<string>A28B0224EFC9898CCDF81871</string>
+				<string>0610284B4F19E242145C1B11</string>
+				<string>5F94A7AC4FEB017E05560C32</string>
+				<string>2474669110EECDF762213A19</string>
+				<string>1E96BB4E795695C5693EC264</string>
+				<string>9519DF7020CEF33B8BF054B7</string>
+				<string>6C165AF8A23D72485AD45397</string>
+				<string>A9572BDBD746D81D3BB275ED</string>
+				<string>18041EBD35CBB9E2ED5AD9AA</string>
+				<string>A1CDD1BB0EFE0F34F46B5D8B</string>
+				<string>2F84CEA95E6DB77E123D4B21</string>
+				<string>5565552F4178390D2815A50B</string>
+				<string>867103DB74DC7703D6B1E75D</string>
+				<string>38B4F278DB0460225674D24E</string>
+				<string>D92EC318C849EC8269F091D8</string>
+				<string>160B7BB9ADA1BFDAEDA7B7B6</string>
+				<string>694A7F7DF66A64B5B65DFB3A</string>
+				<string>30293070D785E46BC4ABDB29</string>
+				<string>A533D148C3BD5A812E7A2867</string>
+				<string>4907E33D6028838AA80AA00C</string>
+				<string>52EB487BD96E94B25C2D7798</string>
+				<string>8D8C69E69EC47ED9E794294B</string>
+				<string>A1EF3B7AD540284949B24272</string>
+				<string>CFF63B10FDC3BB1810D3741F</string>
+				<string>E37B2A6BBB0F24214DFF2551</string>
+				<string>8CBD06CE7908E932E64EBAFF</string>
+				<string>7E9AD466F135CDB746D88193</string>
+				<string>494D78B879DDBD691C0B9B60</string>
+				<string>68FC921E14E502800A82E6FE</string>
+				<string>343BF01B8926F0C2A37C54C8</string>
+				<string>2B5A1350E367B31E21A5EB02</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>OCTotallyLazy</string>
+			<key>path</key>
+			<string>OCTotallyLazy</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FA077019CC9DD6FDAFC98F34</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Flattenable.h</string>
+			<key>path</key>
+			<string>src/main/Flattenable.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FAD0293682B27F2A3AA8FF21</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>MemoisedEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/MemoisedEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FBCC2E3EA9F67B0B37542399</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>EmptyEnumerator.h</string>
+			<key>path</key>
+			<string>src/main/enumerators/EmptyEnumerator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FE60BB23BEDD4363E5143B4E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>30293070D785E46BC4ABDB29</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+	</dict>
+	<key>rootObject</key>
+	<string>CAAE247818ED14B6E2056D31</string>
+</dict>
+</plist>
