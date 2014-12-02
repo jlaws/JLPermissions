@@ -9,6 +9,7 @@
 #import "JLViewController.h"
 
 #import "JLCalendarPermission.h"
+#import "JLCameraPermission.h"
 #import "JLContactsPermission.h"
 #import "JLFacebookPermission.h"
 #import "JLHealthPermission.h"
@@ -31,6 +32,7 @@
 @property(strong, nonatomic) IBOutlet UILabel *facebookLabel;
 @property(strong, nonatomic) IBOutlet UILabel *microphoneLabel;
 @property(strong, nonatomic) IBOutlet UILabel *healthLabel;
+@property(strong, nonatomic) IBOutlet UILabel *cameraLabel;
 
 @end
 
@@ -63,6 +65,8 @@
       [self authorizationText:[[JLMicrophonePermission sharedInstance] authorizationStatus]];
   self.healthLabel.text =
       [self authorizationText:[[JLHealthPermission sharedInstance] authorizationStatus]];
+  self.cameraLabel.text =
+      [self authorizationText:[[JLCameraPermission sharedInstance] authorizationStatus]];
 }
 
 - (NSString *)authorizationText:(JLAuthorizationStatus)status {
@@ -146,6 +150,13 @@
 - (IBAction)facebook:(id)sender {
   [[JLFacebookPermission sharedInstance] authorize:^(bool granted, NSError *error) {
       NSLog(@"facebook returned %@ with error %@", @(granted), error);
+      [self updateStatusLabels];
+  }];
+}
+
+- (IBAction)camera:(id)sender {
+  [[JLCameraPermission sharedInstance] authorize:^(bool granted, NSError *error) {
+      NSLog(@"camera returned %@ with error %@", @(granted), error);
       [self updateStatusLabels];
   }];
 }

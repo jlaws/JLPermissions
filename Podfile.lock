@@ -1,10 +1,14 @@
 PODS:
-  - OCTotallyLazy (1.1.0)
+  - CocoaLumberjack (1.9.2):
+    - CocoaLumberjack/Extensions (= 1.9.2)
+  - CocoaLumberjack/Core (1.9.2)
+  - CocoaLumberjack/Extensions (1.9.2):
+    - CocoaLumberjack/Core
 
 DEPENDENCIES:
-  - OCTotallyLazy
+  - CocoaLumberjack
 
 SPEC CHECKSUMS:
-  OCTotallyLazy: 6cbe5581aa46d1f04f7719b03e3474646cec1735
+  CocoaLumberjack: 205769c032b5fef85b92472046bcc8b7e7c8a817
 
-COCOAPODS: 0.34.4
+COCOAPODS: 0.35.0

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "JLPermissions"
-  s.version          = "2.1.1"
+  s.version          = "2.1.2"
   s.summary          = "User permission dialogs."
   s.description      = <<-DESC
                        Ask the user for permissions before iOS does increasing the chance of acceptance on future requests.
@@ -20,6 +20,12 @@ Pod::Spec.new do |s|
     ss.dependency 'JLPermissions/Core'
     ss.source_files = 'JLPermissions/JLCalendarPermission.?'
     ss.frameworks = 'EventKit'
+  end
+
+  s.subspec 'Camera' do |ss|
+    ss.dependency 'JLPermissions/Core'
+    ss.source_files = 'JLPermissions/JLCameraPermission.?'
+    ss.frameworks = 'AVFoundation'
   end
 
   s.subspec 'Contacts' do |ss|
