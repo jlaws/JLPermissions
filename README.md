@@ -29,7 +29,7 @@ Only add the pod for the permissions you plan on using.  Apple rejects apps that
 
 To run the example project; clone the repo, and run `pod install`, then open JLPermissionsExample.xcworkspace.
 
-The method for asking for each type of permission (other than push notifications) is virtually identical.  Here are some examples:
+The method for asking for each type of permission (other than push notifications) is virtually identical.  Here is an example of the API:
 
 ```objective-c
 
