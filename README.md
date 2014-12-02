@@ -9,7 +9,7 @@ iOS 7.0+
 
 ## Installation
 
-JLPermissions is available through [CocoaPods](http://cocoapods.org), to install it simply add the following line to your Podfile:
+JLPermissions is available through [CocoaPods](http://cocoapods.org), to install it simply add any or all of the following lines to your Podfile:
 
     pod "JLPermissions/Calendar"
     pod "JLPermissions/Camera"
