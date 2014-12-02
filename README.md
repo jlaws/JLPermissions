@@ -12,6 +12,7 @@ iOS 7.0+
 JLPermissions is available through [CocoaPods](http://cocoapods.org), to install it simply add the following line to your Podfile:
 
     pod "JLPermissions/Calendar"
+    pod "JLPermissions/Camera"
     pod "JLPermissions/Contacts"
     pod "JLPermissions/Facebook"
     pod "JLPermissions/Health"
