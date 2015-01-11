@@ -96,8 +96,6 @@
   [alert show];
 }
 
-- (void)privacyType {
-}
 - (NSString *)permissionName {
   switch ([self permissionType]) {
     case JLPermissionCalendar:

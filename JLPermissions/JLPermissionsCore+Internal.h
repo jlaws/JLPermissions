@@ -16,8 +16,10 @@
 - (NSString *)defaultGrantTitle;
 - (NSError *)previouslyDeniedError;
 - (NSError *)systemDeniedError:(NSError *)error;
-
 - (void)displayAppSystemSettings;
+
+#pragma mark - Abstract Methods
+
 - (void)actuallyAuthorize;
 - (void)canceledAuthorization:(NSError *)error;
 
