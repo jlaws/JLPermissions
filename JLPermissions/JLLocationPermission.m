@@ -79,6 +79,7 @@
     } break;
     case kCLAuthorizationStatusDenied:
     case kCLAuthorizationStatusRestricted: {
+      [super displayAppSystemSettings];
       if (completion) {
         completion(false, [self previouslyDeniedError]);
       }
@@ -86,8 +87,8 @@
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Location"];
+- (JLPermissionType)permissionType {
+  return JLPermissionLocation;
 }
 
 - (void)actuallyAuthorize {

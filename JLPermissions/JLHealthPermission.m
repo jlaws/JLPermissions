@@ -91,6 +91,7 @@
         }
       } break;
       case HKAuthorizationStatusSharingDenied: {
+        [super displayAppSystemSettings];
         if (completion) {
           completion(false, [self previouslyDeniedError]);
         }
@@ -99,8 +100,8 @@
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Health"];
+- (JLPermissionType)permissionType {
+  return JLPermissionHealth;
 }
 
 - (void)actuallyAuthorize {

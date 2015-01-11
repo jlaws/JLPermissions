@@ -71,6 +71,7 @@
       } break;
       case AVAuthorizationStatusDenied:
       case AVAuthorizationStatusRestricted: {
+        [super displayAppSystemSettings];
         if (completion) {
           completion(false, [self previouslyDeniedError]);
         }
@@ -93,8 +94,8 @@
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Camera"];
+- (JLPermissionType)permissionType {
+  return JLPermissionCamera;
 }
 
 - (void)actuallyAuthorize {

@@ -71,6 +71,7 @@
     } break;
     case kABAuthorizationStatusRestricted:
     case kABAuthorizationStatusDenied: {
+      [super displayAppSystemSettings];
       if (completion) {
         completion(false, [self previouslyDeniedError]);
       }
@@ -78,8 +79,8 @@
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Contacts"];
+- (JLPermissionType)permissionType {
+  return JLPermissionContacts;
 }
 
 - (void)actuallyAuthorize {

@@ -70,6 +70,7 @@
     } break;
     case ALAuthorizationStatusRestricted:
     case ALAuthorizationStatusDenied: {
+      [super displayAppSystemSettings];
       if (completion) {
         completion(false, [self previouslyDeniedError]);
       }
@@ -77,8 +78,8 @@
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Photos"];
+- (JLPermissionType)permissionType {
+  return JLPermissionPhotos;
 }
 
 - (void)actuallyAuthorize {

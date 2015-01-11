@@ -81,8 +81,8 @@
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Twitter"];
+- (JLPermissionType)permissionType {
+  return JLPermissionTwitter;
 }
 
 - (void)actuallyAuthorize {
@@ -105,6 +105,7 @@
                                                } else if (!previouslyAsked) {
                                                  _completion(false, [self systemDeniedError:error]);
                                                } else {
+                                                 [super displayAppSystemSettings];
                                                  _completion(false, [self previouslyDeniedError]);
                                                }
                                            });

@@ -12,11 +12,6 @@
 + (instancetype)sharedInstance;
 
 /**
- *  @return whether or not user has granted access to push notifications
- */
-- (JLAuthorizationStatus)authorizationStatus;
-
-/**
  *  Uses the default dialog which is identical to the system permission dialog
  *
  *  @param completion the block that will be executed on the main thread
@@ -43,12 +38,6 @@
                cancelTitle:(NSString *)cancelTitle
                 grantTitle:(NSString *)grantTitle
                 completion:(NotificationAuthorizationHandler)completion;
-
-/**
- *  Displays a dialog telling the user how to re-enable notification permission
- * in the Settings application
- */
-- (void)displayErrorDialog;
 
 /**
  *  Removes the apps push notification authorization at the system level and

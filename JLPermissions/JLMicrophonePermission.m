@@ -82,6 +82,7 @@
         }
       } break;
       case AVAudioSessionRecordPermissionDenied: {
+        [super displayAppSystemSettings];
         if (completion) {
           completion(false, [self previouslyDeniedError]);
         }
@@ -113,8 +114,8 @@
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Microphone"];
+- (JLPermissionType)permissionType {
+  return JLPermissionMicrophone;
 }
 
 - (void)actuallyAuthorize {

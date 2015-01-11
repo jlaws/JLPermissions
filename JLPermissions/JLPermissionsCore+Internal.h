@@ -5,6 +5,8 @@
 //  Copyright (c) 2014 Joe Laws. All rights reserved.
 //
 
+#define IS_IOS_8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ? 1 : 0)
+
 @interface JLPermissionsCore (Internal)
 
 - (NSString *)appName;
@@ -12,18 +14,11 @@
 - (NSString *)defaultMessage;
 - (NSString *)defaultCancelTitle;
 - (NSString *)defaultGrantTitle;
-- (void)displayErrorDialog:(NSString *)authorizationType;
 - (NSError *)previouslyDeniedError;
 - (NSError *)systemDeniedError:(NSError *)error;
 
-/**
- * This should be overridden by subclasses.
- */
+- (void)displayAppSystemSettings;
 - (void)actuallyAuthorize;
-
-/**
- * This should be overridden by subclasses.
- */
 - (void)canceledAuthorization:(NSError *)error;
 
 @end

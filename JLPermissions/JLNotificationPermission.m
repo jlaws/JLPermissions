@@ -88,6 +88,7 @@
                                           otherButtonTitles:grantTitle, nil];
     [alert show];
   } else {
+    [super displayAppSystemSettings];
     if (completion) {
       completion(false, [self previouslyDeniedError]);
     }

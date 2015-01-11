@@ -74,6 +74,7 @@
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
+      [super displayAppSystemSettings];
       if (completion) {
         completion(false, [self previouslyDeniedError]);
       }
@@ -81,8 +82,8 @@
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Reminders"];
+- (JLPermissionType)permissionType {
+  return JLPermissionReminders;
 }
 
 - (void)actuallyAuthorize {

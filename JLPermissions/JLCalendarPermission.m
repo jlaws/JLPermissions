@@ -73,6 +73,7 @@
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
+      [super displayAppSystemSettings];
       if (completion) {
         completion(false, [self previouslyDeniedError]);
       }
@@ -80,8 +81,8 @@
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Calendars"];
+- (JLPermissionType)permissionType {
+  return JLPermissionCalendar;
 }
 
 - (void)actuallyAuthorize {
