@@ -9,7 +9,7 @@ iOS 7.0+
 
 ## Installation
 
-JLPermissions is available through [CocoaPods](http://cocoapods.org), to install it simply add the following line to your Podfile:
+JLPermissions is available through [CocoaPods](http://cocoapods.org), to install it simply add any or all of the following lines to your Podfile:
 
     pod "JLPermissions/Calendar"
     pod "JLPermissions/Camera"
@@ -29,7 +29,7 @@ Only add the pod for the permissions you plan on using.  Apple rejects apps that
 
 To run the example project; clone the repo, and run `pod install`, then open JLPermissionsExample.xcworkspace.
 
-The method for asking for each type of permission (other than push notifications) is virtually identical.  Here are some examples:
+The method for asking for each type of permission (other than push notifications) is virtually identical.  Here is an example of the API:
 
 ```objective-c
 
