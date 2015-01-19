@@ -19,7 +19,9 @@
   static JLPhotosPermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLPhotosPermission alloc] init]; });
+  dispatch_once(&onceToken, ^{
+    _instance = [[JLPhotosPermission alloc] init];
+  });
 
   return _instance;
 }
@@ -70,7 +72,6 @@
     } break;
     case ALAuthorizationStatusRestricted:
     case ALAuthorizationStatusDenied: {
-      [super displayAppSystemSettings];
       if (completion) {
         completion(false, [self previouslyDeniedError]);
       }
@@ -95,18 +96,18 @@
 
       [library enumerateGroupsWithTypes:ALAssetsGroupAll
           usingBlock:^(ALAssetsGroup *assetGroup, BOOL *stop) {
-              if (*stop) {
-                if (_completion) {
-                  _completion(true, nil);
-                }
-              } else {
-                *stop = YES;
+            if (*stop) {
+              if (_completion) {
+                _completion(true, nil);
               }
+            } else {
+              *stop = YES;
+            }
           }
           failureBlock:^(NSError *error) {
-              if (_completion) {
-                _completion(false, [self systemDeniedError:error]);
-              }
+            if (_completion) {
+              _completion(false, [self systemDeniedError:error]);
+            }
           }];
     } break;
     case ALAuthorizationStatusRestricted:

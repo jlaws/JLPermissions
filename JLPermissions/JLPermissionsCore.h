@@ -8,6 +8,11 @@
 @import Foundation;
 @import UIKit;
 
+typedef NS_ENUM(NSInteger, JLAuthorizationErrorCode) {
+  JLPermissionUserDenied = 42,
+  JLPermissionSystemDenied
+};
+
 typedef NS_ENUM(NSInteger, JLAuthorizationStatus) {
   JLPermissionNotDetermined = 0,
   JLPermissionDenied,
@@ -54,5 +59,10 @@ typedef void (^NotificationAuthorizationHandler)(NSString *deviceID, NSError *er
  * The type of permission.
  */
 - (JLPermissionType)permissionType;
+
+/**
+ * Opens the application system settings dialog if running on iOS 8.
+ */
+- (void)displayAppSystemSettings;
 
 @end

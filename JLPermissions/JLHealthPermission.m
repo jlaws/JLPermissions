@@ -19,7 +19,9 @@
   static JLHealthPermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLHealthPermission alloc] init]; });
+  dispatch_once(&onceToken, ^{
+    _instance = [[JLHealthPermission alloc] init];
+  });
 
   return _instance;
 }
@@ -91,7 +93,6 @@
         }
       } break;
       case HKAuthorizationStatusSharingDenied: {
-        [super displayAppSystemSettings];
         if (completion) {
           completion(false, [self previouslyDeniedError]);
         }
@@ -109,15 +110,15 @@
   [healthStore requestAuthorizationToShareTypes:_writeTypes
                                       readTypes:_readTypes
                                      completion:^(BOOL success, NSError *error) {
-                                         if (_completion) {
-                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                               if (success) {
-                                                 _completion(true, nil);
-                                               } else {
-                                                 _completion(false, error);
-                                               }
-                                           });
-                                         }
+                                       if (_completion) {
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                           if (success) {
+                                             _completion(true, nil);
+                                           } else {
+                                             _completion(false, error);
+                                           }
+                                         });
+                                       }
                                      }];
 }
 

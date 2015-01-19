@@ -36,7 +36,8 @@
   DBPrivacyType privacyType;
   switch ([self permissionType]) {
     case JLPermissionCalendar:
-      return nil;
+      privacyType = DBPrivacyTypeCalendars;
+      break;
     case JLPermissionCamera:
       privacyType = DBPrivacyTypeCamera;
       break;
@@ -44,7 +45,8 @@
       privacyType = DBPrivacyTypeContacts;
       break;
     case JLPermissionFacebook:
-      return nil;
+      privacyType = DBPrivacyTypeFacebook;
+      break;
     case JLPermissionHealth:
       privacyType = DBPrivacyTypeHealth;
       break;
@@ -52,16 +54,20 @@
       privacyType = DBPrivacyTypeLocation;
       break;
     case JLPermissionMicrophone:
-      return nil;
+      privacyType = DBPrivacyTypeMicrophone;
+      break;
     case JLPermissionNotification:
-      return nil;
+      privacyType = DBPrivacyTypeNotifications;
+      break;
     case JLPermissionPhotos:
       privacyType = DBPrivacyTypePhoto;
       break;
     case JLPermissionReminders:
-      return nil;
+      privacyType = DBPrivacyTypeReminders;
+      break;
     case JLPermissionTwitter:
-      return nil;
+      privacyType = DBPrivacyTypeTwitter;
+      break;
   }
   DBPrivateHelperController *vc = [DBPrivateHelperController helperForType:privacyType];
   vc.snapshot = [self snapshot];
@@ -123,13 +129,18 @@
   }
 }
 
+- (NSError *)userDeniedError {
+  return [NSError errorWithDomain:@"UserDenied" code:JLPermissionUserDenied userInfo:nil];
+}
+
 - (NSError *)previouslyDeniedError {
-  return [NSError errorWithDomain:@"PreviouslyDenied" code:JLPermissionDenied userInfo:nil];
+  return [NSError errorWithDomain:@"SystemDenied" code:JLPermissionSystemDenied userInfo:nil];
 }
 
 - (NSError *)systemDeniedError:(NSError *)error {
-  return
-      [NSError errorWithDomain:@"SystemDenied" code:JLPermissionDenied userInfo:[error userInfo]];
+  return [NSError errorWithDomain:@"SystemDenied"
+                             code:JLPermissionSystemDenied
+                         userInfo:[error userInfo]];
 }
 
 - (void)displayAppSystemSettings {
@@ -178,13 +189,13 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
   BOOL canceled = (buttonIndex == alertView.cancelButtonIndex);
   dispatch_async(dispatch_get_main_queue(), ^{
-      if (canceled) {
-        NSError *error =
-            [NSError errorWithDomain:@"UserDenied" code:JLPermissionDenied userInfo:nil];
-        [self canceledAuthorization:error];
-      } else {
-        [self actuallyAuthorize];
-      }
+    if (canceled) {
+      NSError *error =
+          [NSError errorWithDomain:@"UserDenied" code:JLPermissionUserDenied userInfo:nil];
+      [self canceledAuthorization:error];
+    } else {
+      [self actuallyAuthorize];
+    }
   });
 }
 

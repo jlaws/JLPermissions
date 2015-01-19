@@ -82,7 +82,6 @@
         }
       } break;
       case AVAudioSessionRecordPermissionDenied: {
-        [super displayAppSystemSettings];
         if (completion) {
           completion(false, [self previouslyDeniedError]);
         }

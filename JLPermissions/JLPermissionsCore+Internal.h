@@ -14,9 +14,9 @@
 - (NSString *)defaultMessage;
 - (NSString *)defaultCancelTitle;
 - (NSString *)defaultGrantTitle;
+- (NSError *)userDeniedError;
 - (NSError *)previouslyDeniedError;
 - (NSError *)systemDeniedError:(NSError *)error;
-- (void)displayAppSystemSettings;
 
 #pragma mark - Abstract Methods
 

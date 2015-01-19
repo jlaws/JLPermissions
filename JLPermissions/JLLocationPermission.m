@@ -24,7 +24,9 @@
   static JLLocationPermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLLocationPermission alloc] init]; });
+  dispatch_once(&onceToken, ^{
+    _instance = [[JLLocationPermission alloc] init];
+  });
 
   return _instance;
 }
@@ -79,7 +81,6 @@
     } break;
     case kCLAuthorizationStatusDenied:
     case kCLAuthorizationStatusRestricted: {
-      [super displayAppSystemSettings];
       if (completion) {
         completion(false, [self previouslyDeniedError]);
       }

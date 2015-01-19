@@ -26,12 +26,12 @@
   static dispatch_once_t onceToken;
 
   dispatch_once(&onceToken, ^{
-      _instance = [[JLFacebookPermission alloc] init];
-      _instance.accountOptions = @{
-        @"ACFacebookAppIdKey" : @"REPLACE_ME",
-        @"ACFacebookPermissionsKey" : @[ @"publish_stream" ],
-        @"ACFacebookAudienceKey" : ACFacebookAudienceEveryone
-      };
+    _instance = [[JLFacebookPermission alloc] init];
+    _instance.accountOptions = @{
+      @"ACFacebookAppIdKey" : @"REPLACE_ME",
+      @"ACFacebookPermissionsKey" : @[ @"publish_stream" ],
+      @"ACFacebookAudienceKey" : ACFacebookAudienceEveryone
+    };
   });
 
   return _instance;
@@ -107,18 +107,17 @@
   [accountStore requestAccessToAccountsWithType:accountType
                                         options:self.accountOptions
                                      completion:^(BOOL granted, NSError *error) {
-                                         if (_completion) {
-                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                               if (granted) {
-                                                 _completion(true, nil);
-                                               } else if (!previouslyAsked) {
-                                                 _completion(false, [self systemDeniedError:error]);
-                                               } else {
-                                                 [super displayAppSystemSettings];
-                                                 _completion(false, [self previouslyDeniedError]);
-                                               }
-                                           });
-                                         }
+                                       if (_completion) {
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                           if (granted) {
+                                             _completion(true, nil);
+                                           } else if (!previouslyAsked) {
+                                             _completion(false, [self systemDeniedError:error]);
+                                           } else {
+                                             _completion(false, [self previouslyDeniedError]);
+                                           }
+                                         });
+                                       }
                                      }];
 }
 

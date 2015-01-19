@@ -19,7 +19,9 @@
   static JLRemindersPermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLRemindersPermission alloc] init]; });
+  dispatch_once(&onceToken, ^{
+    _instance = [[JLRemindersPermission alloc] init];
+  });
 
   return _instance;
 }
@@ -74,7 +76,6 @@
     } break;
     case EKAuthorizationStatusRestricted:
     case EKAuthorizationStatusDenied: {
-      [super displayAppSystemSettings];
       if (completion) {
         completion(false, [self previouslyDeniedError]);
       }
@@ -100,15 +101,15 @@
       EKEventStore *eventStore = [[EKEventStore alloc] init];
       [eventStore requestAccessToEntityType:EKEntityTypeReminder
                                  completion:^(BOOL granted, NSError *error) {
-                                     if (_completion) {
-                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                           if (granted) {
-                                             _completion(true, nil);
-                                           } else {
-                                             _completion(false, [self systemDeniedError:error]);
-                                           }
-                                       });
-                                     }
+                                   if (_completion) {
+                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                       if (granted) {
+                                         _completion(true, nil);
+                                       } else {
+                                         _completion(false, [self systemDeniedError:error]);
+                                       }
+                                     });
+                                   }
                                  }];
     } break;
     case EKAuthorizationStatusRestricted:

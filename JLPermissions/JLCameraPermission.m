@@ -20,7 +20,9 @@
   static JLCameraPermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLCameraPermission alloc] init]; });
+  dispatch_once(&onceToken, ^{
+    _instance = [[JLCameraPermission alloc] init];
+  });
 
   return _instance;
 }
@@ -71,7 +73,6 @@
       } break;
       case AVAuthorizationStatusDenied:
       case AVAuthorizationStatusRestricted: {
-        [super displayAppSystemSettings];
         if (completion) {
           completion(false, [self previouslyDeniedError]);
         }
@@ -101,15 +102,15 @@
 - (void)actuallyAuthorize {
   [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo
                            completionHandler:^(BOOL granted) {
-                               if (_completion) {
-                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                     if (granted) {
-                                       _completion(true, nil);
-                                     } else {
-                                       _completion(false, nil);
-                                     }
-                                 });
-                               }
+                             if (_completion) {
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                 if (granted) {
+                                   _completion(true, nil);
+                                 } else {
+                                   _completion(false, nil);
+                                 }
+                               });
+                             }
                            }];
 }
 
