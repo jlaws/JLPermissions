@@ -4,14 +4,14 @@ PODS:
   - CocoaLumberjack/Core (1.9.2)
   - CocoaLumberjack/Extensions (1.9.2):
     - CocoaLumberjack/Core
-  - DBPrivacyHelper (0.6)
+  - DBPrivacyHelper (0.6.1)
 
 DEPENDENCIES:
   - CocoaLumberjack
-  - DBPrivacyHelper (= 0.6)
+  - DBPrivacyHelper (= 0.6.1)
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 205769c032b5fef85b92472046bcc8b7e7c8a817
-  DBPrivacyHelper: 3f30ee414f70140d1e64193f1956897da29fc182
+  DBPrivacyHelper: fc1f3872df4027bf22bf29eccd7825c061289941
 
 COCOAPODS: 0.35.0
