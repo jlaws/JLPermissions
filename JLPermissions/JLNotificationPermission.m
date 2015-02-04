@@ -60,40 +60,60 @@
                cancelTitle:(NSString *)cancelTitle
                 grantTitle:(NSString *)grantTitle
                 completion:(NotificationAuthorizationHandler)completion {
-  bool previouslyAsked =
-      [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForNotificationPermission];
-
-  NSString *existingID = [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
-
-  BOOL notificationsOn = NO;
-  if ([[UIApplication sharedApplication]
-          respondsToSelector:@selector(currentUserNotificationSettings)]) {
-    notificationsOn = ([[UIApplication sharedApplication] currentUserNotificationSettings].types !=
-                       UIUserNotificationTypeNone);
-  } else {
-    notificationsOn = ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] !=
-                       UIRemoteNotificationTypeNone);
-  }
-  if (existingID) {
-    if (completion) {
-      completion(existingID, nil);
+    
+    UIUserNotificationSettings *settings = nil;
+    if ([[UIApplication sharedApplication]
+         respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        settings = [UIUserNotificationSettings
+                    settingsForTypes:(UIUserNotificationTypeAlert
+                                      | UIUserNotificationTypeBadge
+                                      | UIUserNotificationTypeSound) categories:nil];
     }
-  } else if (notificationsOn) {
-    _completion = completion;
-    [self actuallyAuthorize];
-  } else if (!previouslyAsked) {
-    _completion = completion;
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
-                                                    message:message
-                                                   delegate:self
-                                          cancelButtonTitle:cancelTitle
-                                          otherButtonTitles:grantTitle, nil];
-    [alert show];
-  } else {
-    if (completion) {
-      completion(false, [self previouslyDeniedError]);
+    
+    [self authorizeWithTitle:messageTitle message:message cancelTitle:cancelTitle grantTitle:grantTitle settings:settings completion:completion];
+}
+
+- (void)authorizeWithTitle:(NSString *)messageTitle
+                   message:(NSString *)message
+               cancelTitle:(NSString *)cancelTitle
+                grantTitle:(NSString *)grantTitle
+                  settings:(UIUserNotificationSettings *)settings
+                completion:(NotificationAuthorizationHandler)completion {
+    bool previouslyAsked =
+    [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForNotificationPermission];
+    
+    NSString *existingID = [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
+    
+    BOOL notificationsOn = NO;
+    if ([[UIApplication sharedApplication]
+         respondsToSelector:@selector(currentUserNotificationSettings)]) {
+        notificationsOn = ([[UIApplication sharedApplication] currentUserNotificationSettings].types !=
+                           UIUserNotificationTypeNone);
+    } else {
+        notificationsOn = ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] !=
+                           UIRemoteNotificationTypeNone);
     }
-  }
+    if (existingID) {
+        if (completion) {
+            completion(existingID, nil);
+        }
+    } else if (notificationsOn) {
+        _completion = completion;
+        [self actuallyAuthorize:settings];
+    } else if (!previouslyAsked) {
+        _completion = completion;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                        message:message
+                                                       delegate:self
+                                              cancelButtonTitle:cancelTitle
+                                              otherButtonTitles:grantTitle, nil];
+        [alert show];
+    } else {
+        if (completion) {
+            completion(false, [self previouslyDeniedError]);
+        }
+    }
+
 }
 
 - (void)displayErrorDialog {
@@ -136,16 +156,12 @@
   return [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
 }
 
-- (void)actuallyAuthorize {
+- (void)actuallyAuthorize:(UIUserNotificationSettings *)settings {
   [[NSUserDefaults standardUserDefaults] setBool:true forKey:kJLAskedForNotificationPermission];
   [[NSUserDefaults standardUserDefaults] synchronize];
 
   if ([[UIApplication sharedApplication]
-          respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings
-        settingsForTypes:(UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
-                          UIUserNotificationTypeSound)
-              categories:nil];
+          respondsToSelector:@selector(registerUserNotificationSettings:)] && settings) {
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
   } else {
     [[UIApplication sharedApplication]
