@@ -19,7 +19,9 @@
   static JLCalendarPermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLCalendarPermission alloc] init]; });
+  dispatch_once(&onceToken, ^{
+    _instance = [[JLCalendarPermission alloc] init];
+  });
 
   return _instance;
 }
@@ -80,8 +82,8 @@
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Calendars"];
+- (JLPermissionType)permissionType {
+  return JLPermissionCalendar;
 }
 
 - (void)actuallyAuthorize {
@@ -98,15 +100,15 @@
       EKEventStore *eventStore = [[EKEventStore alloc] init];
       [eventStore requestAccessToEntityType:EKEntityTypeEvent
                                  completion:^(BOOL granted, NSError *error) {
-                                     if (_completion) {
-                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                           if (granted) {
-                                             _completion(true, nil);
-                                           } else {
-                                             _completion(false, [self systemDeniedError:error]);
-                                           }
-                                       });
-                                     }
+                                   if (_completion) {
+                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                       if (granted) {
+                                         _completion(true, nil);
+                                       } else {
+                                         _completion(false, [self systemDeniedError:error]);
+                                       }
+                                     });
+                                   }
                                  }];
     } break;
     case EKAuthorizationStatusRestricted:

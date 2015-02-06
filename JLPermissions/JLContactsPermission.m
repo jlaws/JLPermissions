@@ -19,7 +19,9 @@
   static JLContactsPermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLContactsPermission alloc] init]; });
+  dispatch_once(&onceToken, ^{
+    _instance = [[JLContactsPermission alloc] init];
+  });
 
   return _instance;
 }
@@ -78,8 +80,8 @@
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Contacts"];
+- (JLPermissionType)permissionType {
+  return JLPermissionContacts;
 }
 
 - (void)actuallyAuthorize {
@@ -94,17 +96,17 @@
     case kABAuthorizationStatusNotDetermined: {
       ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
       ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
-          if (_completion) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (granted) {
-                  _completion(true, nil);
-                } else {
-                  NSError *e = (__bridge NSError *)error;
-                  _completion(false, [self systemDeniedError:e]);
-                }
+        if (_completion) {
+          dispatch_async(dispatch_get_main_queue(), ^{
+            if (granted) {
+              _completion(true, nil);
+            } else {
+              NSError *e = (__bridge NSError *)error;
+              _completion(false, [self systemDeniedError:e]);
+            }
 
-            });
-          }
+          });
+        }
       });
     } break;
     case kABAuthorizationStatusRestricted:

@@ -24,7 +24,9 @@
   static JLLocationPermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLLocationPermission alloc] init]; });
+  dispatch_once(&onceToken, ^{
+    _instance = [[JLLocationPermission alloc] init];
+  });
 
   return _instance;
 }
@@ -86,8 +88,8 @@
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Location"];
+- (JLPermissionType)permissionType {
+  return JLPermissionLocation;
 }
 
 - (void)actuallyAuthorize {

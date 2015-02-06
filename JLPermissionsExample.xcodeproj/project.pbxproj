@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		36C52B5B3A6749FD89CE8B7E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABA7EE80F404007895117EC /* libPods.a */; };
+		42115D561A2DE0260021E795 /* JLCameraPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 42115D551A2DE0260021E795 /* JLCameraPermission.m */; };
 		428A42471A087060003176D2 /* JLCalendarPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 428A42461A087060003176D2 /* JLCalendarPermission.m */; };
 		428A424A1A087339003176D2 /* JLFacebookPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 428A42491A087339003176D2 /* JLFacebookPermission.m */; };
 		428A424D1A087346003176D2 /* JLHealthPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 428A424C1A087346003176D2 /* JLHealthPermission.m */; };
@@ -32,6 +33,8 @@
 
 /* Begin PBXFileReference section */
 		419A2285821FA23AEB1E58D4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		42115D541A2DE0260021E795 /* JLCameraPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JLCameraPermission.h; path = JLPermissions/JLCameraPermission.h; sourceTree = SOURCE_ROOT; };
+		42115D551A2DE0260021E795 /* JLCameraPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JLCameraPermission.m; path = JLPermissions/JLCameraPermission.m; sourceTree = SOURCE_ROOT; };
 		428A42441A086F51003176D2 /* JLPermissionsCore+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "JLPermissionsCore+Internal.h"; path = "JLPermissions/JLPermissionsCore+Internal.h"; sourceTree = SOURCE_ROOT; };
 		428A42451A087060003176D2 /* JLCalendarPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JLCalendarPermission.h; path = JLPermissions/JLCalendarPermission.h; sourceTree = SOURCE_ROOT; };
 		428A42461A087060003176D2 /* JLCalendarPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JLCalendarPermission.m; path = JLPermissions/JLCalendarPermission.m; sourceTree = SOURCE_ROOT; };
@@ -153,6 +156,8 @@
 				42A094331A07ADA000A89C04 /* JLPermissionsCore.m */,
 				428A42451A087060003176D2 /* JLCalendarPermission.h */,
 				428A42461A087060003176D2 /* JLCalendarPermission.m */,
+				42115D541A2DE0260021E795 /* JLCameraPermission.h */,
+				42115D551A2DE0260021E795 /* JLCameraPermission.m */,
 				42A094351A07B61800A89C04 /* JLContactsPermission.h */,
 				42A094361A07B61800A89C04 /* JLContactsPermission.m */,
 				428A42481A087339003176D2 /* JLFacebookPermission.h */,
@@ -299,6 +304,7 @@
 				428A42471A087060003176D2 /* JLCalendarPermission.m in Sources */,
 				42A094341A07ADA000A89C04 /* JLPermissionsCore.m in Sources */,
 				428A42501A087368003176D2 /* JLLocationPermission.m in Sources */,
+				42115D561A2DE0260021E795 /* JLCameraPermission.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,10 +11,7 @@
 
 + (instancetype)sharedInstance;
 
-/**
- *  @return whether or not user has granted access to Facebook
- */
-- (JLAuthorizationStatus)authorizationStatus;
+@property(nonatomic) NSDictionary *accountOptions;
 
 /**
  *  Uses the default dialog which is identical to the system permission dialog
@@ -43,11 +40,5 @@
                cancelTitle:(NSString *)cancelTitle
                 grantTitle:(NSString *)grantTitle
                 completion:(AuthorizationHandler)completion;
-
-/**
- *  Displays a dialog telling the user how to re-enable facebook permission in
- * the Settings application
- */
-- (void)displayErrorDialog;
 
 @end

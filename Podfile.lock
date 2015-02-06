@@ -1,10 +1,17 @@
 PODS:
-  - OCTotallyLazy (1.1.0)
+  - CocoaLumberjack (1.9.2):
+    - CocoaLumberjack/Extensions (= 1.9.2)
+  - CocoaLumberjack/Core (1.9.2)
+  - CocoaLumberjack/Extensions (1.9.2):
+    - CocoaLumberjack/Core
+  - DBPrivacyHelper (0.6.1)
 
 DEPENDENCIES:
-  - OCTotallyLazy
+  - CocoaLumberjack
+  - DBPrivacyHelper (= 0.6.1)
 
 SPEC CHECKSUMS:
-  OCTotallyLazy: 6cbe5581aa46d1f04f7719b03e3474646cec1735
+  CocoaLumberjack: 205769c032b5fef85b92472046bcc8b7e7c8a817
+  DBPrivacyHelper: fc1f3872df4027bf22bf29eccd7825c061289941
 
-COCOAPODS: 0.34.4
+COCOAPODS: 0.35.0

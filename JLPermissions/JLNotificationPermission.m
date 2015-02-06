@@ -20,7 +20,9 @@
   static JLNotificationPermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLNotificationPermission alloc] init]; });
+  dispatch_once(&onceToken, ^{
+    _instance = [[JLNotificationPermission alloc] init];
+  });
 
   return _instance;
 }

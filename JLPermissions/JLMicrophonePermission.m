@@ -11,6 +11,8 @@
 
 #import "JLPermissionsCore+Internal.h"
 
+#define kJLAskedForMicrophonePermission @"JLAskedForMicrophonePermission"
+
 @implementation JLMicrophonePermission {
   AuthorizationHandler _completion;
 }
@@ -39,28 +41,21 @@
         return JLPermissionNotDetermined;
     }
   } else {
+    bool previouslyAsked =
+        [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForMicrophonePermission];
+    if (previouslyAsked) {
       dispatch_semaphore_t sema = dispatch_semaphore_create(0);
       __block BOOL hasAccess;
-      
       [audioSession requestRecordPermission:^(BOOL granted) {
-          if (granted) {
-              hasAccess = YES;
-              dispatch_semaphore_signal(sema);
-          } else {
-              hasAccess = NO;
-              dispatch_semaphore_signal(sema);
-          }
+          hasAccess = granted;
+          dispatch_semaphore_signal(sema);
       }];
-      
       dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-      
-      if (hasAccess) {
-          return JLPermissionAuthorized;
-      }
-      
-      else {
-          return JLPermissionDenied;
-      }
+
+      return (hasAccess) ? JLPermissionAuthorized : JLPermissionDenied;
+    } else {
+      return JLPermissionNotDetermined;
+    }
   }
 }
 
@@ -78,8 +73,33 @@
                 grantTitle:(NSString *)grantTitle
                 completion:(AuthorizationHandler)completion {
   AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-  if (![audioSession respondsToSelector:@selector(recordPermission)]) {
+  if ([audioSession respondsToSelector:@selector(recordPermission)]) {
+    AVAudioSessionRecordPermission permission = [audioSession recordPermission];
+    switch (permission) {
+      case AVAudioSessionRecordPermissionGranted: {
+        if (completion) {
+          completion(true, nil);
+        }
+      } break;
+      case AVAudioSessionRecordPermissionDenied: {
+        if (completion) {
+          completion(false, [self previouslyDeniedError]);
+        }
+      } break;
+      case AVAudioSessionRecordPermissionUndetermined: {
+        _completion = completion;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                        message:message
+                                                       delegate:self
+                                              cancelButtonTitle:cancelTitle
+                                              otherButtonTitles:grantTitle, nil];
+        [alert show];
+      } break;
+    }
+  } else {
     [audioSession requestRecordPermission:^(BOOL granted) {
+        [[NSUserDefaults standardUserDefaults] setBool:true forKey:kJLAskedForMicrophonePermission];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         if (completion) {
           dispatch_async(dispatch_get_main_queue(), ^{
               if (granted) {
@@ -90,34 +110,11 @@
           });
         }
     }];
-    return;
-  }
-  AVAudioSessionRecordPermission permission = [audioSession recordPermission];
-  switch (permission) {
-    case AVAudioSessionRecordPermissionGranted: {
-      if (completion) {
-        completion(true, nil);
-      }
-    } break;
-    case AVAudioSessionRecordPermissionDenied: {
-      if (completion) {
-        completion(false, [self previouslyDeniedError]);
-      }
-    } break;
-    case AVAudioSessionRecordPermissionUndetermined: {
-      _completion = completion;
-      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
-                                                      message:message
-                                                     delegate:self
-                                            cancelButtonTitle:cancelTitle
-                                            otherButtonTitles:grantTitle, nil];
-      [alert show];
-    } break;
   }
 }
 
-- (void)displayErrorDialog {
-  [self displayErrorDialog:@"Microphone"];
+- (JLPermissionType)permissionType {
+  return JLPermissionMicrophone;
 }
 
 - (void)actuallyAuthorize {
@@ -142,4 +139,5 @@
     _completion(false, error);
   }
 }
+
 @end

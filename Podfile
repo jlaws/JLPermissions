@@ -7,4 +7,4 @@ podspec :path => "JLPermissions.podspec"
 # ignore all warnings from all pods
 inhibit_all_warnings!
 
-pod 'OCTotallyLazy'
+pod 'CocoaLumberjack'

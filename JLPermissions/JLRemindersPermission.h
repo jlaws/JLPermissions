@@ -12,11 +12,6 @@
 + (instancetype)sharedInstance;
 
 /**
- *  @return whether or not user has granted access to reminders
- */
-- (JLAuthorizationStatus)authorizationStatus;
-
-/**
  *  Uses the default dialog which is identical to the system permission dialog
  *
  *  @param completion the block that will be executed on the main thread
@@ -43,11 +38,5 @@
                cancelTitle:(NSString *)cancelTitle
                 grantTitle:(NSString *)grantTitle
                 completion:(AuthorizationHandler)completion;
-
-/**
- *  Displays a dialog telling the user how to re-enable reminders permission in
- * the Settings application
- */
-- (void)displayErrorDialog;
 
 @end

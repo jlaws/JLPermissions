@@ -1,13 +1,14 @@
 //
-//  JLCalendarPermissions.h
+//  JLCameraPermission.h
+//  JLPermissionsExample
 //
-//  Created by Joseph Laws on 11/3/14.
+//  Created by Joseph Laws on 12/2/14.
 //  Copyright (c) 2014 Joe Laws. All rights reserved.
 //
 
 #import "JLPermissionsCore.h"
 
-@interface JLCalendarPermission : JLPermissionsCore
+@interface JLCameraPermission : JLPermissionsCore
 
 + (instancetype)sharedInstance;
 
