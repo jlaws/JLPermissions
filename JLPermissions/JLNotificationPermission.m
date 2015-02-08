@@ -137,7 +137,7 @@
 }
 
 - (JLPermissionType)permissionType {
-    return JLPermissionNotification;
+  return JLPermissionNotification;
 }
 
 - (void)actuallyAuthorize {
@@ -146,16 +146,21 @@
 
   if ([[UIApplication sharedApplication]
           respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings
-        settingsForTypes:(UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
-                          UIUserNotificationTypeSound)
-              categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    UIUserNotificationSettings *userNotificationSettings = self.userNotificationSettings;
+    if (!userNotificationSettings) {
+      userNotificationSettings = [UIUserNotificationSettings
+          settingsForTypes:(UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
+                            UIUserNotificationTypeSound)
+                categories:nil];
+    }
+    [[UIApplication sharedApplication] registerUserNotificationSettings:userNotificationSettings];
   } else {
-    [[UIApplication sharedApplication]
-        registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
-                                            UIRemoteNotificationTypeBadge |
-                                            UIRemoteNotificationTypeSound)];
+    UIRemoteNotificationType remoteNotificationType = self.remoteNotificationType;
+    if (!remoteNotificationType) {
+      remoteNotificationType = (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge |
+                                UIRemoteNotificationTypeSound);
+    }
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:remoteNotificationType];
   }
 }
 

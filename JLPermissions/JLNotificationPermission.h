@@ -12,6 +12,18 @@
 + (instancetype)sharedInstance;
 
 /**
+ * For iOS 8 set this for the notification types you want to register for.  If not set, it uses
+ * Alert, Badge, and Sound notification types.
+ */
+@property(nonatomic) UIUserNotificationSettings *userNotificationSettings;
+
+/**
+ * For iOS 7 set this for the notification types you want to register for.  If not set, it uses
+ * Alert, Badge, and Sound notification types.
+ */
+@property(nonatomic) UIRemoteNotificationType remoteNotificationType;
+
+/**
  *  Uses the default dialog which is identical to the system permission dialog
  *
  *  @param completion the block that will be executed on the main thread
