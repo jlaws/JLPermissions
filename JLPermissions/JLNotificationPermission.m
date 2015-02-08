@@ -136,6 +136,10 @@
   return [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
 }
 
+- (JLPermissionType)permissionType {
+    return JLPermissionNotification;
+}
+
 - (void)actuallyAuthorize {
   [[NSUserDefaults standardUserDefaults] setBool:true forKey:kJLAskedForNotificationPermission];
   [[NSUserDefaults standardUserDefaults] synchronize];
