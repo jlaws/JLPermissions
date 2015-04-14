@@ -69,7 +69,9 @@
                                                      delegate:self
                                             cancelButtonTitle:cancelTitle
                                             otherButtonTitles:grantTitle, nil];
-      [alert show];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+      });
     } break;
     case kABAuthorizationStatusRestricted:
     case kABAuthorizationStatusDenied: {

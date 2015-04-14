@@ -99,7 +99,9 @@
                                                  delegate:nil
                                         cancelButtonTitle:@"Ok"
                                         otherButtonTitles:nil];
-  [alert show];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [alert show];
+  });
 }
 
 - (NSString *)permissionName {

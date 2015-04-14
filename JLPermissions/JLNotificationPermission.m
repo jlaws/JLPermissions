@@ -88,7 +88,9 @@
                                                    delegate:self
                                           cancelButtonTitle:cancelTitle
                                           otherButtonTitles:grantTitle, nil];
-    [alert show];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [alert show];
+    });
   } else {
     if (completion) {
       completion(false, [self previouslyDeniedError]);
@@ -105,7 +107,9 @@
                                                  delegate:nil
                                         cancelButtonTitle:@"Ok"
                                         otherButtonTitles:nil];
-  [alert show];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [alert show];
+  });
 }
 
 - (void)unauthorize {
