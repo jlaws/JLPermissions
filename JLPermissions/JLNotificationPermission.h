@@ -86,4 +86,9 @@
  */
 - (NSString *)deviceID;
 
+
+
+// for local notifications, must be called from the app delegate
+-(void)didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings;
+
 @end
