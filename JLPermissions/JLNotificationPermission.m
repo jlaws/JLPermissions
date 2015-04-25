@@ -74,11 +74,13 @@
     notificationsOn = ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] !=
                        UIRemoteNotificationTypeNone);
   }
-  if (existingID) {
+    
+    // I have disabled this because if you go into settings and turn off permissions for the app, the "cached" version (data from NSUserDefaults) is incorrect and not valid, therefore best to check permissions every time
+  /*if (existingID) {
     if (completion) {
       completion(existingID, nil);
     }
-  } else if (notificationsOn) {
+  } else*/ if (notificationsOn) {
     _completion = completion;
     [self actuallyAuthorize];
   } else if (!previouslyAsked) {
@@ -196,6 +198,30 @@
   }
 
   return exp;
+}
+
+
+// call this from the app delegate
+-(void)didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    if (notificationSettings.types != UIUserNotificationTypeNone)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:@"RandomSuccessTokenForLocalNotification" forKey:kJLDeviceToken];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        if (_completion)
+        {
+            _completion(@"RandomSuccessTokenForLocalNotification", nil);
+        }
+    }
+    else
+    {
+        if (_completion)
+        {
+            NSError *error = [NSError errorWithDomain:@"System Denied" code:43 userInfo:nil];
+            _completion(nil, [self systemDeniedError:error]);
+        }
+    }
 }
 
 @end

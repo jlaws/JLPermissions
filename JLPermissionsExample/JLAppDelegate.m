@@ -32,4 +32,11 @@
   [[JLNotificationPermission sharedInstance] notificationResult:nil error:error];
 }
 
+-(void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    NSLog(@"didRegisterUserNotificationSettings %@", notificationSettings);
+    
+    [[JLNotificationPermission sharedInstance] didRegisterUserNotificationSettings:notificationSettings];
+}
+
 @end
