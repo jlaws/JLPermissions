@@ -30,16 +30,30 @@
 #pragma mark - Notifications
 
 - (JLAuthorizationStatus)authorizationStatus {
-  BOOL previouslyAsked =
-      [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForNotificationPermission];
-  NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
-  if (token) {
-    return JLPermissionAuthorized;
-  } else if (previouslyAsked) {
-    return JLPermissionDenied;
-  } else {
-    return JLPermissionNotDetermined;
-  }
+    BOOL notificationsOn = NO;
+    if ([[UIApplication sharedApplication]
+         respondsToSelector:@selector(currentUserNotificationSettings)]) {
+        notificationsOn = ([[UIApplication sharedApplication] currentUserNotificationSettings].types !=
+                           UIUserNotificationTypeNone);
+    } else {
+        notificationsOn = ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] !=
+                           UIRemoteNotificationTypeNone);
+    }
+    if (notificationsOn) {
+        return JLPermissionAuthorized;
+    }
+    else {
+      BOOL previouslyAsked =
+          [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForNotificationPermission];
+      NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
+      if (token) {
+        return JLPermissionAuthorized;
+      } else if (previouslyAsked) {
+        return JLPermissionDenied;
+      } else {
+        return JLPermissionNotDetermined;
+      }
+    }
 }
 
 - (void)authorize:(NotificationAuthorizationHandler)completion {
