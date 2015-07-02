@@ -74,11 +74,7 @@
     notificationsOn = ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] !=
                        UIRemoteNotificationTypeNone);
   }
-  if (existingID) {
-    if (completion) {
-      completion(existingID, nil);
-    }
-  } else if (notificationsOn) {
+  if (notificationsOn) {
     _completion = completion;
     [self actuallyAuthorize];
   } else if (!previouslyAsked) {
