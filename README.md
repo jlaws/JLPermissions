@@ -64,7 +64,7 @@ Here is a list of iPhone apps utilizing this library (let me know if you want yo
 
 ## License
 
-JLAddressBook is available under the MIT license. See the LICENSE file for more info.
+JLPermissions is available under the MIT license. See the LICENSE file for more info.
 
 [Joe Laws]:https://angel.co/joe-laws
 [Faysee]:https://itunes.apple.com/us/app/seer-reminders/id721450216?ls=1&mt=8
