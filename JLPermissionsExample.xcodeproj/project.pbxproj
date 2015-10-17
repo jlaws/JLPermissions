@@ -29,6 +29,7 @@
 		42A094341A07ADA000A89C04 /* JLPermissionsCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A094331A07ADA000A89C04 /* JLPermissionsCore.m */; };
 		42A094371A07B61800A89C04 /* JLContactsPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A094361A07B61800A89C04 /* JLContactsPermission.m */; };
 		42A0943A1A07C09000A89C04 /* JLPhotosPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A094391A07C09000A89C04 /* JLPhotosPermission.m */; };
+		6DC8D5021BD28F6F0044FCC3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DC8D5011BD28F6F0044FCC3 /* LaunchScreen.xib */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		42A094361A07B61800A89C04 /* JLContactsPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JLContactsPermission.m; path = JLPermissions/JLContactsPermission.m; sourceTree = SOURCE_ROOT; };
 		42A094381A07C09000A89C04 /* JLPhotosPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JLPhotosPermission.h; path = JLPermissions/JLPhotosPermission.h; sourceTree = SOURCE_ROOT; };
 		42A094391A07C09000A89C04 /* JLPhotosPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JLPhotosPermission.m; path = JLPermissions/JLPhotosPermission.m; sourceTree = SOURCE_ROOT; };
+		6DC8D5011BD28F6F0044FCC3 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		9ABA7EE80F404007895117EC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F885F455CCBEBA3AA6B06E0F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -133,6 +135,7 @@
 				429EACC61902C4640011B7F7 /* JLPermissions */,
 				429EACA61902C2AD0011B7F7 /* Images.xcassets */,
 				429EAC951902C2AD0011B7F7 /* Supporting Files */,
+				6DC8D5011BD28F6F0044FCC3 /* LaunchScreen.xib */,
 			);
 			path = JLPermissionsExample;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				429EAC881902C2AD0011B7F7 /* Frameworks */,
 				429EAC891902C2AD0011B7F7 /* Resources */,
 				2DB5871560E1414391AA331C /* Copy Pods Resources */,
+				08986D4049F695DFA927120D /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -218,7 +222,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = JL;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Joe Laws";
 			};
 			buildConfigurationList = 429EAC861902C2AD0011B7F7 /* Build configuration list for PBXProject "JLPermissionsExample" */;
@@ -244,6 +248,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DC8D5021BD28F6F0044FCC3 /* LaunchScreen.xib in Resources */,
 				429EACA71902C2AD0011B7F7 /* Images.xcassets in Resources */,
 				429EAC991902C2AD0011B7F7 /* InfoPlist.strings in Resources */,
 				429EACA21902C2AD0011B7F7 /* Main.storyboard in Resources */,
@@ -253,6 +258,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		08986D4049F695DFA927120D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2901774EFB4C4CE5904360FB /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -348,6 +368,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -410,6 +431,7 @@
 				GCC_PREFIX_HEADER = "JLPermissionsExample/JLPermissionsExample-Prefix.pch";
 				INFOPLIST_FILE = "JLPermissionsExample/JLPermissionsExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joelaws.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -425,6 +447,7 @@
 				GCC_PREFIX_HEADER = "JLPermissionsExample/JLPermissionsExample-Prefix.pch";
 				INFOPLIST_FILE = "JLPermissionsExample/JLPermissionsExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joelaws.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

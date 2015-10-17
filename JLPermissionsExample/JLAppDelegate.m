@@ -11,25 +11,25 @@
 
 @implementation JLAppDelegate
 
-- (BOOL)application:(UIApplication *)application
-    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  return YES;
+- (BOOL)          application:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    return YES;
 }
 
 #pragma mark - UIRemoteNotifications
 
-- (void)application:(UIApplication *)application
-    didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-  NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken %@", [deviceToken description]);
+- (void)                             application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken %@", [deviceToken description]);
 
-  [[JLNotificationPermission sharedInstance] notificationResult:deviceToken error:nil];
+    [[JLNotificationPermission sharedInstance] notificationResult:deviceToken error:nil];
 }
 
-- (void)application:(UIApplication *)application
-    didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-  NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
+- (void)                             application:(UIApplication *)application
+didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
 
-  [[JLNotificationPermission sharedInstance] notificationResult:nil error:error];
+    [[JLNotificationPermission sharedInstance] notificationResult:nil error:error];
 }
 
 @end
