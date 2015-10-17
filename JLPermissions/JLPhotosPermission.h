@@ -6,7 +6,7 @@
 //
 
 #import "JLPermissionsCore.h"
-
+NS_ASSUME_NONNULL_BEGIN
 @interface JLPhotosPermission : JLPermissionsCore
 
 + (instancetype)sharedInstance;
@@ -34,9 +34,10 @@
  *previously established
  */
 - (void)authorizeWithTitle:(NSString *)messageTitle
-                   message:(NSString *)message
+                   message:(NSString *__nullable)message
                cancelTitle:(NSString *)cancelTitle
                 grantTitle:(NSString *)grantTitle
                 completion:(AuthorizationHandler)completion;
 
 @end
+NS_ASSUME_NONNULL_END

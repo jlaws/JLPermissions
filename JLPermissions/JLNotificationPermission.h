@@ -6,7 +6,7 @@
 //
 
 #import "JLPermissionsCore.h"
-
+NS_ASSUME_NONNULL_BEGIN
 @interface JLNotificationPermission : JLPermissionsCore
 
 + (instancetype)sharedInstance;
@@ -46,7 +46,7 @@
  *previously established
  */
 - (void)authorizeWithTitle:(NSString *)messageTitle
-                   message:(NSString *)message
+                   message:(NSString *__nullable)message
                cancelTitle:(NSString *)cancelTitle
                 grantTitle:(NSString *)grantTitle
                 completion:(NotificationAuthorizationHandler)completion;
@@ -76,7 +76,7 @@
  *  @param error       the error from
  *didFailToRegisterForRemoteNotificationsWithError
  */
-- (void)notificationResult:(NSData *)deviceToken error:(NSError *)error;
+- (void)notificationResult:(NSData *)deviceToken error:(NSError *__nullable)error;
 
 /**
  *  The device ID that was previously obtained during an authorizeNotifications
@@ -84,6 +84,7 @@
  *
  *  @return the deviceID with <,>, and spaces removed
  */
-- (NSString *)deviceID;
+- (NSString *__nullable)deviceID;
 
 @end
+NS_ASSUME_NONNULL_END

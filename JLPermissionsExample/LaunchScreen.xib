@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15B38b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController id="LBO-j4-sk0">
+            <layoutGuides>
+                <viewControllerLayoutGuide type="top" id="vbS-wY-DZy"/>
+                <viewControllerLayoutGuide type="bottom" id="iPt-GN-5U5"/>
+            </layoutGuides>
+            <view key="view" contentMode="scaleToFill" id="zNg-Zf-bn0">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright © 2015 Joe Laws. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="hI9-bo-WBw">
+                        <rect key="frame" x="20" y="559" width="560" height="21"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JLPermissionsExample" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="V9l-g2-WZt">
+                        <rect key="frame" x="20" y="180" width="560" height="43"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <animations/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstAttribute="centerX" secondItem="V9l-g2-WZt" secondAttribute="centerX" id="71d-VP-W21"/>
+                    <constraint firstAttribute="centerX" secondItem="hI9-bo-WBw" secondAttribute="centerX" id="CRL-dJ-qhF"/>
+                    <constraint firstItem="V9l-g2-WZt" firstAttribute="centerY" secondItem="zNg-Zf-bn0" secondAttribute="bottom" multiplier="1/3" constant="1" id="HMJ-Yl-LzY"/>
+                    <constraint firstItem="hI9-bo-WBw" firstAttribute="leading" secondItem="zNg-Zf-bn0" secondAttribute="leading" constant="20" symbolic="YES" id="Lfx-rL-Pdj"/>
+                    <constraint firstAttribute="bottom" secondItem="hI9-bo-WBw" secondAttribute="bottom" constant="20" id="ZeI-Gk-6oY"/>
+                    <constraint firstItem="V9l-g2-WZt" firstAttribute="leading" secondItem="zNg-Zf-bn0" secondAttribute="leading" constant="20" symbolic="YES" id="lwd-ZS-oFF"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="53" y="375"/>
+        </viewController>
+    </objects>
+</document>
