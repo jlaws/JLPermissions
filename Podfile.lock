@@ -11,7 +11,7 @@ DEPENDENCIES:
   - DBPrivacyHelper (= 0.6.1)
 
 SPEC CHECKSUMS:
-  CocoaLumberjack: 205769c032b5fef85b92472046bcc8b7e7c8a817
-  DBPrivacyHelper: fc1f3872df4027bf22bf29eccd7825c061289941
+  CocoaLumberjack: 628fca2e88ef06f7cf6817309aa405f325d9a6fa
+  DBPrivacyHelper: 51c2aabbd3717e51e16b99950d04a16a0471792a
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.37.2
