@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)appName;
 - (NSString *)defaultTitle:(NSString *)authorizationType;
-- (NSString * __nullable)defaultMessage;
+- (NSString *__nullable)defaultMessage;
 - (NSString *)defaultCancelTitle;
 - (NSString *)defaultGrantTitle;
 - (NSError *)userDeniedError;

@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  *previously established
  */
 - (void)authorizeWithTitle:(NSString *)messageTitle
-                   message:(NSString * __nullable)message
+                   message:(NSString *__nullable)message
                cancelTitle:(NSString *)cancelTitle
                 grantTitle:(NSString *)grantTitle
                 completion:(AuthorizationHandler)completion;

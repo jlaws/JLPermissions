@@ -21,7 +21,9 @@
   static JLMicrophonePermission *_instance = nil;
   static dispatch_once_t onceToken;
 
-  dispatch_once(&onceToken, ^{ _instance = [[JLMicrophonePermission alloc] init]; });
+  dispatch_once(&onceToken, ^{
+    _instance = [[JLMicrophonePermission alloc] init];
+  });
 
   return _instance;
 }
@@ -47,8 +49,8 @@
       dispatch_semaphore_t sema = dispatch_semaphore_create(0);
       __block BOOL hasAccess;
       [audioSession requestRecordPermission:^(BOOL granted) {
-          hasAccess = granted;
-          dispatch_semaphore_signal(sema);
+        hasAccess = granted;
+        dispatch_semaphore_signal(sema);
       }];
       dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
 
@@ -100,17 +102,17 @@
     }
   } else {
     [audioSession requestRecordPermission:^(BOOL granted) {
-        [[NSUserDefaults standardUserDefaults] setBool:true forKey:kJLAskedForMicrophonePermission];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        if (completion) {
-          dispatch_async(dispatch_get_main_queue(), ^{
-              if (granted) {
-                completion(granted, nil);
-              } else {
-                completion(false, nil);
-              }
-          });
-        }
+      [[NSUserDefaults standardUserDefaults] setBool:true forKey:kJLAskedForMicrophonePermission];
+      [[NSUserDefaults standardUserDefaults] synchronize];
+      if (completion) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+          if (granted) {
+            completion(granted, nil);
+          } else {
+            completion(false, nil);
+          }
+        });
+      }
     }];
   }
 }
@@ -124,15 +126,15 @@
   NSError *error;
   [session setCategory:@"AVAudioSessionCategoryPlayAndRecord" error:&error];
   [session requestRecordPermission:^(BOOL granted) {
-      if (_completion) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (granted) {
-              _completion(true, nil);
-            } else {
-              _completion(false, nil);
-            }
-        });
-      }
+    if (_completion) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        if (granted) {
+          _completion(true, nil);
+        } else {
+          _completion(false, nil);
+        }
+      });
+    }
   }];
 }
 

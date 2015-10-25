@@ -11,7 +11,7 @@
 
 #import "JLPermissionsCore+Internal.h"
 
-@interface JLLocationPermission () <CLLocationManagerDelegate>
+@interface JLLocationPermission ()<CLLocationManagerDelegate>
 
 @end
 

@@ -34,8 +34,9 @@ typedef NS_ENUM(NSInteger, JLPermissionType) {
 };
 
 NS_ASSUME_NONNULL_BEGIN
-typedef void (^AuthorizationHandler)(BOOL granted, NSError * __nullable error);
-typedef void (^NotificationAuthorizationHandler)(NSString *__nullable deviceID, NSError *__nullable error);
+typedef void (^AuthorizationHandler)(BOOL granted, NSError *__nullable error);
+typedef void (^NotificationAuthorizationHandler)(NSString *__nullable deviceID,
+                                                 NSError *__nullable error);
 
 @interface JLPermissionsCore : NSObject<UIAlertViewDelegate>
 
@@ -54,7 +55,7 @@ typedef void (^NotificationAuthorizationHandler)(NSString *__nullable deviceID, 
  * A view controller telling the user how to re-enable the permission in
  * the Settings application or nil if one doesnt exist.
  */
-- (UIViewController * __nullable)reenableViewController;
+- (UIViewController *__nullable)reenableViewController;
 
 /**
  * The type of permission.
