@@ -29,7 +29,7 @@
 		42A094341A07ADA000A89C04 /* JLPermissionsCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A094331A07ADA000A89C04 /* JLPermissionsCore.m */; };
 		42A094371A07B61800A89C04 /* JLContactsPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A094361A07B61800A89C04 /* JLContactsPermission.m */; };
 		42A0943A1A07C09000A89C04 /* JLPhotosPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A094391A07C09000A89C04 /* JLPhotosPermission.m */; };
-		6DC8D5021BD28F6F0044FCC3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DC8D5011BD28F6F0044FCC3 /* LaunchScreen.xib */; settings = {ASSET_TAGS = (); }; };
+		6DC8D5021BD28F6F0044FCC3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DC8D5011BD28F6F0044FCC3 /* LaunchScreen.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -204,7 +204,6 @@
 				429EAC881902C2AD0011B7F7 /* Frameworks */,
 				429EAC891902C2AD0011B7F7 /* Resources */,
 				2DB5871560E1414391AA331C /* Copy Pods Resources */,
-				08986D4049F695DFA927120D /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -258,21 +257,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		08986D4049F695DFA927120D /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2901774EFB4C4CE5904360FB /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

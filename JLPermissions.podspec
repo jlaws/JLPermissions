@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "JLPermissions"
-  s.version          = "2.2.4"
+  s.version          = "2.2.5"
   s.summary          = "User permission dialogs."
   s.description      = <<-DESC
                        Ask the user for permissions before iOS does increasing the chance of acceptance on future requests.
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "Joe Laws" => "joe.laws@gmail.com" }
   s.source           = { :git => "https://github.com/jlaws/JLPermissions.git", :tag => s.version.to_s }
-  s.dependency       'DBPrivacyHelper', '0.6.1'
+  s.dependency       'DBPrivacyHelper', '0.6.3'
   s.platform         = :ios, '7.0'
   s.requires_arc     = true
 
