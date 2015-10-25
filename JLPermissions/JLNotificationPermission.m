@@ -63,8 +63,6 @@
   bool previouslyAsked =
       [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForNotificationPermission];
 
-  NSString *existingID = [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
-
   BOOL notificationsOn = NO;
   if ([[UIApplication sharedApplication]
           respondsToSelector:@selector(currentUserNotificationSettings)]) {

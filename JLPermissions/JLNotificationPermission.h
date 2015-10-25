@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param error       the error from
  *didFailToRegisterForRemoteNotificationsWithError
  */
-- (void)notificationResult:(NSData *)deviceToken error:(NSError *__nullable)error;
+- (void)notificationResult:(NSData *__nullable)deviceToken error:(NSError *__nullable)error;
 
 /**
  *  The device ID that was previously obtained during an authorizeNotifications
