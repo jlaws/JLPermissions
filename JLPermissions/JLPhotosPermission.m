@@ -63,14 +63,18 @@
       break;
     case ALAuthorizationStatusNotDetermined: {
       _completion = completion;
-      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
-                                                      message:message
-                                                     delegate:self
-                                            cancelButtonTitle:cancelTitle
-                                            otherButtonTitles:grantTitle, nil];
-      dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-      });
+      if (self.isExtraAlertEnabled) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                        message:message
+                                                       delegate:self
+                                              cancelButtonTitle:cancelTitle
+                                              otherButtonTitles:grantTitle, nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [alert show];
+        });
+      } else {
+        [self actuallyAuthorize];
+      }
     } break;
     case ALAuthorizationStatusRestricted:
     case ALAuthorizationStatusDenied: {
