@@ -41,6 +41,12 @@ typedef void (^NotificationAuthorizationHandler)(NSString *__nullable deviceID,
 @interface JLPermissionsCore : NSObject<UIAlertViewDelegate>
 
 /**
+ * A Boolean property that indicates whether the extra alert view will be shown 
+ * before the library actually requests permissions to the system.
+ */
+@property(nonatomic, getter=isExtraAlertEnabled) BOOL extraAlertEnabled;
+
+/**
  * @return whether or not user has granted access to the calendar
  */
 - (JLAuthorizationStatus)authorizationStatus;

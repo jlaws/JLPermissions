@@ -11,6 +11,14 @@
 
 @implementation JLPermissionsCore
 
+- (instancetype)init {
+  self = [super init];
+  if (self) {
+    [self setExtraAlertEnabled:YES];
+  }
+  return self;
+}
+
 - (NSString *)defaultTitle:(NSString *)authorizationType {
   return [NSString
       stringWithFormat:@"\"%@\" Would Like to Access Your %@", [self appName], authorizationType];
