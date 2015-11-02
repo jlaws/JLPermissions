@@ -34,6 +34,8 @@
 @property(strong, nonatomic) IBOutlet UILabel *healthLabel;
 @property(strong, nonatomic) IBOutlet UILabel *cameraLabel;
 
+@property(strong, nonatomic) IBOutlet UISwitch *showExtraAlertSwitch;
+
 @end
 
 @implementation JLViewController
@@ -87,6 +89,7 @@
 }
 
 - (IBAction)pushNotifications:(id)sender {
+  [[JLNotificationPermission sharedInstance] setExtraAlertEnabled:self.showExtraAlertSwitch.on];
   [[JLNotificationPermission sharedInstance] authorize:^(NSString *deviceID, NSError *error) {
     NSLog(@"pushNotifications returned %@ with error %@", deviceID, error);
     [self updateStatusLabels];
@@ -94,6 +97,7 @@
 }
 
 - (IBAction)contacts:(id)sender {
+  [[JLContactsPermission sharedInstance] setExtraAlertEnabled:self.showExtraAlertSwitch.on];
   [[JLContactsPermission sharedInstance] authorize:^(bool granted, NSError *error) {
     NSLog(@"contacts returned %@ with error %@", @(granted), error);
     [self presentReenableVCForCore:[JLContactsPermission sharedInstance]
@@ -104,6 +108,7 @@
 }
 
 - (IBAction)photoLibrary:(id)sender {
+  [[JLPhotosPermission sharedInstance] setExtraAlertEnabled:self.showExtraAlertSwitch.on];
   [[JLPhotosPermission sharedInstance] authorize:^(bool granted, NSError *error) {
     NSLog(@"photoLibrary returned %@ with error %@", @(granted), error);
     [self presentReenableVCForCore:[JLPhotosPermission sharedInstance] granted:granted error:error];
@@ -112,6 +117,7 @@
 }
 
 - (IBAction)calendar:(id)sender {
+  [[JLCalendarPermission sharedInstance] setExtraAlertEnabled:self.showExtraAlertSwitch.on];
   [[JLCalendarPermission sharedInstance] authorize:^(bool granted, NSError *error) {
     NSLog(@"calendar returned %@ with error %@", @(granted), error);
     [self presentReenableVCForCore:[JLCalendarPermission sharedInstance]
@@ -122,6 +128,7 @@
 }
 
 - (IBAction)reminders:(id)sender {
+  [[JLRemindersPermission sharedInstance] setExtraAlertEnabled:self.showExtraAlertSwitch.on];
   [[JLRemindersPermission sharedInstance] authorize:^(bool granted, NSError *error) {
     NSLog(@"reminders returned %@ with error %@", @(granted), error);
     [self presentReenableVCForCore:[JLRemindersPermission sharedInstance]
@@ -132,6 +139,7 @@
 }
 
 - (IBAction)microphone:(id)sender {
+  [[JLMicrophonePermission sharedInstance] setExtraAlertEnabled:self.showExtraAlertSwitch.on];
   [[JLMicrophonePermission sharedInstance] authorize:^(bool granted, NSError *error) {
     NSLog(@"microphone returned %@ with error %@", @(granted), error);
     [self presentReenableVCForCore:[JLMicrophonePermission sharedInstance]
@@ -142,6 +150,7 @@
 }
 
 - (IBAction)health:(id)sender {
+  [[JLHealthPermission sharedInstance] setExtraAlertEnabled:self.showExtraAlertSwitch.on];
   [[JLHealthPermission sharedInstance] authorize:^(bool granted, NSError *error) {
     NSLog(@"health returned %@ with error %@", @(granted), error);
     [self presentReenableVCForCore:[JLHealthPermission sharedInstance] granted:granted error:error];
@@ -150,6 +159,7 @@
 }
 
 - (IBAction)locations:(id)sender {
+  [[JLLocationPermission sharedInstance] setExtraAlertEnabled:self.showExtraAlertSwitch.on];
   [[JLLocationPermission sharedInstance] authorize:^(bool granted, NSError *error) {
     NSLog(@"locations returned %@ with error %@", @(granted), error);
     [self presentReenableVCForCore:[JLLocationPermission sharedInstance]
@@ -160,6 +170,7 @@
 }
 
 - (IBAction)twitter:(id)sender {
+  [[JLTwitterPermission sharedInstance] setExtraAlertEnabled:self.showExtraAlertSwitch.on];
   [[JLTwitterPermission sharedInstance] authorize:^(bool granted, NSError *error) {
     NSLog(@"twitter returned %@ with error %@", @(granted), error);
     [self presentReenableVCForCore:[JLTwitterPermission sharedInstance]
@@ -170,6 +181,7 @@
 }
 
 - (IBAction)facebook:(id)sender {
+  [[JLFacebookPermission sharedInstance] setExtraAlertEnabled:self.showExtraAlertSwitch.on];
   [[JLFacebookPermission sharedInstance] authorize:^(bool granted, NSError *error) {
     NSLog(@"facebook returned %@ with error %@", @(granted), error);
     [self presentReenableVCForCore:[JLFacebookPermission sharedInstance]
@@ -180,6 +192,7 @@
 }
 
 - (IBAction)camera:(id)sender {
+  [[JLCameraPermission sharedInstance] setExtraAlertEnabled:self.showExtraAlertSwitch.on];
   [[JLCameraPermission sharedInstance] authorize:^(bool granted, NSError *error) {
     NSLog(@"camera returned %@ with error %@", @(granted), error);
     [self presentReenableVCForCore:[JLCameraPermission sharedInstance] granted:granted error:error];
