@@ -104,9 +104,8 @@
 
   if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 &&
       [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-    BOOL hasAlwaysKey =
-        [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"] !=
-        nil;
+    BOOL hasAlwaysKey = [[NSBundle mainBundle]
+                            objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"] != nil;
     BOOL hasWhenInUseKey =
         [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"] !=
         nil;
@@ -120,7 +119,8 @@
       // file to use location services on iOS 8+.
       NSAssert(hasAlwaysKey || hasWhenInUseKey,
                @"To use location services in iOS 8+, your Info.plist must "
-               @"provide a value for either " @"NSLocationWhenInUseUsageDescription or "
+               @"provide a value for either "
+               @"NSLocationWhenInUseUsageDescription or "
                @"NSLocationAlwaysUsageDescription.");
     }
   } else {

@@ -30,15 +30,28 @@
 #pragma mark - Notifications
 
 - (JLAuthorizationStatus)authorizationStatus {
-  BOOL previouslyAsked =
-      [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForNotificationPermission];
-  NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
-  if (token) {
-    return JLPermissionAuthorized;
-  } else if (previouslyAsked) {
-    return JLPermissionDenied;
+  BOOL notificationsOn = NO;
+  if ([[UIApplication sharedApplication]
+          respondsToSelector:@selector(currentUserNotificationSettings)]) {
+    notificationsOn = ([[UIApplication sharedApplication] currentUserNotificationSettings].types !=
+                       UIUserNotificationTypeNone);
   } else {
-    return JLPermissionNotDetermined;
+    notificationsOn = ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] !=
+                       UIRemoteNotificationTypeNone);
+  }
+  if (notificationsOn) {
+    return JLPermissionAuthorized;
+  } else {
+    BOOL previouslyAsked =
+        [[NSUserDefaults standardUserDefaults] boolForKey:kJLAskedForNotificationPermission];
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:kJLDeviceToken];
+    if (token) {
+      return JLPermissionAuthorized;
+    } else if (previouslyAsked) {
+      return JLPermissionDenied;
+    } else {
+      return JLPermissionNotDetermined;
+    }
   }
 }
 
@@ -47,7 +60,7 @@
       [NSString stringWithFormat:@"\"%@\" Would Like to Send You Notifications", [self appName]];
   NSString *message =
       [NSString stringWithFormat:@"Notifications may include alerts, sounds, and icon badges. "
-                @"These can be configured in settings."];
+                                 @"These can be configured in settings."];
   [self authorizeWithTitle:messageTitle
                    message:message
                cancelTitle:[self defaultCancelTitle]
