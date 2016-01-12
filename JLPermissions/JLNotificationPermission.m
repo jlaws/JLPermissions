@@ -169,6 +169,7 @@
                 categories:nil];
     }
     [[UIApplication sharedApplication] registerUserNotificationSettings:userNotificationSettings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
   } else {
     UIRemoteNotificationType remoteNotificationType = self.remoteNotificationType;
     if (!remoteNotificationType) {
