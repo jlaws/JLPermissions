@@ -7,4 +7,6 @@ podspec :path => "JLPermissions.podspec"
 # ignore all warnings from all pods
 inhibit_all_warnings!
 
-pod 'CocoaLumberjack'
+target 'JLPermissionsExample' do
+  pod 'CocoaLumberjack'
+end
