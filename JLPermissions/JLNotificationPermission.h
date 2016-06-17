@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  * For iOS 7 set this for the notification types you want to register for.  If not set, it uses
  * Alert, Badge, and Sound notification types.
  */
-@property(nonatomic) UIRemoteNotificationType remoteNotificationType;
+@property(nonatomic) UIRemoteNotificationType remoteNotificationType NS_DEPRECATED_IOS(3_0, 8_0);
 
 /**
  *  Uses the default dialog which is identical to the system permission dialog
