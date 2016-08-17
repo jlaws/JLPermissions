@@ -62,6 +62,13 @@
                cancelTitle:(NSString *)cancelTitle
                 grantTitle:(NSString *)grantTitle
                 completion:(AuthorizationHandler)completion {
+  if (![CLLocationManager locationServicesEnabled]) {
+    if (completion) {
+      completion(false, [self previouslyDeniedError]);
+    }
+    return;
+  }
+  
   CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
   switch (authorizationStatus) {
     case kCLAuthorizationStatusAuthorizedAlways:
