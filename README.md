@@ -52,16 +52,6 @@ typedef void (^AuthorizationHandler)(bool granted, NSError *error);
 
 ```
 
-## Author
-
-- [Joe Laws]
-
-## Projects
-
-Here is a list of iPhone apps utilizing this library (let me know if you want your app added):
-
-- [Faysee] - [Faysee Homepage]
-
 ## License
 
 JLPermissions is available under the MIT license. See the LICENSE file for more info.
