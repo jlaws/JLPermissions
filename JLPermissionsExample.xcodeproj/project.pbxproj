@@ -30,9 +30,11 @@
 		42A094371A07B61800A89C04 /* JLContactsPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A094361A07B61800A89C04 /* JLContactsPermission.m */; };
 		42A0943A1A07C09000A89C04 /* JLPhotosPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A094391A07C09000A89C04 /* JLPhotosPermission.m */; };
 		6DC8D5021BD28F6F0044FCC3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DC8D5011BD28F6F0044FCC3 /* LaunchScreen.xib */; };
+		EFE6CA4BB7FD1487E889192D /* libPods-JLPermissionsExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D916EE8AABEA1761425CC08E /* libPods-JLPermissionsExample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3603DC0B4ADB6ED729A4B16E /* Pods-JLPermissionsExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JLPermissionsExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JLPermissionsExample/Pods-JLPermissionsExample.debug.xcconfig"; sourceTree = "<group>"; };
 		419A2285821FA23AEB1E58D4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		42115D541A2DE0260021E795 /* JLCameraPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JLCameraPermission.h; path = JLPermissions/JLCameraPermission.h; sourceTree = SOURCE_ROOT; };
 		42115D551A2DE0260021E795 /* JLCameraPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JLCameraPermission.m; path = JLPermissions/JLCameraPermission.m; sourceTree = SOURCE_ROOT; };
@@ -75,7 +77,9 @@
 		42A094381A07C09000A89C04 /* JLPhotosPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JLPhotosPermission.h; path = JLPermissions/JLPhotosPermission.h; sourceTree = SOURCE_ROOT; };
 		42A094391A07C09000A89C04 /* JLPhotosPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JLPhotosPermission.m; path = JLPermissions/JLPhotosPermission.m; sourceTree = SOURCE_ROOT; };
 		6DC8D5011BD28F6F0044FCC3 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		7DC570EB423B96C2E17AE34F /* Pods-JLPermissionsExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JLPermissionsExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-JLPermissionsExample/Pods-JLPermissionsExample.release.xcconfig"; sourceTree = "<group>"; };
 		9ABA7EE80F404007895117EC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D916EE8AABEA1761425CC08E /* libPods-JLPermissionsExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JLPermissionsExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F885F455CCBEBA3AA6B06E0F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +92,7 @@
 				429EAC931902C2AD0011B7F7 /* UIKit.framework in Frameworks */,
 				429EAC8F1902C2AD0011B7F7 /* Foundation.framework in Frameworks */,
 				36C52B5B3A6749FD89CE8B7E /* libPods.a in Frameworks */,
+				EFE6CA4BB7FD1487E889192D /* libPods-JLPermissionsExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +125,7 @@
 				429EAC921902C2AD0011B7F7 /* UIKit.framework */,
 				429EACAD1902C2AD0011B7F7 /* XCTest.framework */,
 				9ABA7EE80F404007895117EC /* libPods.a */,
+				D916EE8AABEA1761425CC08E /* libPods-JLPermissionsExample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -188,6 +194,8 @@
 			children = (
 				F885F455CCBEBA3AA6B06E0F /* Pods.debug.xcconfig */,
 				419A2285821FA23AEB1E58D4 /* Pods.release.xcconfig */,
+				3603DC0B4ADB6ED729A4B16E /* Pods-JLPermissionsExample.debug.xcconfig */,
+				7DC570EB423B96C2E17AE34F /* Pods-JLPermissionsExample.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -199,12 +207,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 429EACBD1902C2AD0011B7F7 /* Build configuration list for PBXNativeTarget "JLPermissionsExample" */;
 			buildPhases = (
-				2901774EFB4C4CE5904360FB /* Check Pods Manifest.lock */,
+				2901774EFB4C4CE5904360FB /* [CP] Check Pods Manifest.lock */,
 				429EAC871902C2AD0011B7F7 /* Sources */,
 				429EAC881902C2AD0011B7F7 /* Frameworks */,
 				429EAC891902C2AD0011B7F7 /* Resources */,
-				2DB5871560E1414391AA331C /* Copy Pods Resources */,
-				98EBCD27384B0FBDC4932047 /* Embed Pods Frameworks */,
+				2DB5871560E1414391AA331C /* [CP] Copy Pods Resources */,
+				98EBCD27384B0FBDC4932047 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -258,14 +266,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2901774EFB4C4CE5904360FB /* Check Pods Manifest.lock */ = {
+		2901774EFB4C4CE5904360FB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,34 +281,34 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		2DB5871560E1414391AA331C /* Copy Pods Resources */ = {
+		2DB5871560E1414391AA331C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JLPermissionsExample/Pods-JLPermissionsExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		98EBCD27384B0FBDC4932047 /* Embed Pods Frameworks */ = {
+		98EBCD27384B0FBDC4932047 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JLPermissionsExample/Pods-JLPermissionsExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -423,7 +431,7 @@
 		};
 		429EACBE1902C2AD0011B7F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F885F455CCBEBA3AA6B06E0F /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 3603DC0B4ADB6ED729A4B16E /* Pods-JLPermissionsExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -439,7 +447,7 @@
 		};
 		429EACBF1902C2AD0011B7F7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 419A2285821FA23AEB1E58D4 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 7DC570EB423B96C2E17AE34F /* Pods-JLPermissionsExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

@@ -1,11 +1,5 @@
-//
-//  JLPermissionsCore+Internal.h
-//
-//  Created by Joseph Laws on 11/3/14.
-//  Copyright (c) 2014 Joe Laws. All rights reserved.
-//
+#import "JLPermissionsCore.h"
 
-#define IS_IOS_8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ? 1 : 0)
 NS_ASSUME_NONNULL_BEGIN
 @interface JLPermissionsCore (Internal)
 

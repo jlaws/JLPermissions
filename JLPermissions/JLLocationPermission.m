@@ -1,10 +1,3 @@
-//
-//  JLLocationPermissions.m
-//
-//  Created by Joseph Laws on 11/3/14.
-//  Copyright (c) 2014 Joe Laws. All rights reserved.
-//
-
 #import "JLLocationPermission.h"
 
 @import CoreLocation;
@@ -64,14 +57,17 @@
                 completion:(AuthorizationHandler)completion {
   if (![CLLocationManager locationServicesEnabled]) {
     if (completion) {
-      NSError *error = [NSError errorWithDomain:@"SystemDenied"
-                                           code:JLPermissionSystemDenied
-                                       userInfo:@{NSLocalizedDescriptionKey: @"System location services are disabled"}];
+      NSError *error =
+          [NSError errorWithDomain:@"SystemDenied"
+                              code:JLPermissionSystemDenied
+                          userInfo:@{
+                            NSLocalizedDescriptionKey : @"System location services are disabled"
+                          }];
       completion(false, error);
     }
     return;
   }
-  
+
   CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
   switch (authorizationStatus) {
     case kCLAuthorizationStatusAuthorizedAlways:

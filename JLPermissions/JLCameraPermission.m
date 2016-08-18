@@ -1,11 +1,3 @@
-//
-//  JLCameraPermission.m
-//  JLPermissionsExample
-//
-//  Created by Joseph Laws on 12/2/14.
-//  Copyright (c) 2014 Joe Laws. All rights reserved.
-//
-
 #import "JLCameraPermission.h"
 
 @import AVFoundation;

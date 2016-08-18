@@ -1,13 +1,7 @@
-//
-//  JLCameraPermission.h
-//  JLPermissionsExample
-//
-//  Created by Joseph Laws on 12/2/14.
-//  Copyright (c) 2014 Joe Laws. All rights reserved.
-//
-
 #import "JLPermissionsCore.h"
+
 NS_ASSUME_NONNULL_BEGIN
+
 @interface JLCameraPermission : JLPermissionsCore
 
 + (instancetype)sharedInstance;
