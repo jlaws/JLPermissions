@@ -64,7 +64,10 @@
                 completion:(AuthorizationHandler)completion {
   if (![CLLocationManager locationServicesEnabled]) {
     if (completion) {
-      completion(false, [self previouslyDeniedError]);
+      NSError *error = [NSError errorWithDomain:@"SystemDenied"
+                                           code:JLPermissionSystemDenied
+                                       userInfo:@{NSLocalizedDescriptionKey: @"System location services are disabled"}];
+      completion(false, error);
     }
     return;
   }
